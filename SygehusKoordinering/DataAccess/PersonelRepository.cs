@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SygehusKoordinering.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
-    public class PersonelRepository : Repository //IEnumerable<>
+    public class PersonelRepository : Repository, IEnumerable<Personel>
     {
-       /* private List<> list = new List<>();
+        private List<Personel> list = new List<Personel>();
 
-        public IEnumerator<> GetEnumerator()
+        public IEnumerator<Personel> GetEnumerator()
         {
             return list.GetEnumerator();
         }
@@ -18,6 +19,6 @@ namespace SygehusKoordinering.DataAccess
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }*/
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.Models
 {
-    internal class Booking
+    public class Booking
     {
     }
 }
