@@ -11,7 +11,7 @@ namespace SygehusKoordinering.DataAccess
 {
     // Definerer typen af hhv. den databaseoperation, der er udført og af hvilket repository.
     public enum DbOperation { SELECT, INSERT, UPDATE, DELETE };
-    public enum DbModeltype { Personel, Afdeling, Location, Booking }
+    public enum DbModeltype { Personale, Afdeling, Locations, Booking, Proeve, SaerligeForhold, Prioritet, Bestilt }
 
     // EventArgs for en databaseoperation.
     public class DbEventArgs(DbOperation operation, DbModeltype modeltype) : EventArgs

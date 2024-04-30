@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.Models
 {
-    public class Personel : IDataErrorInfo, IComparable<Personel>
+    public class Personale : IDataErrorInfo, IComparable<Personale>
     {
         public string Navn { get; set; }
         public string Mail { get; set; }
@@ -18,12 +18,11 @@ namespace SygehusKoordinering.Models
         public string Adresse { get; set; }
         public string PrivatTlfNr { get; set; }
 
-        public Personel()
+        public Personale()
         {
             Navn = "";
             Mail = "";
             ArbejdTlfNr = "";
-            Adgangskode = "";
             Status = "";
             CPRNr = "";
             Adresse = "";
@@ -31,12 +30,11 @@ namespace SygehusKoordinering.Models
         }
 
 
-        public Personel(string navn, string mail, string arbejdTlfNr, string adgangskode, string status, string cPRNr, string adresse, string privatTlfNr)
+        public Personale(string cPRNr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr)
         {
             Navn = navn;
             Mail = mail;
             ArbejdTlfNr = arbejdTlfNr;
-            Adgangskode = adgangskode;
             Status = status;
             CPRNr = cPRNr;
             Adresse = adresse;
@@ -47,7 +45,7 @@ namespace SygehusKoordinering.Models
         {
             try
             {
-                Personel data = (Personel)obj;
+                Personale data = (Personale)obj;
                 return CPRNr.Equals(data.CPRNr);
             }
             catch
@@ -67,7 +65,7 @@ namespace SygehusKoordinering.Models
           }*/
 
         // Implementerer ordning af objekter, så der alene sammenlignes på postnummer.
-        public int CompareTo(Personel data)
+        public int CompareTo(Personale data)
         {
             return CPRNr.CompareTo(data.CPRNr);
         }

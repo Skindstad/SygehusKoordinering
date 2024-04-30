@@ -1,21 +1,21 @@
 /*Først maker du create database linje også Execute*/
-Create database BenjaminOgJakob_SygehusKoordinering;
+Create database Alfa_SygehusKoordinering;
 
 /* Maker Use linje også Execute*/
-Use BenjaminOgJakob_SygehusKoordinering;
+Use Alfa_SygehusKoordinering;
 
 /* Maker indtil næste kommentar også Execute */
-create table Personal
+create table Personale
 (
 Id int not null Identity(1,1) Primary key,
+CPR int not null UNIQUE,
 Navn Varchar(255) not null,
-Mail Varchar(255) not null,
+Mail Varchar(255) not null UNIQUE,
 Adgangskode Varchar(255) not null,
-ArbejdsTlfNr Varchar(10) not null,
+ArbejdsTlfNr Varchar(10) not null UNIQUE,
 Status Bit DEFAULT 0,
-CPR Varchar(10) not null,
 Adresse Varchar(255) not null,
-PrivatTlfNr Varchar(10) not null,
+PrivatTlfNr Varchar(10) not null UNIQUE,
 Created DateTime not null DEFAULT CURRENT_TIMESTAMP,
 Updated DateTime not null DEFAULT CURRENT_TIMESTAMP,
 )
@@ -27,7 +27,7 @@ Navn Varchar(255) not null,
 
 create table PersonalePaaLokation (
 Id int not null Identity(1,1) Primary key,
-Personal int not null FOREIGN KEY REFERENCES Personal(Id),
+Personal int not null FOREIGN KEY REFERENCES Personale(CPR),
 Lokation int not null FOREIGN KEY REFERENCES Lokation(Id),
 Created DateTime not null DEFAULT CURRENT_TIMESTAMP,
 )
@@ -61,7 +61,7 @@ Navn Varchar(255) not null,
 
 create table Booking (
 Id int not null Identity(1,1) Primary key,
-CPR Varchar(10) not null,
+CPR int not null,
 Navn Varchar(255) not null,
 Afdeling int not null FOREIGN KEY REFERENCES Afdeling(Id),
 StueEllerSengeplads Varchar(10) not null,
@@ -71,8 +71,8 @@ BestiltTime Time not null,
 BestiltDato Date not null,
 Bestilt int not null FOREIGN KEY REFERENCES Bestilt(Id),
 Kommentar Text,
-CreatedAf int not null FOREIGN KEY REFERENCES Personal(Id), 
-TakedAf int not null FOREIGN KEY REFERENCES Personal(Id),
+CreatedAf int not null FOREIGN KEY REFERENCES Personale(CPR), 
+TakedAf int not null FOREIGN KEY REFERENCES Personale(CPR),
 Created DateTime not null DEFAULT CURRENT_TIMESTAMP,
 Updated DateTime not null DEFAULT CURRENT_TIMESTAMP,
 Done bit default 0
@@ -80,13 +80,13 @@ Done bit default 0
 create table BookedForProeve (
 Id int not null Identity(1,1) Primary key,
 Proeve int not null FOREIGN KEY REFERENCES Proeve(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(Id),
+Booked int not null FOREIGN KEY REFERENCES Booking(id),
 )
 
 create table BookedForSaerligeForhold (
 Id int not null Identity(1,1) Primary key,
 SaerligeForhold int not null FOREIGN KEY REFERENCES SaerligeForhold(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(Id),
+Booked int not null FOREIGN KEY REFERENCES Booking(id),
 )
 
 /* Maker alle delete også Execute */
@@ -145,6 +145,7 @@ insert into Afdeling(Navn, Omkring, Lokation) values ('6Ø', 'Apopleksi', 3);
 insert into Afdeling(Navn, Omkring, Lokation) values ('2Ø', 'Intermediært', 3);
 insert into Afdeling(Navn, Omkring, Lokation) values ('R', 'Almen intensivt', 3);
 
-insert into Personal(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Jimmy G', 'arbejde@mail.dk', 'secret', '4511111111', '0101011111', 'Nowhere 1', '4512121212');
-insert into Personal(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Jessie D', 'arbejde2@mail.dk', 'secret', '4522222222', '020202222', 'Nowhere 2', '4521212121');
+insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Jimmy G', 'arbejde@mail.dk', 'secret', '4511111111', '0101011111', 'Nowhere 1', '4512121212');
+insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Jessie D', 'arbejde2@mail.dk', 'secret', '4522222222', '0202022222', 'Nowhere 2', '4521212121');
+insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Joy P', 'arbejde3@mail.dk', 'secret', '4511221122', '0303033333', 'new 1', '4522112211');
 
