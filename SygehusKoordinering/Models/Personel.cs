@@ -127,7 +127,7 @@ namespace SygehusKoordinering.Models
         private string? ValidateCPR()
         {
             if (CPRNr.Length != 10) return "CPR must be a number of 10 digits";
-            foreach (char c in PrivatTlfNr) if (c < '0' || c > '9') return "CPR must be a number";
+            foreach (char c in CPRNr) if (c < '0' || c > '9') return "CPR must be a number";
             return null;
         }
 

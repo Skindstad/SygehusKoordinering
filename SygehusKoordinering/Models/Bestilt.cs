@@ -7,32 +7,28 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.Models
 {
-    public class Afdeling : IDataErrorInfo, IComparable<Afdeling>
+    public class Bestilt : IDataErrorInfo, IComparable<Bestilt>
     {
         public string Id { get; set; }
         public string Navn { get; set; }
-        public string Omkring { get; set; }
 
-        public Afdeling()
+        public Bestilt()
         {
             Id = "";
             Navn = "";
-            Omkring = "";
         }
 
-        public Afdeling(string id, string navn, string omkring)
+        public Bestilt(string id, string navn)
         {
             Id = id;
             Navn = navn;
-            Omkring = omkring;
         }
-
 
         public override bool Equals(object obj)
         {
             try
             {
-                Afdeling data = (Afdeling)obj;
+                Bestilt data = (Bestilt)obj;
                 return Id.Equals(data.Id);
             }
             catch
@@ -46,12 +42,17 @@ namespace SygehusKoordinering.Models
             return Id.GetHashCode();
         }
 
+        /*  public override string ToString()
+          {
+              return string.Format("{0} ", DataID);
+          }*/
 
-        public int CompareTo(Afdeling data)
+        // Implementerer ordning af objekter, så der alene sammenlignes på postnummer.
+        public int CompareTo(Bestilt data)
         {
             return Id.CompareTo(data.Id);
         }
-        private static readonly string[] validatedProperties = { "Navn", "Omkring" };
+        private static readonly string[] validatedProperties = { "Navn" };
         public bool IsValid
         {
             get
@@ -82,7 +83,6 @@ namespace SygehusKoordinering.Models
             switch (name)
             {
                 case "Navn": return ValidateName();
-                case "Omkring": return ValidateDecription();
             }
             return null;
         }
@@ -92,11 +92,6 @@ namespace SygehusKoordinering.Models
             return null;
         }
 
-        private string? ValidateDecription()
-        {
-            if (Navn == null || Navn.Length == 0) return "Decription can not be empty";
-            return null;
-        }
 
     }
 }
