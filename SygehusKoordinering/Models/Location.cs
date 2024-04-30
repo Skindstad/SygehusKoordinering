@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SygehusKoordinering.DataAccess
+namespace SygehusKoordinering.Models
 {
-    internal class PersonalRepository
+    internal class Location
     {
     }
 }

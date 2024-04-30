@@ -65,4 +65,9 @@
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0-preview.3.24172.9" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="NewFolder1\" />
+	  <Folder Include="NewFolder\" />
+	</ItemGroup>
+
 </Project>
