@@ -91,6 +91,7 @@ namespace SygehusKoordinering.DataAccess
         public void Add(Personale data)
         {
             string error = "";
+            BundleRepository bundleRepository = new BundleRepository();
             if (data.CPRNr.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlfNr.Length > 0 && data.PrivatTlfNr.Length > 0 && data.Adresse.Length > 0)
             {
 
@@ -110,6 +111,10 @@ namespace SygehusKoordinering.DataAccess
                         connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
+                            foreach (var item in data.Lokations)
+                            {
+                                bundleRepository.AddLocationsToPersonale(data.CPRNr, item);
+                            }
                             list.Add(data);
                             list.Sort();
                             OnChanged(DbOperation.INSERT, DbModeltype.Personale);
@@ -186,6 +191,32 @@ namespace SygehusKoordinering.DataAccess
                     lokation.Add(reader[0].ToString());
                 }
                 return lokation;
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return null;
+        }
+
+        public static string GetPerson(string Mail)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT CPR FROM Booking " +
+                    "WHERE Mail = @Mail", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Mail", SqlDbType.NVarChar);
+                param.Value = Mail;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
             }
             catch
             {
