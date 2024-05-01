@@ -67,26 +67,27 @@ Afdeling int not null FOREIGN KEY REFERENCES Afdeling(Id),
 StueEllerSengeplads Varchar(10) not null,
 Isolationspatient bit DEFAULT 0,
 Inaktiv bit Default 0,
+Prioritet int not null FOREIGN KEY REFERENCES Prioritet(Id),
 BestiltTime Time not null,
 BestiltDato Date not null,
 Bestilt int not null FOREIGN KEY REFERENCES Bestilt(Id),
 Kommentar Text,
 CreatedAf int not null FOREIGN KEY REFERENCES Personale(CPR), 
-TakedAf int not null FOREIGN KEY REFERENCES Personale(CPR),
-Created DateTime not null DEFAULT CURRENT_TIMESTAMP,
-Updated DateTime not null DEFAULT CURRENT_TIMESTAMP,
+TakedAf int FOREIGN KEY REFERENCES Personale(CPR),
+Created DateTime DEFAULT CURRENT_TIMESTAMP,
+Updated DateTime DEFAULT CURRENT_TIMESTAMP,
 Done bit default 0
 )
 create table BookedForProeve (
 Id int not null Identity(1,1) Primary key,
 Proeve int not null FOREIGN KEY REFERENCES Proeve(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(id),
+Booked int not null FOREIGN KEY REFERENCES Booking(Id),
 )
 
 create table BookedForSaerligeForhold (
 Id int not null Identity(1,1) Primary key,
 SaerligeForhold int not null FOREIGN KEY REFERENCES SaerligeForhold(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(id),
+Booked int not null FOREIGN KEY REFERENCES Booking(Id),
 )
 
 /* Maker alle delete også Execute */
@@ -149,3 +150,16 @@ insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, Priva
 insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Jessie D', 'arbejde2@mail.dk', 'secret', '4522222222', '0202022222', 'Nowhere 2', '4521212121');
 insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) values ('Joy P', 'arbejde3@mail.dk', 'secret', '4511221122', '0303033333', 'new 1', '4522112211');
 
+insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011112', 'Lasse Q', 1, 'Stue', 1, '13:30:00', '2024-05-01', 1, '0101011111');
+insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011113', 'Oliver L', 1, 'Stue', 1, '14:30:00', '2024-05-01', 1, '0101011111');
+
+
+insert into BookedForProeve(Proeve, Booked) values(1, 1);
+insert into BookedForProeve(Proeve, Booked) values(2, 1);
+insert into BookedForProeve(Proeve, Booked) values(1, 2);
+
+insert into BookedForSaerligeForhold(SaerligeForhold, Booked) values (1, 1);
+insert into BookedForSaerligeForhold(SaerligeForhold, Booked) values (1, 2);
+
+insert into PersonalePaaLokation(Personal, Lokation) values ('0101011111', 1);
+insert into PersonalePaaLokation(Personal, Lokation) values ('0202022222', 1);

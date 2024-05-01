@@ -1,6 +1,4 @@
-﻿using Android.Locations;
-using Android.Media;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,7 +16,10 @@ namespace SygehusKoordinering.Models
         public string AfdelingDecription { get; set; }
         public string StueEllerSengeplads { get; set; }
         public string Isolationspatient { get; set; }
+        public List<string> Proeve {  get; set; }
+        public List<string> SaerligeForhold { get; set; }
         public string Inaktiv { get; set; }
+        public string Prioritet { get; set; }
         public string BestiltTime { get; set; }
         public string BestiltDato { get; set; }
         public string Bestilt { get; set; }
@@ -36,7 +37,10 @@ namespace SygehusKoordinering.Models
             AfdelingDecription = "";
             StueEllerSengeplads = "";
             Isolationspatient = "";
+            Proeve = new List<string>();
+            SaerligeForhold = new List<string>();
             Inaktiv = "";
+            Prioritet = "";
             BestiltTime = "";
             BestiltDato = "";
             Bestilt = "";
@@ -46,7 +50,7 @@ namespace SygehusKoordinering.Models
             Done = "";
         }
 
-        public Booking(string id, string cPRNr, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, string inaktiv, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
+        public Booking(string id, string cPRNr, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
         {
             Id = id;
             CPRNr = cPRNr;
@@ -55,7 +59,10 @@ namespace SygehusKoordinering.Models
             AfdelingDecription = afdelingDecription;
             StueEllerSengeplads = stueEllerSengeplads;
             Isolationspatient = isolationspatient;
+            Proeve = proeve;
+            SaerligeForhold = saerligeForhold;
             Inaktiv = inaktiv;
+            Prioritet = prioritet;
             BestiltTime = bestiltTime;
             BestiltDato = bestiltDato;
             Bestilt = bestilt;
@@ -87,7 +94,7 @@ namespace SygehusKoordinering.Models
         {
             return CPRNr.CompareTo(data.CPRNr);
         }
-        private static readonly string[] validatedProperties = {"CPRNr", "Navn", "Afdeling", "StueEllerSengeplads", "Bestilt", "Kommentar", "CreatedAf" };
+        private static readonly string[] validatedProperties = {"CPRNr", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
         public bool IsValid
         {
             get
@@ -122,6 +129,7 @@ namespace SygehusKoordinering.Models
                 case "Afdeling": return ValidateDepartement();
                 case "StueEllerSengeplads": return ValidateLivingroom();
                 case "Kommentar": return ValidateDecription();
+                case "Prioritet": return ValidatePrioritet();
                 case "CreatedAf": return ValidateCreated();
                 case "Bestilt": return ValidateOrder();
             }
@@ -153,6 +161,11 @@ namespace SygehusKoordinering.Models
         private string? ValidateDecription()
         {
             if (Kommentar == null || Kommentar.Length == 0) return "Decription can not be empty";
+            return null;
+        }
+        private string? ValidatePrioritet()
+        {
+            if (Prioritet == null || Prioritet.Length == 0) return "Prioritet can not be empty";
             return null;
         }
         private string? ValidateOrder()

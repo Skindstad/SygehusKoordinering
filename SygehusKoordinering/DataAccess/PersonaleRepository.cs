@@ -1,5 +1,4 @@
-﻿using Java.Time;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Java.Util.Jar.Attributes;
 
 namespace SygehusKoordinering.DataAccess
 {
@@ -30,14 +28,14 @@ namespace SygehusKoordinering.DataAccess
         {
             try
             {
-                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr, From Personale WHERE CPR = @CPR Or Navn LIKE @Name Or Mail LIKE @Mail OR ArbejdsTlfNr LIKE @WorkPhone OR PrivatTlfNr LIKE @Phone Or Adresse LIKE @Adresse", connection);
+                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale WHERE CPR = @CPR Or Navn LIKE @Name Or Mail LIKE @Mail OR ArbejdsTlfNr LIKE @WorkPhone OR PrivatTlfNr LIKE @Phone Or Adresse LIKE @Adresse", connection);
                 SqlCommand command = sqlCommand;
                 //command.Parameters.Add(CreateParam("@KomNr", komNr + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@CPR", CPR + "%", SqlDbType.Int));
+                command.Parameters.Add(CreateParam("@CPR", CPR, SqlDbType.Int));
                 command.Parameters.Add(CreateParam("@Name", Navn + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@Mail", Mail + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@WorkPhone", ArbejdsPhone + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@Phone", Phone + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@WorkPhone", ArbejdsPhone, SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@Phone", Phone, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@Adresse", Adresse + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();

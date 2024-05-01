@@ -12,19 +12,22 @@ namespace SygehusKoordinering.Models
         public string Id { get; set; }
         public string Navn { get; set; }
         public string Omkring { get; set; }
+        public string Location { get; set; }
 
         public Afdeling()
         {
             Id = "";
             Navn = "";
             Omkring = "";
+            Location = "";
         }
 
-        public Afdeling(string id, string navn, string omkring)
+        public Afdeling(string id, string navn, string omkring, string location)
         {
             Id = id;
             Navn = navn;
             Omkring = omkring;
+            Location = location;
         }
 
 
@@ -83,6 +86,7 @@ namespace SygehusKoordinering.Models
             {
                 case "Navn": return ValidateName();
                 case "Omkring": return ValidateDecription();
+                case "Location": return ValidateLocation();
             }
             return null;
         }
@@ -95,6 +99,12 @@ namespace SygehusKoordinering.Models
         private string? ValidateDecription()
         {
             if (Navn == null || Navn.Length == 0) return "Decription can not be empty";
+            return null;
+        }
+
+        private string? ValidateLocation()
+        {
+            if (Location == null || Location.Length == 0) return "Location can not be empty";
             return null;
         }
 
