@@ -24,11 +24,11 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public void Search(string CPR, string Navn, string Mail, string ArbejdsPhone, string Phone, string Adresse)
+        public void Search(string CPR, string Navn, string Mail, string ArbejdsPhone, string Phone, string Adresse, string Status)
         {
             try
             {
-                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale WHERE CPR = @CPR Or Navn LIKE @Name Or Mail LIKE @Mail OR ArbejdsTlfNr LIKE @WorkPhone OR PrivatTlfNr LIKE @Phone Or Adresse LIKE @Adresse", connection);
+                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale WHERE CPR = @CPR Or Navn LIKE @Name Or Mail LIKE @Mail OR ArbejdsTlfNr LIKE @WorkPhone OR PrivatTlfNr LIKE @Phone Or Adresse LIKE @Adresse OR Status = @Status", connection);
                 SqlCommand command = sqlCommand;
                 //command.Parameters.Add(CreateParam("@KomNr", komNr + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@CPR", CPR, SqlDbType.Int));
@@ -37,12 +37,13 @@ namespace SygehusKoordinering.DataAccess
                 command.Parameters.Add(CreateParam("@WorkPhone", ArbejdsPhone, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@Phone", Phone, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@Adresse", Adresse + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@Status", Status + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 list.Clear();
                 while (reader.Read())
                 {
-                    list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString()));
+                    list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), GetLokation(reader[0].ToString())));
                 }
 
                 OnChanged(DbOperation.SELECT, DbModeltype.Personale);
@@ -71,7 +72,7 @@ namespace SygehusKoordinering.DataAccess
                 list.Clear();
                 while (reader.Read())
                 {
-                    list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString()));
+                    list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>()));
                 }
 
                 OnChanged(DbOperation.SELECT, DbModeltype.Personale);
@@ -165,6 +166,37 @@ namespace SygehusKoordinering.DataAccess
             return "";
         }
 
+        public static List<string> GetLokation(string CPR)
+        {
+            SqlConnection connection = null;
+            List<string> lokation = new List<string>();
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Lokation.Navn FROM Personale Join PersonalePaaLokation on PersonalePaaLokation.Personal = Personale.CPR Join Lokation on PersonalePaaLokation.Lokation = Lokation.Id" +
+                    " WHERE CPR = @CPR", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@CPR", SqlDbType.NVarChar);
+                param.Value = CPR;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    lokation.Add(reader[0].ToString());
+                }
+                return lokation;
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return null;
+        }
+
         /*
         public void Update(string id, string komNr, string city, string gruppe, string year, string num)
         {
@@ -222,26 +254,26 @@ namespace SygehusKoordinering.DataAccess
                     break;
                 }
         }
-
-        public void Remove(Data data)
+         */
+        public void Remove(string CPR)
         {
             string error = "";
             try
             {
-                string dataId = GetId(data.KomNr, data.Gruppe, data.Year);
-                using (SqlCommand command = new("DELETE FROM Data WHERE Id = @DataId", connection))
+                BundleRepository.removeLocation(CPR);
+                using (SqlCommand command = new("DELETE FROM Personale WHERE CPR = @CPR", connection))
                 {
-                    command.Parameters.Add(CreateParam("@DataId", dataId, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@CPR", CPR, SqlDbType.NVarChar));
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
                     {
-                        list.Remove(new Data(dataId, "", "", "", "", ""));
-                        OnChanged(DbOperation.DELETE, DbModeltype.Data);
+                        list.Remove(new Personale(CPR, "", "", "", "", "", "", new List<string>()));
+                        OnChanged(DbOperation.DELETE, DbModeltype.Personale);
                         return;
                     }
                 }
 
-                error = string.Format("Data could not be deleted");
+                error = string.Format("Personale could not be deleted");
             }
             catch (Exception ex)
             {
@@ -251,10 +283,10 @@ namespace SygehusKoordinering.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
-            throw new DbException("Error in Data repositiory: " + error);
+            throw new DbException("Error in Personale repositiory: " + error);
         }
 
-        */
+       
 
 
     }

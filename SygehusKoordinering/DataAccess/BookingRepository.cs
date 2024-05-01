@@ -127,7 +127,37 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
+        public void Remove(string Id)
+        {
+            string error = "";
+            try
+            {
+                BundleRepository.removeProeve(Id);
+                BundleRepository.removeSaerligeForhold(Id);
+                using (SqlCommand command = new("DELETE FROM Booking WHERE Id = @Id", connection))
+                {
+                    command.Parameters.Add(CreateParam("@Id", Id, SqlDbType.NVarChar));
+                    connection.Open();
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", ""));
+                        OnChanged(DbOperation.DELETE, DbModeltype.Personale);
+                        return;
+                    }
+                }
 
+                error = string.Format("Booking could not be deleted");
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            throw new DbException("Error in Booking repositiory: " + error);
+        }
 
 
 

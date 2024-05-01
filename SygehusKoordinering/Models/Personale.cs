@@ -9,14 +9,15 @@ namespace SygehusKoordinering.Models
 {
     public class Personale : IDataErrorInfo, IComparable<Personale>
     {
+        public string CPRNr { get; set; }
         public string Navn { get; set; }
         public string Mail { get; set; }
         public string ArbejdTlfNr { get; set; }
         public string Adgangskode { get; set; }
-        public string Status { get; set; }
-        public string CPRNr { get; set; }
         public string Adresse { get; set; }
         public string PrivatTlfNr { get; set; }
+        public string Status { get; set; }
+        public List<string> Lokations { get; set; }
 
         public Personale()
         {
@@ -27,10 +28,11 @@ namespace SygehusKoordinering.Models
             CPRNr = "";
             Adresse = "";
             PrivatTlfNr = "";
+            Lokations = new List<string>();
         }
 
 
-        public Personale(string cPRNr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr)
+        public Personale(string cPRNr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr, List<string> lokations)
         {
             Navn = navn;
             Mail = mail;
@@ -39,6 +41,7 @@ namespace SygehusKoordinering.Models
             CPRNr = cPRNr;
             Adresse = adresse;
             PrivatTlfNr = privatTlfNr;
+            Lokations = lokations;
         }
 
         public override bool Equals(object obj)

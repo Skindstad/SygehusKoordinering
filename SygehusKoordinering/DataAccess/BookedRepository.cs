@@ -2,6 +2,7 @@
 using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,31 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+        public static string GetBestiltWithName(string Navn)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Id FROM Bestilt" +
+                    " WHERE Navn = @Navn", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Navn", SqlDbType.NVarChar);
+                param.Value = Navn;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
     }
 
     public class PrioritetRepository : Repository, IEnumerable<Prioritet>
@@ -89,6 +115,31 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+        public static string GetPrioritetWithName(string Navn)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Id FROM Prioritet" +
+                    " WHERE Navn = @Navn", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Navn", SqlDbType.NVarChar);
+                param.Value = Navn;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
     }
     public class ProeveRepository : Repository, IEnumerable<Proeve>
     {
@@ -129,6 +180,31 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+        public static string GetProeveWithName(string Navn)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Id FROM Proeve" +
+                    " WHERE Navn = @Navn", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Navn", SqlDbType.NVarChar);
+                param.Value = Navn;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
     }
     public class SaerligeForholdRepository : Repository, IEnumerable<SaerligeForhold>
     {
@@ -168,6 +244,31 @@ namespace SygehusKoordinering.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
+        }
+        public static string GetSaerligeForholdWithName(string Navn)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Id FROM SaerligeForhold" +
+                    " WHERE Navn = @Navn", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Navn", SqlDbType.NVarChar);
+                param.Value = Navn;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
         }
     }
 
