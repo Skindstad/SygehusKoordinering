@@ -20,8 +20,11 @@ namespace SygehusKoordinering.ViewModel
 
         public ICommand OkCommand { get; }
 
-        public MainViewModel()
+        private string cpr;
+
+        public MainViewModel(string cpr)
         {
+            this.cpr = cpr;
             //Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
@@ -49,7 +52,6 @@ namespace SygehusKoordinering.ViewModel
 
         private void ExecuteOkCommand()
         {
-            // Iterate through LocalList to identify selected locations
             foreach (var location in LocalList)
             {
                 if (location.IsSelected)
