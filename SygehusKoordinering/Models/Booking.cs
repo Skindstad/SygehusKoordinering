@@ -10,7 +10,7 @@ namespace SygehusKoordinering.Models
     public class Booking : IDataErrorInfo, IComparable<Booking>
     {
         public string Id { get; set; }
-        public string CPRNr { get; set; }
+        public string CPR { get; set; }
         public string Navn { get; set; }
         public string Afdeling { get; set; }
         public string AfdelingDecription { get; set; }
@@ -31,7 +31,7 @@ namespace SygehusKoordinering.Models
         public Booking()
         {
             Id = "";
-            CPRNr = "";
+            CPR = "";
             Navn = "";
             Afdeling = "";
             AfdelingDecription = "";
@@ -53,7 +53,7 @@ namespace SygehusKoordinering.Models
         public Booking(string id, string cPRNr, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
         {
             Id = id;
-            CPRNr = cPRNr;
+            CPR = cPRNr;
             Navn = navn;
             Afdeling = afdeling;
             AfdelingDecription = afdelingDecription;
@@ -77,7 +77,7 @@ namespace SygehusKoordinering.Models
             try
             {
                 Booking data = (Booking)obj;
-                return CPRNr.Equals(data.CPRNr);
+                return CPR.Equals(data.CPR);
             }
             catch
             {
@@ -87,12 +87,12 @@ namespace SygehusKoordinering.Models
 
         public override int GetHashCode()
         {
-            return CPRNr.GetHashCode();
+            return CPR.GetHashCode();
         }
 
         public int CompareTo(Booking data)
         {
-            return CPRNr.CompareTo(data.CPRNr);
+            return CPR.CompareTo(data.CPR);
         }
         private static readonly string[] validatedProperties = {"CPRNr", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
         public bool IsValid
@@ -137,8 +137,8 @@ namespace SygehusKoordinering.Models
         }
         private string? ValidateCPR()
         {
-            if (CPRNr.Length != 10) return "CPR must be a number of 10 digits";
-            foreach (char c in CPRNr) if (c < '0' || c > '9') return "CPR must be a number";
+            if (CPR.Length != 10) return "CPR must be a number of 10 digits";
+            foreach (char c in CPR) if (c < '0' || c > '9') return "CPR must be a number";
             return null;
         }
 

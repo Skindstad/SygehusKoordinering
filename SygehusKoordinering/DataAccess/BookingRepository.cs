@@ -131,7 +131,7 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPRNr.Length == 10 && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads.Length > 0 && data.Isolationspatient.Length > 0 && data.Inaktiv.Length > 0 && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
+            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads.Length > 0 && data.Isolationspatient.Length > 0 && data.Inaktiv.Length > 0 && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
                 && data.Bestilt.Length > 0)
             {
                 string AfdelingId = AfdelingRepository.GetAfdeling(data.Afdeling);
@@ -141,7 +141,7 @@ namespace SygehusKoordinering.DataAccess
                     {
                         SqlCommand sqlCommand = new("INSERT INTO Booking (CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) VALUES (@CPR, @Navn, @Afdeling, @StueEllerSengeplads,@Prioritet,@BestiltTime, @BestiltDato, @Bestilt, @CreatedAf)", connection);
                         SqlCommand command = sqlCommand;
-                        command.Parameters.Add(CreateParam("@CPR", data.CPRNr, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Navn", data.Navn, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Afdeling", AfdelingId, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@StueEllerSengeplads", data.StueEllerSengeplads, SqlDbType.NVarChar));
@@ -153,7 +153,7 @@ namespace SygehusKoordinering.DataAccess
                     connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
-                        string id = GetBooking(data.CPRNr, data.BestiltTime, data.BestiltDato);
+                        string id = GetBooking(data.CPR, data.BestiltTime, data.BestiltDato);
                             foreach (var item in data.Proeve)
                             {
                                 bundleRepository.AddBookedToProeve(id, item);
