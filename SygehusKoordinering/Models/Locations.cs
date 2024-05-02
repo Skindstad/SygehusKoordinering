@@ -12,17 +12,25 @@ namespace SygehusKoordinering.Models
         public string Id { get; set; }
         public string Navn { get; set; }
 
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { isSelected = value; }
+        }
 
         public Locations()
         {
             Id = "";
             Navn = "";
+            IsSelected = false;
         }
 
         public Locations(string id, string navn)
         {
             Id = id;
             Navn = navn;
+            IsSelected = false;
         }
 
         public override bool Equals(object obj)
