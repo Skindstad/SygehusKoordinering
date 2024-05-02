@@ -72,6 +72,7 @@ namespace SygehusKoordinering.DataAccess
                 list.Clear();
                 while (reader.Read())
                 {
+                    BundleRepository.removeLocation(reader[0].ToString());
                     list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>()));
                 }
 
@@ -111,10 +112,6 @@ namespace SygehusKoordinering.DataAccess
                         connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
-                            foreach (var item in data.Lokations)
-                            {
-                                bundleRepository.AddLocationsToPersonale(data.CPR, item);
-                            }
                             list.Add(data);
                             list.Sort();
                             OnChanged(DbOperation.INSERT, DbModeltype.Personale);

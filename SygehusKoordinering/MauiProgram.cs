@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SygehusKoordinering.View;
 using SygehusKoordinering.ViewModel;
 
 namespace SygehusKoordinering
@@ -18,6 +19,9 @@ namespace SygehusKoordinering
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
+
+            builder.Services.AddTransient<LoginView>();
+            builder.Services.AddTransient<InsertViewModel>();
 
 
 #if DEBUG
