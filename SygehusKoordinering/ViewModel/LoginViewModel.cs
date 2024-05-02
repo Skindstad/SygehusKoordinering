@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.ViewModel
 {
-    class LoginViewModel
+   public class LoginViewModel
     {
     }
 }
