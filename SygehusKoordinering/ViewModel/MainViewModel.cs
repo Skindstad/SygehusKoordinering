@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using SygehusKoordinering.Models;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -17,24 +17,21 @@ namespace SygehusKoordinering.ViewModel
 
         public MainViewModel()
         {
-            LocalList = new ObservableCollection<Location>(locationRepository);
+            LocalList = new ObservableCollection<Locations>(locationRepository);
         }
 
         [ObservableProperty]
-        ObservableCollection<Location> localList;
+        ObservableCollection<Locations> localList;
 
         [ObservableProperty]
         string navn;
-
-
-
 
 
         [RelayCommand]
         void Search()
         {
             locationRepository.Search(navn);
-            LocalList = new ObservableCollection<Location>(locationRepository);
+            LocalList = new ObservableCollection<Locations>(locationRepository);
 
         }
     }
