@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SygehusKoordinering.Models;
 using SygehusKoordinering.View;
+using System.Windows.Input;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -17,15 +18,22 @@ namespace SygehusKoordinering.ViewModel
         public static LocationRepository locationRepository = [];
         public static BundleRepository bundleRepository = [];
 
+        public ICommand OkCommand { get; }
+
         public MainViewModel()
         {
-            Login();
+            //Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
+            IsSelected = new ObservableCollection<Locations>();
+            OkCommand = new RelayCommand(ExecuteOkCommand);
             Search();
         }
 
         [ObservableProperty]
         ObservableCollection<Locations> localList;
+
+        [ObservableProperty]
+        ObservableCollection<Locations> isSelected;
 
         [ObservableProperty]
         string navn;
@@ -39,6 +47,18 @@ namespace SygehusKoordinering.ViewModel
 
         }
 
+        private void ExecuteOkCommand()
+        {
+            // Iterate through LocalList to identify selected locations
+            foreach (var location in LocalList)
+            {
+                if (location.IsSelected)
+                {
+                    // Call AddLocationsToPersonale method for selected location
+                    bundleRepository.AddLocationsToPersonale("CPR", location.Navn);
+                }
+            }
+        }
 
         async Task Login()
         {
