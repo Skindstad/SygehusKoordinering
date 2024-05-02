@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,8 +10,22 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
-    public class BundleRepository : Repository
+    public class BundleRepository : Repository, IEnumerable<Personale>
     {
+        private List<Personale> list = new List<Personale>();
+
+        public IEnumerator<Personale> GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    {
+
+
         public void AddLocationsToPersonale(string CPR, string LokationNavn)
         {
             string error = "";

@@ -1,8 +1,8 @@
 /*Først maker du create database linje også Execute*/
-Create database Alfa_SygehusKoordinering;
+Create database AlfaSygehusKoordinering;
 
 /* Maker Use linje også Execute*/
-Use Alfa_SygehusKoordinering;
+Use AlfaSygehusKoordinering;
 
 /* Maker indtil næste kommentar også Execute */
 create table Personale

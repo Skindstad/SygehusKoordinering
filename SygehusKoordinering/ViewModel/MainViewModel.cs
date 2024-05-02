@@ -14,6 +14,7 @@ namespace SygehusKoordinering.ViewModel
     public partial class MainViewModel : ObservableObject
     {
         public static LocationRepository locationRepository = [];
+        public static BundleRepository bundleRepository = [];
 
         public MainViewModel()
         {
