@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.View;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -18,6 +19,7 @@ namespace SygehusKoordinering.ViewModel
 
         public MainViewModel()
         {
+            Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             Search();
         }
@@ -35,6 +37,12 @@ namespace SygehusKoordinering.ViewModel
             locationRepository.Search("");
             LocalList = new ObservableCollection<Locations>(locationRepository);
 
+        }
+
+
+        async Task Login()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginView));
         }
     }
 }

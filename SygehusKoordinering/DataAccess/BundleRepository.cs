@@ -23,8 +23,6 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-    {
-
 
         public void AddLocationsToPersonale(string CPR, string LokationNavn)
         {

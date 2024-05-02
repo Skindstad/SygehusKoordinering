@@ -58,33 +58,36 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
-        public void Login( string Mail, string Adgangskode, string ArbejdsPhone)
+        public Personale Login( string Mail, string Adgangskode, string ArbejdsPhone)
         {
-            try
+            if (Mail != null && Adgangskode != null && ArbejdsPhone != null)
             {
-                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr, From Personale WHERE Mail = @Mail AND ArbejdsTlfNr = @WorkPhone AND Adgangskode = @Adgangskode", connection);
-                SqlCommand command = sqlCommand;
-                command.Parameters.Add(CreateParam("@Mail", Mail + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@Adgangskode", Adgangskode + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@WorkPhone", ArbejdsPhone + "%", SqlDbType.NVarChar));
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                list.Clear();
-                while (reader.Read())
+                try
                 {
-                    list.Add(new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>()));
+                    SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale WHERE Mail = @Mail AND ArbejdsTlfNr = @WorkPhone AND Adgangskode = @Adgangskode", connection);
+                    SqlCommand command = sqlCommand;
+                    command.Parameters.Add(CreateParam("@Mail", Mail, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Adgangskode", Adgangskode, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@WorkPhone", ArbejdsPhone, SqlDbType.NVarChar));
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        BundleRepository.removeLocation(reader[0].ToString());
+                        return new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>());
+                    }
+                    OnChanged(DbOperation.SELECT, DbModeltype.Personale);
                 }
-
-                OnChanged(DbOperation.SELECT, DbModeltype.Personale);
+                catch (Exception ex)
+                {
+                    throw new DbException("Error in Personale repositiory: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                throw new DbException("Error in Personale repositiory: " + ex.Message);
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-            }
+            return null;
         }
 
 
@@ -92,10 +95,10 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlfNr.Length > 0 && data.PrivatTlfNr.Length > 0 && data.Adresse.Length > 0)
+            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlf.Length > 0 && data.PrivatTlf.Length > 0 && data.Adresse.Length > 0)
             {
 
-                if (CheckIfTheyAlreadyExist(data.CPR, data.Mail, data.ArbejdTlfNr, data.PrivatTlfNr) == null)
+                if (CheckIfTheyAlreadyExist(data.CPR, data.Mail, data.ArbejdTlf, data.PrivatTlf) == null)
                 {
                     try
                     {
@@ -104,17 +107,13 @@ namespace SygehusKoordinering.DataAccess
                         command.Parameters.Add(CreateParam("@Name", data.Navn, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Mail", data.Mail, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Adgangskode", data.Adgangskode, SqlDbType.NVarChar));
-                        command.Parameters.Add(CreateParam("@ArbejdsPhone", data.ArbejdTlfNr, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@ArbejdsPhone", data.ArbejdTlf, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Adresse", data.Adresse, SqlDbType.NVarChar));
-                        command.Parameters.Add(CreateParam("@Phone", data.PrivatTlfNr, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Phone", data.PrivatTlf, SqlDbType.NVarChar));
                         connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
-                            foreach (var item in data.Lokations)
-                            {
-                                bundleRepository.AddLocationsToPersonale(data.CPR, item);
-                            }
                             list.Add(data);
                             list.Sort();
                             OnChanged(DbOperation.INSERT, DbModeltype.Personale);

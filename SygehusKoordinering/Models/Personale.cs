@@ -12,10 +12,10 @@ namespace SygehusKoordinering.Models
         public string CPR { get; set; }
         public string Navn { get; set; }
         public string Mail { get; set; }
-        public string ArbejdTlfNr { get; set; }
+        public string ArbejdTlf { get; set; }
         public string Adgangskode { get; set; }
         public string Adresse { get; set; }
-        public string PrivatTlfNr { get; set; }
+        public string PrivatTlf { get; set; }
         public string Status { get; set; }
         public List<string> Lokations { get; set; }
 
@@ -23,11 +23,11 @@ namespace SygehusKoordinering.Models
         {
             Navn = "";
             Mail = "";
-            ArbejdTlfNr = "";
+            ArbejdTlf = "";
             Status = "";
             CPR = "";
             Adresse = "";
-            PrivatTlfNr = "";
+            PrivatTlf = "";
             Lokations = new List<string>();
         }
 
@@ -36,11 +36,11 @@ namespace SygehusKoordinering.Models
         {
             Navn = navn;
             Mail = mail;
-            ArbejdTlfNr = arbejdTlfNr;
+            ArbejdTlf = arbejdTlfNr;
             Status = status;
             CPR = cPRNr;
             Adresse = adresse;
-            PrivatTlfNr = privatTlfNr;
+            PrivatTlf = privatTlfNr;
             Lokations = lokations;
         }
 
@@ -115,14 +115,14 @@ namespace SygehusKoordinering.Models
 
         private string? ValidateWorkPhone()
         {
-            if (ArbejdTlfNr.Length != 10) return "Phone must be a number of 10 digits";
-            foreach (char c in ArbejdTlfNr) if (c < '0' || c > '9') return "Phone must be a number";
+            if (ArbejdTlf.Length != 10) return "Phone must be a number of 10 digits";
+            foreach (char c in ArbejdTlf) if (c < '0' || c > '9') return "Phone must be a number";
             return null;
         }
         private string? ValidatePrivatPhone()
         {
-            if (PrivatTlfNr.Length != 10) return "Phone must be a number of 10 digits";
-            foreach (char c in PrivatTlfNr) if (c < '0' || c > '9') return "Phone must be a number";
+            if (PrivatTlf.Length != 10) return "Phone must be a number of 10 digits";
+            foreach (char c in PrivatTlf) if (c < '0' || c > '9') return "Phone must be a number";
             return null;
         }
         private string? ValidateCPR()
