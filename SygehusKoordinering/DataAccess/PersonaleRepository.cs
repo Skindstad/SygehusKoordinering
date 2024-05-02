@@ -92,10 +92,10 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPRNr.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlfNr.Length > 0 && data.PrivatTlfNr.Length > 0 && data.Adresse.Length > 0)
+            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlfNr.Length > 0 && data.PrivatTlfNr.Length > 0 && data.Adresse.Length > 0)
             {
 
-                if (CheckIfTheyAlreadyExist(data.CPRNr, data.Mail, data.ArbejdTlfNr, data.PrivatTlfNr) == null)
+                if (CheckIfTheyAlreadyExist(data.CPR, data.Mail, data.ArbejdTlfNr, data.PrivatTlfNr) == null)
                 {
                     try
                     {
@@ -105,7 +105,7 @@ namespace SygehusKoordinering.DataAccess
                         command.Parameters.Add(CreateParam("@Mail", data.Mail, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Adgangskode", data.Adgangskode, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@ArbejdsPhone", data.ArbejdTlfNr, SqlDbType.NVarChar));
-                        command.Parameters.Add(CreateParam("@CPR", data.CPRNr, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Adresse", data.Adresse, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Phone", data.PrivatTlfNr, SqlDbType.NVarChar));
                         connection.Open();
@@ -113,7 +113,7 @@ namespace SygehusKoordinering.DataAccess
                         {
                             foreach (var item in data.Lokations)
                             {
-                                bundleRepository.AddLocationsToPersonale(data.CPRNr, item);
+                                bundleRepository.AddLocationsToPersonale(data.CPR, item);
                             }
                             list.Add(data);
                             list.Sort();

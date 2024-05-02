@@ -9,7 +9,7 @@ namespace SygehusKoordinering.Models
 {
     public class Personale : IDataErrorInfo, IComparable<Personale>
     {
-        public string CPRNr { get; set; }
+        public string CPR { get; set; }
         public string Navn { get; set; }
         public string Mail { get; set; }
         public string ArbejdTlfNr { get; set; }
@@ -25,7 +25,7 @@ namespace SygehusKoordinering.Models
             Mail = "";
             ArbejdTlfNr = "";
             Status = "";
-            CPRNr = "";
+            CPR = "";
             Adresse = "";
             PrivatTlfNr = "";
             Lokations = new List<string>();
@@ -38,7 +38,7 @@ namespace SygehusKoordinering.Models
             Mail = mail;
             ArbejdTlfNr = arbejdTlfNr;
             Status = status;
-            CPRNr = cPRNr;
+            CPR = cPRNr;
             Adresse = adresse;
             PrivatTlfNr = privatTlfNr;
             Lokations = lokations;
@@ -49,7 +49,7 @@ namespace SygehusKoordinering.Models
             try
             {
                 Personale data = (Personale)obj;
-                return CPRNr.Equals(data.CPRNr);
+                return CPR.Equals(data.CPR);
             }
             catch
             {
@@ -59,7 +59,7 @@ namespace SygehusKoordinering.Models
 
         public override int GetHashCode()
         {
-            return CPRNr.GetHashCode();
+            return CPR.GetHashCode();
         }
 
         /*  public override string ToString()
@@ -70,7 +70,7 @@ namespace SygehusKoordinering.Models
         // Implementerer ordning af objekter, så der alene sammenlignes på postnummer.
         public int CompareTo(Personale data)
         {
-            return CPRNr.CompareTo(data.CPRNr);
+            return CPR.CompareTo(data.CPR);
         }
         private static readonly string[] validatedProperties = { "Navn", "Mail", "ArbejdTlfNr", "Adgangskode", "CPRNr", "Adresse", "PrivatTlfNr" };
         public bool IsValid
@@ -127,8 +127,8 @@ namespace SygehusKoordinering.Models
         }
         private string? ValidateCPR()
         {
-            if (CPRNr.Length != 10) return "CPR must be a number of 10 digits";
-            foreach (char c in CPRNr) if (c < '0' || c > '9') return "CPR must be a number";
+            if (CPR.Length != 10) return "CPR must be a number of 10 digits";
+            foreach (char c in CPR) if (c < '0' || c > '9') return "CPR must be a number";
             return null;
         }
 
