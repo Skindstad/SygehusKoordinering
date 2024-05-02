@@ -18,6 +18,7 @@ namespace SygehusKoordinering.ViewModel
         public MainViewModel()
         {
             LocalList = new ObservableCollection<Locations>(locationRepository);
+            Search();
         }
 
         [ObservableProperty]
@@ -30,7 +31,7 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         void Search()
         {
-            locationRepository.Search(navn);
+            locationRepository.Search("");
             LocalList = new ObservableCollection<Locations>(locationRepository);
 
         }
