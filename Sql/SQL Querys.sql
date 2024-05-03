@@ -6,7 +6,7 @@ Select Personale.Id, CPR, Personale.Navn, Mail, Adgangskode, ArbejdsTlfNr, Priva
 
 
 /* Til at få deres location */
-Select Personale.Id, CPR, Personale.Navn, Mail, ArbejdsTlfNr, PrivatTlfNr, Status, Lokation.Navn As Location, PersonalePaaLokation.Created as Date From Personale Join PersonalePaaLokation on PersonalePaaLokation.Personal = Personale.CPR Join Lokation on PersonalePaaLokation.Lokation = Lokation.Id;
+Select PersonalePaaLokation.Id, CPR, Personale.Navn, Mail, ArbejdsTlfNr, PrivatTlfNr, Status, Lokation.Navn As Location, PersonalePaaLokation.Created as Date From Personale Join PersonalePaaLokation on PersonalePaaLokation.Personal = Personale.CPR Join Lokation on PersonalePaaLokation.Lokation = Lokation.Id;
 
 
 /* Delete for når du slette en person fra Personale table */

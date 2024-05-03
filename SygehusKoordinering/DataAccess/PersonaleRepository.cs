@@ -95,7 +95,7 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlf.Length > 0 && data.PrivatTlf.Length > 0 && data.Adresse.Length > 0)
+            if (data.CPR.Length == 9 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlf.Length > 0 && data.PrivatTlf.Length > 0 && data.Adresse.Length > 0)
             {
 
                 if (CheckIfTheyAlreadyExist(data.CPR, data.Mail, data.ArbejdTlf, data.PrivatTlf) == null)

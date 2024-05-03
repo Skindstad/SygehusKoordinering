@@ -27,14 +27,14 @@ namespace SygehusKoordinering.DataAccess
         public void AddLocationsToPersonale(string CPR, string LokationNavn)
         {
             string error = "";
-            if (CPR.Length == 10 && LokationNavn.Length > 0)
+            if (CPR.Length == 9 && LokationNavn.Length > 0)
             {
                 string LokationId = LocationRepository.GetLokation(LokationNavn);
-                if (LokationId == null)
+                if (LokationId != null)
                 {
                     try
                     {
-                        SqlCommand sqlCommand = new("INSERT INTO PersonalePaaLokation (Personale, Lokation) VALUES (@Personale, @Lokation)", connection);
+                        SqlCommand sqlCommand = new("INSERT INTO PersonalePaaLokation (Personal, Lokation) VALUES (@Personale, @Lokation)", connection);
                         SqlCommand command = sqlCommand;
                         command.Parameters.Add(CreateParam("@Personale", CPR, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Lokation", LokationId, SqlDbType.NVarChar));

@@ -35,6 +35,8 @@ namespace SygehusKoordinering.ViewModel
         {
            Personale me = personales.Login(Mail, Adgangskode, ArbejdeTlf);
 
+            MainViewModel.data.Add(me);
+
             if(me != null)
             {
                 //MainViewModel mainViewModel = new MainViewModel(me.CPR);
@@ -51,4 +53,27 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(".."/*, mainViewModel*/);
         }
     }
+
+    public class LoginData
+    {
+        private Personale data;
+
+        public void Add(Personale p) 
+        {
+        data = p;
+        }
+
+        public Personale Getpersonal()
+        {
+            return data;
+        }
+
+        public void AddLocation(string location)
+        {
+            data.Lokations.Add(location);
+        }
+
+
+    }
+
 }

@@ -131,7 +131,7 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPR.Length == 10 && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads.Length > 0 && data.Isolationspatient.Length > 0 && data.Inaktiv.Length > 0 && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
+            if (data.CPR.Length == 9 && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads.Length > 0 && data.Isolationspatient.Length > 0 && data.Inaktiv.Length > 0 && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
                 && data.Bestilt.Length > 0)
             {
                 string AfdelingId = AfdelingRepository.GetAfdeling(data.Afdeling);

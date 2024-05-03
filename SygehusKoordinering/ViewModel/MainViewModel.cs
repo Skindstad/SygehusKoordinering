@@ -18,17 +18,15 @@ namespace SygehusKoordinering.ViewModel
         public static LocationRepository locationRepository = [];
         public static BundleRepository bundleRepository = [];
 
-        public ICommand OkCommand { get; }
 
-        private string cpr;
+        public static LoginData data = new LoginData();
 
         public MainViewModel(/*string cpr*/)
         {
             //this.cpr = cpr;
-            //Login();
+            Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
-            OkCommand = new RelayCommand(ExecuteOkCommand);
             Search();
         }
 
@@ -49,15 +47,16 @@ namespace SygehusKoordinering.ViewModel
             LocalList = new ObservableCollection<Locations>(locationRepository);
 
         }
-
-        private void ExecuteOkCommand()
+        [RelayCommand]
+        private void ExecuteOk()
         {
             foreach (var location in LocalList)
             {
                 if (location.IsSelected)
                 {
                     // Call AddLocationsToPersonale method for selected location
-                    bundleRepository.AddLocationsToPersonale("CPR", location.Navn);
+                    data.AddLocation(location.Navn);
+                    bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
         }
