@@ -297,6 +297,7 @@ namespace SygehusKoordinering.DataAccess
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
                     {
+                        command.ExecuteNonQuery();
                         list.Remove(new Personale(CPR, "", "", "", "", "", "", new List<string>()));
                         OnChanged(DbOperation.DELETE, DbModeltype.Personale);
                         return;

@@ -22,9 +22,9 @@ namespace SygehusKoordinering.ViewModel
 
         private string cpr;
 
-        public MainViewModel(string cpr)
+        public MainViewModel(/*string cpr*/)
         {
-            this.cpr = cpr;
+            //this.cpr = cpr;
             //Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();

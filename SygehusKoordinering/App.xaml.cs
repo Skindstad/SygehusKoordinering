@@ -9,8 +9,6 @@ namespace SygehusKoordinering
             InitializeComponent();
 
             MainPage = new AppShell();
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
         }
     }
 }

@@ -66,11 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-<<<<<<< HEAD
-	  <MauiXaml Update="View\LoginView.xaml">
-=======
-	  <MauiXaml Update="View\OprettelseBookingView.xaml">
->>>>>>> Development
+		<MauiXaml Update="View\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

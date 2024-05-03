@@ -37,8 +37,8 @@ namespace SygehusKoordinering.ViewModel
 
             if(me != null)
             {
-                MainViewModel mainViewModel = new MainViewModel(me.CPR);
-                Main(mainViewModel);
+                //MainViewModel mainViewModel = new MainViewModel(me.CPR);
+                Main(/*mainViewModel*/);
             }
 
         }
@@ -46,9 +46,9 @@ namespace SygehusKoordinering.ViewModel
 
 
         
-        async Task Main(MainViewModel mainViewModel)
+        async Task Main(/*MainViewModel mainViewModel*/)
         {
-            await Shell.Current.GoToAsync("..", mainViewModel);
+            await Shell.Current.GoToAsync(".."/*, mainViewModel*/);
         }
     }
 }

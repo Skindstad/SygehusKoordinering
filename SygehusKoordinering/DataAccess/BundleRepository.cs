@@ -69,13 +69,13 @@ namespace SygehusKoordinering.DataAccess
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
                 SqlCommand sqlCommand = new("DELETE FROM PersonalePaaLokation" +
-                    " WHERE Personale = @CPR", connection);
+                    " WHERE Personal = @CPR", connection);
                 SqlCommand command = sqlCommand;
                 SqlParameter param = new("@CPR", SqlDbType.NVarChar);
                 param.Value = CPR;
                 command.Parameters.Add(param);
                 connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                command.ExecuteNonQuery();
             }
             catch
             {
@@ -136,7 +136,7 @@ namespace SygehusKoordinering.DataAccess
                 param.Value = Id;
                 command.Parameters.Add(param);
                 connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                command.ExecuteNonQuery();
             }
             catch
             {
@@ -197,7 +197,7 @@ namespace SygehusKoordinering.DataAccess
                 param.Value = Id;
                 command.Parameters.Add(param);
                 connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                command.ExecuteNonQuery();
             }
             catch
             {
