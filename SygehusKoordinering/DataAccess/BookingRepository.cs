@@ -28,7 +28,7 @@ namespace SygehusKoordinering.DataAccess
         {
             try
             {
-                SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Done " +
+                SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, Afdeling.Omkring, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Done " +
                     "From Booking JOIN Afdeling ON Booking.Afdeling = Afdeling.Id " +
                     "JOIN Prioritet ON Booking.Prioritet = Prioritet.Id " +
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
@@ -37,7 +37,7 @@ namespace SygehusKoordinering.DataAccess
                     "WHERE Booking.CPR = @PCPR OR Booking.Navn LIKE @PNavn OR t.Navn LIKE @PersonaleNavn ", connection);
                 SqlCommand command = sqlCommand;
                 //command.Parameters.Add(CreateParam("@KomNr", komNr + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@CPR", CPR, SqlDbType.Int));
+                command.Parameters.Add(CreateParam("@PCPR", CPR, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PNavn", PNavn + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavn + "%", SqlDbType.NVarChar));
                 connection.Open();
@@ -60,6 +60,7 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+
 
         public static List<string> GetProeve(string Id)
         {

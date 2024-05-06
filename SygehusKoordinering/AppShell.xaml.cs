@@ -9,6 +9,7 @@ namespace SygehusKoordinering
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+            Routing.RegisterRoute(nameof(OplysningView), typeof(OplysningView));
         }
     }
 }

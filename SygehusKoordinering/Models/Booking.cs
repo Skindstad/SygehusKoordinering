@@ -27,6 +27,7 @@ namespace SygehusKoordinering.Models
         public string CreatedAf { get; set; }
         public string TakedAf { get; set; }
         public string Done { get; set; }
+        public Color RowColor { get; set; }
 
         public Booking()
         {
@@ -50,10 +51,10 @@ namespace SygehusKoordinering.Models
             Done = "";
         }
 
-        public Booking(string id, string cPRNr, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
+        public Booking(string id, string cPR, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
         {
             Id = id;
-            CPR = cPRNr;
+            CPR = cPR;
             Navn = navn;
             Afdeling = afdeling;
             AfdelingDecription = afdelingDecription;
@@ -71,6 +72,7 @@ namespace SygehusKoordinering.Models
             TakedAf = takedAf;
             Done = done;
         }
+
 
         public override bool Equals(object obj)
         {

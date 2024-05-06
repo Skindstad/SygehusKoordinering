@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SygehusKoordinering.View.OplysningView"
+             xmlns:converters="clr-namespace:SygehusKoordinering.Converter"
+             Title="OplysningView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ListToStringConverter x:Key="ListToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+
+            <ListView Grid.Row="0" Margin="10" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="15" BackgroundColor="{Binding RowColor}" RowSpacing="6" ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Labels within the grid cells -->
+                                <Label Grid.Column="0" Text="Image"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="{Binding Afdeling}" />
+                                    <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
+                                    <Label Grid.Row="2" Text="{Binding Navn}" />
+                                </Grid>
+                                <Label Grid.Column="2" Text="{Binding BestiltTime}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

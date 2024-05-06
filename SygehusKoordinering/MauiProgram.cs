@@ -22,6 +22,9 @@ namespace SygehusKoordinering
             builder.Services.AddTransient<LoginView>();
             builder.Services.AddTransient<LoginViewModel>();
 
+            builder.Services.AddTransient<OplysningView>();
+            builder.Services.AddTransient<OplysningViewModel>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

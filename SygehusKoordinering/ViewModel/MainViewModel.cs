@@ -59,11 +59,19 @@ namespace SygehusKoordinering.ViewModel
                     bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
+            Oplysning();
         }
 
         async Task Login()
         {
             await Shell.Current.GoToAsync(nameof(LoginView));
         }
+
+        async Task Oplysning()
+        {
+            await Shell.Current.GoToAsync(nameof(OplysningView));
+        }
+
+
     }
 }
