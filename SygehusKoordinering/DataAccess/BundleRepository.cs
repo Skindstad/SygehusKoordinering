@@ -92,7 +92,7 @@ namespace SygehusKoordinering.DataAccess
             if (BookingId != string.Empty && ProeveNavn.Length > 0)
             {
                 string ProveId = ProeveRepository.GetProeveWithName(ProeveNavn);
-                if (ProveId == null)
+                if (ProveId != null)
                 {
                     try
                     {
@@ -153,7 +153,7 @@ namespace SygehusKoordinering.DataAccess
             if (BookingId != string.Empty && SaerligeForholdNavn.Length > 0)
             {
                 string SaerligeForholdId = SaerligeForholdRepository.GetSaerligeForholdWithName(SaerligeForholdNavn);
-                if (SaerligeForholdId == null)
+                if (SaerligeForholdId != null)
                 {
                     try
                     {
