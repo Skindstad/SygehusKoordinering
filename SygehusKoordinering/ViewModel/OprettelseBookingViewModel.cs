@@ -18,6 +18,8 @@ namespace SygehusKoordinering.ViewModel
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
+            LoadProeve();
+            LoadSaerligeForhold();
         }
 
         [ObservableProperty]
