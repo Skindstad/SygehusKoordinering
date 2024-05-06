@@ -20,9 +20,9 @@ namespace SygehusKoordinering.ViewModel
 
         public OprettelseBookingViewModel()
         {
-            //LoadAfdeling();
-            //LoadProeve();
-            //LoadSaerligeForhold();
+            LoadAfdeling();
+            LoadProeve();
+            LoadSaerligeForhold();
         }
 
         [ObservableProperty]
@@ -87,7 +87,7 @@ namespace SygehusKoordinering.ViewModel
                                           bestiltDato, bestilt, kommentar, createdAf, takedAf, done);
             bookingRepository.Add(booking);
         }
-        
+        */
         private void LoadProeve()
         {
             Proeve = proeveRepository.GetPoever();
@@ -102,6 +102,6 @@ namespace SygehusKoordinering.ViewModel
         {
             Afdeling = afdelingsRepository.GetAfdelinger();
         }
-        */
+        
     }
 }

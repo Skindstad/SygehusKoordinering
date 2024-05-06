@@ -3,18 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.OprettelseBookingView"
              Title="OprettelseBookingView">
-    <StackLayout Padding="20">
-        <!--<Entry Placeholder="ID" Text="{Binding id}" />-->
-        <Entry Placeholder="CPR" Text="{Binding Cpr}" />
-        <Entry Placeholder="Navn" Text="{Binding Navn}" />
-        <Picker Title="Vælg en afdeling" ItemsSource="{Binding Afdeling}" SelectedItem="{Binding SelectedAfdeling}"/>
-        <!-- You may replace Entry with Picker for selecting department -->
-        <Entry Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
-        <!-- Other entries or pickers for remaining properties -->
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <Button Text="Create" Command="{Binding CreateCommand}" />
+        <Entry Grid.Row="0" Placeholder="ID" Text="{Binding id}" />
+        <Entry Grid.Row="1" Placeholder="CPR" Text="{Binding cpr}" />
+        <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding navn}" />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Picker Grid.Column="0" Title="Vælg en afdeling" ItemsSource="{Binding Afdeling}" SelectedItem="{Binding selectedAfdeling}"/>
+            <Entry Grid.Column="1" Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
+        </Grid>
+
+        <!-- Not sure what to do with itemsource???? -->
+        <Picker Grid.Row="4" Title="Isolationpatient" SelectedItem="{Binding isolationpatient}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Picker Grid.Row="5" Title="Prøver" ItemsSource="{Binding Proeve}" SelectedItem="{Binding selectedProeve}"/>
+
+        <Button Grid.Row="8" Text="Create" Command="{Binding CreateCommand}" />
 
         <!-- Display any errors or validation messages -->
-        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
-    </StackLayout>
+        <Label Grid.Row="9" Text="{Binding ErrorMessage}" TextColor="Red" />
+    </Grid>
 </ContentPage>
