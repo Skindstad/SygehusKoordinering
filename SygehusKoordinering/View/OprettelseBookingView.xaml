@@ -44,7 +44,25 @@
                 </Picker.ItemsSource>
             </Picker>
 
-            <Picker Grid.Row="5" Title="Prøver" ItemsSource="{Binding Proeve}" SelectedItem="{Binding SelectedProeve}"/>
+            <ListView Grid.Row="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding ProeveList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Labels within the grid cells -->
+                                <Label Grid.Column="0" Text="{Binding Navn}" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Picker Grid.Row="6" Title="Særlige forhold" ItemsSource="{Binding SaerligeForhold}" SelectedItem="{Binding SelectedSaerligeForhold}"/>
             <Grid Grid.Row="7">
                 <Grid.ColumnDefinitions>

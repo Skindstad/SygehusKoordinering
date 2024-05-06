@@ -4,6 +4,7 @@ using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,10 +23,12 @@ namespace SygehusKoordinering.ViewModel
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
-            LoadProeve();
+            //LoadProeve();
             LoadSaerligeForhold();
             LoadPrioritet();
             LoadBestiltTime();
+            proeveList = new ObservableCollection<Proeve>(proeveRepository);
+            IsSelected = new ObservableCollection<Proeve>();
             bestiltTime = DateTime.Now.TimeOfDay;
             bestiltDato = DateTime.Now.Date;
         }
@@ -50,12 +53,19 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string isolationspatient;
-
+        /*
         [ObservableProperty]
         List<string> proeve;
 
         [ObservableProperty]
         string selectedProeve;
+        */
+
+        [ObservableProperty]
+        ObservableCollection<Proeve> proeveList;
+
+        [ObservableProperty]
+        ObservableCollection<Proeve> isSelected;
 
         [ObservableProperty]
         List<string> saerligeForhold;
@@ -89,7 +99,7 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string kommentar;
-        
+        /*
         [RelayCommand]
         void Create()
         {
@@ -103,7 +113,7 @@ namespace SygehusKoordinering.ViewModel
         {
             Proeve = proeveRepository.GetPoever();
         }
-
+        */
         private void LoadSaerligeForhold()
         {
             SaerligeForhold = saerligeForholdRepository.GetSaerligeForholds();
