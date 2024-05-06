@@ -23,9 +23,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Entry Grid.Row="0" Placeholder="ID" Text="{Binding id}" />
-            <Entry Grid.Row="1" Placeholder="CPR" Text="{Binding cpr}" />
-            <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding navn}" />
+            <Entry Grid.Row="0" Placeholder="ID" Text="{Binding Id}" />
+            <Entry Grid.Row="1" Placeholder="CPR" Text="{Binding Cpr}" />
+            <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding Navn}" />
 
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -33,12 +33,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Picker Grid.Column="0" Title="Vælg en afdeling" ItemsSource="{Binding Afdeling}" SelectedItem="{Binding selectedAfdeling}"/>
-                <Entry Grid.Column="1" Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
+                <Picker Grid.Column="0" Title="Vælg en afdeling" ItemsSource="{Binding Afdeling}" SelectedItem="{Binding SelectedAfdeling}"/>
+                <Entry Grid.Column="1" Placeholder="Stue eller Sengeplads" Text="{Binding StueEllerSengeplads}" />
             </Grid>
 
             <!-- Not sure what to do with itemsource???? -->
-            <Picker Grid.Row="4" Title="Isolationpatient" SelectedItem="{Binding isolationpatient}">
+            <Picker Grid.Row="4" Title="Isolationpatient" SelectedItem="{Binding Isolationpatient}">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Yes</x:String>
@@ -47,11 +47,21 @@
                 </Picker.ItemsSource>
             </Picker>
 
-            <Picker Grid.Row="5" Title="Prøver" ItemsSource="{Binding Proeve}" SelectedItem="{Binding selectedProeve}"/>
-            <Picker Grid.Row="6" Title="Særlige forhold" ItemsSource="{Binding SaerligeForhold}" SelectedItem="{Binding selectedSaerligeForhold}"/>
+            <Picker Grid.Row="5" Title="Prøver" ItemsSource="{Binding Proeve}" SelectedItem="{Binding SelectedProeve}"/>
+            <Picker Grid.Row="6" Title="Særlige forhold" ItemsSource="{Binding SaerligeForhold}" SelectedItem="{Binding SelectedSaerligeForhold}"/>
 
-            <Picker Grid.Row="8" Title="Prioritet" ItemsSource="{Binding Prioritet}" SelectedItem="{Binding selectedPrioritet}"/>
-            <Picker Grid.Row="9" Title="Bestilt tid" ItemsSource="{Binding BestiltTime}" SelectedItem="{Binding selectedBestiltTime}"/>
+            <Picker Grid.Row="8" Title="Prioritet" ItemsSource="{Binding Prioritet}" SelectedItem="{Binding SelectedPrioritet}"/>
+            <Grid Grid.Row="9">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TimePicker Grid.Column="0" Time="{Binding BestiltTime}" />
+                <DatePicker Grid.Column="1" Date="{Binding BestiltDato}" />
+            </Grid>
+            <Picker Grid.Row="10" Title="Bestilt tid" ItemsSource="{Binding Bestilt}" SelectedItem="{Binding SelectedBestilt}"/>
+            <Entry Grid.Row="11" Placeholder="Kommentar" Text="{Binding Kommentar}" />
 
             <Button Grid.Row="15" Text="Create" Command="{Binding CreateCommand}" />
 

@@ -25,6 +25,8 @@ namespace SygehusKoordinering.ViewModel
             LoadSaerligeForhold();
             LoadPrioritet();
             LoadBestiltTime();
+            bestiltTime = DateTime.Now.TimeOfDay;
+            bestiltDato = DateTime.Now.Date;
         }
 
         [ObservableProperty]
@@ -70,16 +72,16 @@ namespace SygehusKoordinering.ViewModel
         string selectedPrioritet;
 
         [ObservableProperty]
-        List<string> bestiltTime;
+        TimeSpan bestiltTime;
 
         [ObservableProperty]
-        string selectedBestiltTime;
+        DateTime bestiltDato;
 
         [ObservableProperty]
-        string bestiltDato;
+        List<string> bestilt;
 
         [ObservableProperty]
-        string bestilt;
+        string selectedBestilt;
 
         [ObservableProperty]
         string createdAf;
@@ -91,7 +93,7 @@ namespace SygehusKoordinering.ViewModel
         void Create()
         {
             Booking booking = new Booking(id, cpr, selectedAfdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
-                                          selectedProeve, selectedSaerligeForhold, inaktiv, prioritet, bestiltTime,
+                                          selectedProeve, selectedSaerligeForhold, inaktiv, selectedPrioritet, SelectedBestiltTime,
                                           bestiltDato, bestilt, kommentar, createdAf, takedAf, done);
             bookingRepository.Add(booking);
         }
@@ -118,7 +120,7 @@ namespace SygehusKoordinering.ViewModel
 
         private void LoadBestiltTime()
         {
-            BestiltTime = bestiltRepository.GetBestilts();
+            Bestilt = bestiltRepository.GetBestilts();
         }
     }
 }
