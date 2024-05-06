@@ -12,7 +12,10 @@ namespace SygehusKoordinering.ViewModel
 {
     public partial class OprettelseBookingViewModel : ObservableObject
     {
-        public static BookingRepository bookingRepository = [];
+        public static BestiltRepository bestiltRepository = [];
+        public static PrioritetRepository prioritetRepository = [];
+        public static ProeveRepository proeveRepository = [];
+        public static SaerligeForholdRepository saerligeForholdRepository = [];
         public static AfdelingRepository afdelingsRepository = [];
 
         public OprettelseBookingViewModel()
@@ -87,17 +90,17 @@ namespace SygehusKoordinering.ViewModel
         */
         private void LoadProeve()
         {
-            proeve = bookingRepository.GetProeve();
+            Proeve = proeveRepository.GetPoever();
         }
 
         private void LoadSaerligeForhold()
         {
-            saerligeForhold = bookingRepository.GetSaerligeForhold();
+            SaerligeForhold = saerligeForholdRepository.GetSaerligeForholds();
         }
         
         private void LoadAfdeling()
         {
-            afdeling = afdelingsRepository.GetAfdeling();
+            Afdeling = afdelingsRepository.GetAfdelinger();
         }
     }
 }

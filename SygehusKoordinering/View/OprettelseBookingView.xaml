@@ -4,10 +4,10 @@
              x:Class="SygehusKoordinering.View.OprettelseBookingView"
              Title="OprettelseBookingView">
     <StackLayout Padding="20">
-        <Entry Placeholder="ID" Text="{Binding id}" />
-        <Entry Placeholder="CPR" Text="{Binding cpr}" />
-        <Entry Placeholder="Navn" Text="{Binding navn}" />
-        <Picker Title="Vælg en afdeling" ItemsSource="{Binding afdeling}" SelectedItem="{Binding selectedAfdeling}"/>
+        <!--<Entry Placeholder="ID" Text="{Binding id}" />-->
+        <Entry Placeholder="CPR" Text="{Binding Cpr}" />
+        <Entry Placeholder="Navn" Text="{Binding Navn}" />
+        <Picker Title="Vælg en afdeling" ItemsSource="{Binding Afdeling}" SelectedItem="{Binding SelectedAfdeling}"/>
         <!-- You may replace Entry with Picker for selecting department -->
         <Entry Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
         <!-- Other entries or pickers for remaining properties -->

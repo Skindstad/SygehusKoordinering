@@ -49,6 +49,35 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+
+        public List<string> GetBestilts()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                SqlCommand sqlCommand = new("Select Navn From Bestilt", connection);
+                SqlCommand command = sqlCommand;
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                list.Clear();
+                while (reader.Read())
+                {
+                    list.Add(reader[0].ToString());
+                }
+                return list;
+                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Location repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
+
         public static string GetBestiltWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -115,6 +144,34 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+        public List<string> GetPrioritets()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                SqlCommand sqlCommand = new("Select Navn From Prioritet", connection);
+                SqlCommand command = sqlCommand;
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                list.Clear();
+                while (reader.Read())
+                {
+                    list.Add(reader[0].ToString());
+                }
+                return list;
+                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Location repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
+
         public static string GetPrioritetWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -180,6 +237,35 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+
+        public List<string> GetPoever()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                SqlCommand sqlCommand = new("Select Navn From Proeve", connection);
+                SqlCommand command = sqlCommand;
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                list.Clear();
+                while (reader.Read())
+                {
+                    list.Add(reader[0].ToString());
+                }
+                return list;
+                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Location repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
+
         public static string GetProeveWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -245,6 +331,34 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+
+        public List<string> GetSaerligeForholds()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                SqlCommand sqlCommand = new("Select Navn From SaerligeForhold", connection);
+                SqlCommand command = sqlCommand;
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                list.Clear();
+                while (reader.Read())
+                {
+                    list.Add(reader[0].ToString());
+                }
+                return list;
+                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Location repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
         public static string GetSaerligeForholdWithName(string Navn)
         {
             SqlConnection connection = null;

@@ -120,6 +120,33 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
+        public List<string> GetAfdelinger()
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                SqlCommand sqlCommand = new("Select Navn From Afdeling", connection);
+                SqlCommand command = sqlCommand;
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                list.Clear();
+                while (reader.Read())
+                {
+                    list.Add(reader[0].ToString());
+                }
+                return list;
+                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
+            }
+            catch (Exception ex)
+            {
+                throw new DbException("Error in Location repositiory: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+        }
+
         public static string GetAfdeling(string Navn)
         {
             SqlConnection connection = null;
