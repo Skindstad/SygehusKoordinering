@@ -23,6 +23,8 @@ namespace SygehusKoordinering.ViewModel
             LoadAfdeling();
             LoadProeve();
             LoadSaerligeForhold();
+            LoadPrioritet();
+            LoadBestiltTime();
         }
 
         [ObservableProperty]
@@ -62,10 +64,16 @@ namespace SygehusKoordinering.ViewModel
         string inaktiv;
 
         [ObservableProperty]
-        string prioritet;
+        List<string> prioritet;
 
         [ObservableProperty]
-        string bestiltTime;
+        string selectedPrioritet;
+
+        [ObservableProperty]
+        List<string> bestiltTime;
+
+        [ObservableProperty]
+        string selectedBestiltTime;
 
         [ObservableProperty]
         string bestiltDato;
@@ -108,5 +116,9 @@ namespace SygehusKoordinering.ViewModel
             Prioritet = prioritetRepository.GetPrioritets();
         }
 
+        private void LoadBestiltTime()
+        {
+            BestiltTime = bestiltRepository.GetBestilts();
+        }
     }
 }
