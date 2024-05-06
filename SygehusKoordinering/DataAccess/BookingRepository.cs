@@ -24,22 +24,24 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public void Search(string CPR, string PNavn, string PersonaleNavn)
+        public void Search(string CPR, string PNavn, string PersonaleNavn, string Lokation)
         {
             try
             {
+                string LokationId = LocationRepository.GetLokation(Lokation);
                 SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, Afdeling.Omkring, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Done " +
                     "From Booking JOIN Afdeling ON Booking.Afdeling = Afdeling.Id " +
                     "JOIN Prioritet ON Booking.Prioritet = Prioritet.Id " +
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    "WHERE Booking.CPR = @PCPR OR Booking.Navn LIKE @PNavn OR t.Navn LIKE @PersonaleNavn ", connection);
+                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn AND Afdeling.Lokation = @Lokation ", connection);
                 SqlCommand command = sqlCommand;
-                //command.Parameters.Add(CreateParam("@KomNr", komNr + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PCPR", CPR, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PNavn", PNavn + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavn + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@Lokation", LokationId, SqlDbType.NVarChar));
+                //command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavn + "%", SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 list.Clear();

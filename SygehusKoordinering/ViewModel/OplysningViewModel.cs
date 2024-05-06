@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,9 @@ namespace SygehusKoordinering.ViewModel
     {
         public static BookingRepository bookingRepository = [];
 
-
         public OplysningViewModel()
         {
+            
             Find();
         }
 
@@ -44,7 +45,7 @@ namespace SygehusKoordinering.ViewModel
         void Find()
         {
             
-            bookingRepository.Search("", "", "");
+            bookingRepository.Search("", "", "", MainViewModel.data.Getpersonal().Lokations[0]);
 
             foreach (var booking in bookingRepository)
             {

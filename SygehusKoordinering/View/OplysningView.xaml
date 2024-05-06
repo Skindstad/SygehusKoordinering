@@ -10,46 +10,37 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+        <ListView Grid.Row="0" Margin="10" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="15" BackgroundColor="{Binding RowColor}"  RowSpacing="6"  ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
 
-
-            <ListView Grid.Row="0" Margin="10" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="15" BackgroundColor="{Binding RowColor}" RowSpacing="6" ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Labels within the grid cells -->
-                                <Label Grid.Column="0" Text="Image"/>
-                                <Grid Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="{Binding Afdeling}" />
-                                    <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
-                                    <Label Grid.Row="2" Text="{Binding Navn}" />
-                                </Grid>
-                                <Label Grid.Column="2" Text="{Binding BestiltTime}" />
+                            <!-- Labels within the grid cells -->
+                            <Label Grid.Column="0" Text="Image"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="{Binding Afdeling}" />
+                                <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
+                                <Label Grid.Row="2" Text="{Binding Navn}" />
                             </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                            <Label Grid.Column="2" Text="{Binding BestiltTime}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>
