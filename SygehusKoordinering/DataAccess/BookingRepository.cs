@@ -24,7 +24,7 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public void Search(string CPR, string PNavn, string PersonaleNavn, string Lokation)
+        public List<Booking> Search(string CPR, string PNavn, string PersonaleNavn, string Lokation)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SygehusKoordinering.DataAccess
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn AND Afdeling.Lokation = @Lokation ", connection);
+                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn OR Afdeling.Lokation = @Lokation ", connection);
                 SqlCommand command = sqlCommand;
                 command.Parameters.Add(CreateParam("@PCPR", CPR, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PNavn", PNavn + "%", SqlDbType.NVarChar));
@@ -50,7 +50,7 @@ namespace SygehusKoordinering.DataAccess
                     list.Add(new Booking(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), GetProeve(reader[0].ToString()), GetSaerligeForhold(reader[0].ToString()), reader[7].ToString(),
                         reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString()));
                 }
-
+                return list;
                 OnChanged(DbOperation.SELECT, DbModeltype.Booking);
             }
             catch (Exception ex)

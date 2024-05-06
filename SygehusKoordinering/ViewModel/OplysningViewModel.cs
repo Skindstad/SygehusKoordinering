@@ -14,7 +14,7 @@ namespace SygehusKoordinering.ViewModel
 {
     public partial class OplysningViewModel : ObservableObject
     {
-        public static BookingRepository bookingRepository = [];
+        public static BookingRepository bookingRepository = new BookingRepository();
 
         public OplysningViewModel()
         {
@@ -42,37 +42,41 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string rowColor;
 
+        
         void Find()
         {
-            
-            bookingRepository.Search("", "", "", MainViewModel.data.Getpersonal().Lokations[0]);
+            LocalList = new ObservableCollection<Booking>();
 
-            foreach (var booking in bookingRepository)
+            foreach (var data in MainViewModel.data.Getpersonal().Lokations)
             {
-                switch (booking.Prioritet)
+                var bookings = bookingRepository.Search("", "", "", data);
+
+                foreach (var booking in bookings)
                 {
-                    case "Normal":
-                        booking.RowColor = Colors.Blue;
-                        break;
-                    case "Haster":
-                        booking.RowColor = Colors.Orange;
-                        break;
-                    case "Livstruende":
-                        booking.RowColor = Colors.Red;
-                        break;
-                    default:
-                        booking.RowColor = Colors.Transparent;
-                        break;
+                    switch (booking.Prioritet)
+                    {
+                        case "Normal":
+                            booking.RowColor = Colors.Blue;
+                            break;
+                        case "Haster":
+                            booking.RowColor = Colors.Orange;
+                            break;
+                        case "Livstruende":
+                            booking.RowColor = Colors.Red;
+                            break;
+                        default:
+                            booking.RowColor = Colors.Transparent;
+                            break;
+                    }
+
+                    DateTime time = DateTime.Parse(booking.BestiltTime);
+                    string formattedTime = time.ToString("HH:mm");
+                    booking.BestiltTime = formattedTime;
+                    booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
+
+                    LocalList.Add(booking);
                 }
-                DateTime time = DateTime.Parse(booking.BestiltTime);
-                string formattedTime = time.ToString("HH:mm");
-                booking.BestiltTime = formattedTime;
-                booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
             }
-            LocalList = new ObservableCollection<Booking>(bookingRepository);
-
-
-            
         }
 
 
