@@ -7,7 +7,7 @@
         <Entry Placeholder="ID" Text="{Binding id}" />
         <Entry Placeholder="CPR" Text="{Binding cpr}" />
         <Entry Placeholder="Navn" Text="{Binding navn}" />
-        <Entry Placeholder="Afdeling" Text="{Binding afdeling}" />
+        <Picker Title="Vælg en afdeling" ItemsSource="{Binding afdeling}" SelectedItem="{Binding selectedAfdeling}"/>
         <!-- You may replace Entry with Picker for selecting department -->
         <Entry Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
         <!-- Other entries or pickers for remaining properties -->

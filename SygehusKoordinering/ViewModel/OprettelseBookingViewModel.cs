@@ -13,10 +13,11 @@ namespace SygehusKoordinering.ViewModel
     public partial class OprettelseBookingViewModel : ObservableObject
     {
         public static BookingRepository bookingRepository = [];
+        public static AfdelingRepository afdelingsRepository = [];
 
         public OprettelseBookingViewModel()
         {
-
+            LoadAfdeling();
         }
 
         [ObservableProperty]
@@ -27,12 +28,12 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string navn;
-        /*
+        
         [ObservableProperty]
         List<string> afdeling;
-        */
+        
         [ObservableProperty]
-        string afdeling;
+        string selectedAfdeling;
 
         [ObservableProperty]
         string stueEllerSengeplads;
@@ -76,12 +77,12 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         void Create()
         {
-            Booking booking = new Booking(id, cpr, afdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
+            Booking booking = new Booking(id, cpr, selectedAfdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
                                           selectedProeve, selectedSaerligeForhold, inaktiv, prioritet, bestiltTime,
                                           bestiltDato, bestilt, kommentar, createdAf, takedAf, done);
             bookingRepository.Add(booking);
         }
-
+        */
         private void LoadProeve()
         {
             proeve = bookingRepository.GetProeve();
@@ -91,6 +92,10 @@ namespace SygehusKoordinering.ViewModel
         {
             saerligeForhold = bookingRepository.GetSaerligeForhold();
         }
-        */
+        
+        private void LoadAfdeling()
+        {
+            afdeling = afdelingsRepository.GetAfdeling();
+        }
     }
 }

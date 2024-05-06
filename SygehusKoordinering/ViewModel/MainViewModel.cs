@@ -25,7 +25,7 @@ namespace SygehusKoordinering.ViewModel
         {
             //this.cpr = cpr;
             Oprettelse();
-            Login();
+            //Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
             Search();
