@@ -17,6 +17,7 @@ namespace SygehusKoordinering.ViewModel
         public static ProeveRepository proeveRepository = [];
         public static SaerligeForholdRepository saerligeForholdRepository = [];
         public static AfdelingRepository afdelingsRepository = [];
+        public static BookingRepository bookingRepository = [];
 
         public OprettelseBookingViewModel()
         {
@@ -88,16 +89,16 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string kommentar;
-        /*
+        
         [RelayCommand]
         void Create()
         {
             Booking booking = new Booking(id, cpr, selectedAfdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
-                                          selectedProeve, selectedSaerligeForhold, inaktiv, selectedPrioritet, SelectedBestiltTime,
-                                          bestiltDato, bestilt, kommentar, createdAf, takedAf, done);
+                                          selectedProeve, selectedSaerligeForhold, inaktiv, selectedPrioritet, bestiltTime,
+                                          bestiltDato, selectedBestilt, kommentar, createdAf, takedAf, done);
             bookingRepository.Add(booking);
         }
-        */
+        
         private void LoadProeve()
         {
             Proeve = proeveRepository.GetPoever();
