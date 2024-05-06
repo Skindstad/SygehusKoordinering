@@ -3,10 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.OprettelseBookingView"
              Title="OprettelseBookingView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <StackLayout Padding="20">
+        <Entry Placeholder="ID" Text="{Binding id}" />
+        <Entry Placeholder="CPR" Text="{Binding cpr}" />
+        <Entry Placeholder="Navn" Text="{Binding navn}" />
+        <Entry Placeholder="Afdeling" Text="{Binding afdeling}" />
+        <!-- You may replace Entry with Picker for selecting department -->
+        <Entry Placeholder="Stue eller Sengeplads" Text="{Binding stueEllerSengeplads}" />
+        <!-- Other entries or pickers for remaining properties -->
+
+        <Button Text="Create" Command="{Binding CreateCommand}" />
+
+        <!-- Display any errors or validation messages -->
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
+    </StackLayout>
 </ContentPage>
