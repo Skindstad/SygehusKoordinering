@@ -102,6 +102,11 @@ namespace SygehusKoordinering.ViewModel
         {
             Afdeling = afdelingsRepository.GetAfdelinger();
         }
-        
+
+        private void LoadPrioritet()
+        {
+            Prioritet = prioritetRepository.GetPrioritets();
+        }
+
     }
 }
