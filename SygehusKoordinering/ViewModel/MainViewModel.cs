@@ -24,7 +24,8 @@ namespace SygehusKoordinering.ViewModel
         public MainViewModel(/*string cpr*/)
         {
             //this.cpr = cpr;
-            Login();
+            Oprettelse();
+            //Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
             Search();
@@ -72,6 +73,10 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(OplysningView));
         }
 
+        async Task Oprettelse()
+        {
+            await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
+        }
 
 
     }
