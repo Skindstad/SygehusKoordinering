@@ -152,11 +152,16 @@ insert into Personale(Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, Priva
 
 insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011112', 'Lasse Q', 1, 'Stue', 1, '13:30:00', '2024-05-01', 1, '0101011111');
 insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011113', 'Oliver L', 1, 'Stue', 1, '14:30:00', '2024-05-01', 1, '0101011111');
+insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011114', 'Jimmy Z', 1, 'Stue', 2, '14:30:00', '2024-05-01', 1, '0101011111');
+insert into Booking(CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) values ('0101011114', 'Lion B', 1, 'Stue', 3, '14:30:00', '2024-05-01', 1, '0101011111');
 
 
 insert into BookedForProeve(Proeve, Booked) values(1, 1);
 insert into BookedForProeve(Proeve, Booked) values(2, 1);
 insert into BookedForProeve(Proeve, Booked) values(1, 2);
+insert into BookedForProeve(Proeve, Booked) values(1, 3);
+insert into BookedForProeve(Proeve, Booked) values(3, 4);
+insert into BookedForProeve(Proeve, Booked) values(4, 4);
 
 insert into BookedForSaerligeForhold(SaerligeForhold, Booked) values (1, 1);
 insert into BookedForSaerligeForhold(SaerligeForhold, Booked) values (1, 2);

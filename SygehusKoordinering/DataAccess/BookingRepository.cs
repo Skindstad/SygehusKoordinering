@@ -24,7 +24,7 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public List<Booking> Search(string CPR, string PNavn, string PersonaleNavn, string Lokation)
+        public List<Booking> Search(string CPR, string PNavn, string PersonaleNavnCreated, string Lokation, string PersonaleCPRTaken)
         {
             try
             {
@@ -35,13 +35,13 @@ namespace SygehusKoordinering.DataAccess
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn OR Afdeling.Lokation = @Lokation ", connection);
+                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn OR Afdeling.Lokation = @Lokation AND t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL ", connection);
                 SqlCommand command = sqlCommand;
                 command.Parameters.Add(CreateParam("@PCPR", CPR, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PNavn", PNavn + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavn + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavnCreated + "%", SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@Lokation", LokationId, SqlDbType.NVarChar));
-                //command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavn + "%", SqlDbType.NVarChar));
+                command.Parameters.Add(CreateParam("@PersonaleCPRTaken", PersonaleCPRTaken , SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 list.Clear();
