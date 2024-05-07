@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.OplysningView"
-             xmlns:converters="clr-namespace:SygehusKoordinering.Converter"
-             Title="OplysningView">
+             xmlns:converters="clr-namespace:SygehusKoordinering.Converter">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ListToStringConverter x:Key="ListToStringConverter" />
@@ -14,7 +13,7 @@
             <ListView.ItemTemplate >
                 <DataTemplate >
                     <ViewCell>
-                        <Grid Padding="15" BackgroundColor="{Binding RowColor}"  RowSpacing="6"  ColumnSpacing="6">
+                        <Grid Padding="10" BackgroundColor="{Binding RowColor}" Margin="0,0,0,12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
