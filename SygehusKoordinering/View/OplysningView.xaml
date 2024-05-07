@@ -10,7 +10,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <ListView Grid.Row="0" Margin="10" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}">
+        <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemSelected="ItemList_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -42,5 +42,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Label x:Name="ClickCheck" Text="{Binding Click}"/>
+        
     </VerticalStackLayout>
 </ContentPage>

@@ -73,5 +73,6 @@ namespace SygehusKoordinering.ViewModel
         }
 
 
+
     }
 }

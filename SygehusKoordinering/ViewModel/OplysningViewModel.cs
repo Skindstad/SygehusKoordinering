@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using System;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -18,9 +20,20 @@ namespace SygehusKoordinering.ViewModel
 
         public OplysningViewModel()
         {
-            
             Find();
+            if(ObjectSelected != null)
+            {
+                MoreOplysning();
+            }
         }
+
+        async Task MoreOplysning()
+        {
+            Click = "Click";
+        }
+
+        [ObservableProperty]
+        object objectSelected;
 
         [ObservableProperty]
         ObservableCollection<Booking> localList;
@@ -42,7 +55,9 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string rowColor;
 
-        
+        [ObservableProperty]
+        string click;
+
         void Find()
         {
             LocalList = new ObservableCollection<Booking>();
