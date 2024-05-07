@@ -12,16 +12,24 @@ namespace SygehusKoordinering.Models
         public string Id { get; set; }
         public string Navn { get; set; }
 
+        private bool isSelectedSaerlig;
+        public bool IsSelectedSaerlig
+        {
+            get { return isSelectedSaerlig; }
+            set { isSelectedSaerlig = value; }
+        }
         public SaerligeForhold()
         {
             Id = "";
             Navn = "";
+            IsSelectedSaerlig = false;
         }
 
         public SaerligeForhold(string id, string navn)
         {
             Id = id;
             Navn = navn;
+            IsSelectedSaerlig = false;
         }
 
         public override bool Equals(object obj)
