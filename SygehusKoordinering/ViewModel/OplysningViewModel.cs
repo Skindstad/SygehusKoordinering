@@ -56,6 +56,8 @@ namespace SygehusKoordinering.ViewModel
 
                 foreach (var booking in bookings)
                 {
+
+                    // Prioritet
                     switch (booking.Prioritet)
                     {
                         case "Normal":
@@ -72,9 +74,35 @@ namespace SygehusKoordinering.ViewModel
                             break;
                     }
 
+                    // Time and Date
                     DateTime time = DateTime.Parse(booking.BestiltTime);
                     string formattedTime = time.ToString("HH:mm");
-                    booking.BestiltTime = formattedTime;
+                    string formatEstra;
+                    DateTime estra;
+                    if(booking.Bestilt == "Til Bestilt tid")
+                    {
+                        booking.BestiltTime = formattedTime;
+                    }
+                    if (booking.Bestilt == "Inden for 1 time")
+                    {
+                        estra = time.AddHours(1);
+                        formatEstra = estra.ToString("HH:mm");
+                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                    }
+                    if (booking.Bestilt == "Inden for 2 time")
+                    {
+                        estra = time.AddHours(2);
+                        formatEstra = estra.ToString("HH:mm");
+                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                    }
+                    if (booking.Bestilt == "Inden for 3 time")
+                    {
+                        estra = time.AddHours(3);
+                        formatEstra = estra.ToString("HH:mm");
+                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                    }
+
+                    // Afdeling og Location
                     booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
 
                     LocalList.Add(booking);

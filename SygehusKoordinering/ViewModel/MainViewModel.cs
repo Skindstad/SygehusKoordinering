@@ -21,11 +21,10 @@ namespace SygehusKoordinering.ViewModel
 
         public static LoginData data = new LoginData();
 
-        public MainViewModel(/*string cpr*/)
+        public MainViewModel()
         {
-            //this.cpr = cpr;
-            Oprettelse();
-            //Login();
+            //Oprettelse();
+            Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
             Search();
