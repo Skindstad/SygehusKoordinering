@@ -2,15 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -21,19 +13,15 @@ namespace SygehusKoordinering.ViewModel
         public OplysningViewModel()
         {
             Find();
-            if(ObjectSelected != null)
-            {
-                MoreOplysning();
-            }
         }
 
-        async Task MoreOplysning()
+        int count = 0;
+        public void ItemTapped()
         {
-            Click = "Click";
+            ++count;
+            Click = "Click" + count;
         }
 
-        [ObservableProperty]
-        object objectSelected;
 
         [ObservableProperty]
         ObservableCollection<Booking> localList;
@@ -93,10 +81,6 @@ namespace SygehusKoordinering.ViewModel
                 }
             }
         }
-
-
-
-
     }
 
 }

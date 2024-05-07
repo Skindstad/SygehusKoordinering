@@ -10,9 +10,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <VerticalStackLayout>
-        <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemSelected="ItemList_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
+        <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemTapped="ItemList_ItemTapped">
+            <ListView.ItemTemplate >
+                <DataTemplate >
                     <ViewCell>
                         <Grid Padding="15" BackgroundColor="{Binding RowColor}"  RowSpacing="6"  ColumnSpacing="6">
                             <Grid.ColumnDefinitions>
