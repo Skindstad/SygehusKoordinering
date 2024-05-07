@@ -23,11 +23,11 @@ namespace SygehusKoordinering.ViewModel
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
-            //LoadProeve();
+            LoadProeve();
             LoadSaerligeForhold();
             LoadPrioritet();
             LoadBestiltTime();
-            proeveList = new ObservableCollection<Proeve>(proeveRepository);
+            //ProeveList = new ObservableCollection<Proeve>(proeveRepository);
             IsSelected = new ObservableCollection<Proeve>();
             bestiltTime = DateTime.Now.TimeOfDay;
             bestiltDato = DateTime.Now.Date;
@@ -40,7 +40,7 @@ namespace SygehusKoordinering.ViewModel
         string cpr;
 
         [ObservableProperty]
-        string navn;
+        string name;
         
         [ObservableProperty]
         List<string> afdeling;
@@ -66,6 +66,9 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         ObservableCollection<Proeve> isSelected;
+
+        [ObservableProperty]
+        string navn;
 
         [ObservableProperty]
         List<string> saerligeForhold;
@@ -108,12 +111,13 @@ namespace SygehusKoordinering.ViewModel
                                           bestiltDato, selectedBestilt, kommentar, createdAf, takedAf, done);
             bookingRepository.Add(booking);
         }
-        
+        */
         private void LoadProeve()
         {
-            Proeve = proeveRepository.GetPoever();
+            proeveRepository.Search("");
+            ProeveList = new ObservableCollection<Proeve>(proeveRepository);
         }
-        */
+        
         private void LoadSaerligeForhold()
         {
             SaerligeForhold = saerligeForholdRepository.GetSaerligeForholds();

@@ -22,7 +22,7 @@
 
             <Entry Grid.Row="0" Placeholder="ID" Text="{Binding Id}" />
             <Entry Grid.Row="1" Placeholder="CPR" Text="{Binding Cpr}" />
-            <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding Navn}" />
+            <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding Name}" />
 
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
