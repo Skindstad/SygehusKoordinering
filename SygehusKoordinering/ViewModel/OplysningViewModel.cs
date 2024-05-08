@@ -84,21 +84,21 @@ namespace SygehusKoordinering.ViewModel
                     }
                     if (booking.Bestilt == "Inden for 1 time")
                     {
-                        estra = time.AddHours(1);
+                        estra = time.AddHours(-1);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
                     if (booking.Bestilt == "Inden for 2 time")
                     {
-                        estra = time.AddHours(2);
+                        estra = time.AddHours(-2);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
                     if (booking.Bestilt == "Inden for 3 time")
                     {
-                        estra = time.AddHours(3);
+                        estra = time.AddHours(-3);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
 
                     // Afdeling og Location

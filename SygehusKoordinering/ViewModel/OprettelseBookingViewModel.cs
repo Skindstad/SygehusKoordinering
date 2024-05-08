@@ -127,7 +127,39 @@ namespace SygehusKoordinering.ViewModel
                 }
             }
 
-            string formateTime = bestiltTime.ToString(@"hh\:mm");
+            if(inaktiv != "1")
+            {
+                inaktiv = "0";
+            }
+
+
+            string formateTime = null;
+            TimeSpan estra;
+            TimeSpan time;
+            if (selectedBestilt == "Til Bestilt tid")
+            {
+                formateTime = bestiltTime.ToString(@"hh\:mm");
+            }
+            if (selectedBestilt == "Inden for 1 time")
+            {
+                estra = TimeSpan.FromHours(1);
+                time =  bestiltTime.Add(estra);
+                formateTime = time.ToString(@"hh\:mm");
+            }
+            if (selectedBestilt == "Inden for 2 time")
+            {
+                estra = TimeSpan.FromHours(2);
+                time = bestiltTime.Add(estra);
+                formateTime = time.ToString(@"hh\:mm");
+            }
+            if (selectedBestilt == "Inden for 3 time")
+            {
+                estra = TimeSpan.FromHours(3);
+                time = bestiltTime.Add(estra);
+                formateTime = time.ToString(@"hh\:mm");
+            }
+
+
             string formateDate = bestiltDato.ToString("yyyy-MM-dd");
 
 

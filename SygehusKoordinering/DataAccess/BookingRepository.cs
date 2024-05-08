@@ -73,6 +73,8 @@ namespace SygehusKoordinering.DataAccess
         }
 
 
+
+
         public static List<string> GetProeve(string Id)
         {
             SqlConnection connection = null;
