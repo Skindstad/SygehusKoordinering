@@ -19,7 +19,7 @@ namespace SygehusKoordinering.ViewModel
         public static SaerligeForholdRepository saerligeForholdRepository = [];
         public static AfdelingRepository afdelingsRepository = [];
         public static BookingRepository bookingRepository = [];
-
+        public static LoginData data = new LoginData();
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
@@ -32,6 +32,7 @@ namespace SygehusKoordinering.ViewModel
             IsSelectedSaerlig = new ObservableCollection<SaerligeForhold>();
             bestiltTime = DateTime.Now.TimeOfDay;
             bestiltDato = DateTime.Now.Date;
+            SelectedBestilt = bestilt[0];
         }
 
         [ObservableProperty]
@@ -103,11 +104,10 @@ namespace SygehusKoordinering.ViewModel
         string selectedBestilt;
 
         [ObservableProperty]
-        string createdAf;
-
-        [ObservableProperty]
         string kommentar;
-        
+
+        string createdAf = data.Getpersonal().CPR;
+
         [RelayCommand]
         void Create()
         {
@@ -125,12 +125,12 @@ namespace SygehusKoordinering.ViewModel
                     saerligeForhold.Add(Saerlig.Navn);
                 }
             }
-            /*
-            Booking booking = new Booking(id, cpr, selectedAfdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
-                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime,
-                                          bestiltDato, selectedBestilt, kommentar, createdAf, takedAf, done);
+            
+            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, isolationspatient, 
+                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime.ToString(),
+                                          bestiltDato.ToString(), selectedBestilt, kommentar, createdAf, "", "");
             bookingRepository.Add(booking);
-            */
+            
         }
         
         private void LoadProeve()
