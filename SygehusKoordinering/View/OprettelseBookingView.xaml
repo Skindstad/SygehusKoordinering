@@ -37,14 +37,19 @@
             </Grid>
 
             <!-- Not sure what to do with itemsource???? -->
-            <Picker Grid.Row="3" Title="Isolationpatient" SelectedItem="{Binding Isolationpatient}">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Yes</x:String>
-                        <x:String>No</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Isolationspatient" />
+
+                <StackLayout Grid.Column="1" Orientation="Horizontal">
+                    <RadioButton Content="Yes" Value="Yes" GroupName="IsolationStatus" />
+                    <RadioButton Content="No" Value="No" GroupName="IsolationStatus" />
+                </StackLayout>
+            </Grid>
             <Label Grid.Row="4" Text="Prøver:" FontSize="20"/>
             <ListView Grid.Row="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding ProeveList}">
                 <ListView.ItemTemplate>
