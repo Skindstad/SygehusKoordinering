@@ -134,7 +134,7 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPR.Length == 9 && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads.Length > 0 && data.Isolationspatient.Length > 0 && data.Inaktiv.Length > 0 && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
+            if (data.CPR != string.Empty && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads != string.Empty  && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
                 && data.Bestilt.Length > 0)
             {
                 string AfdelingId = AfdelingRepository.GetAfdeling(data.Afdeling);
@@ -142,16 +142,19 @@ namespace SygehusKoordinering.DataAccess
                 string BestiltId = BestiltRepository.GetBestiltWithName(data.Bestilt);
                     try
                     {
-                        SqlCommand sqlCommand = new("INSERT INTO Booking (CPR, Navn, Afdeling, StueEllerSengeplads, Prioritet, BestiltTime, BestiltDato, Bestilt, CreatedAf) VALUES (@CPR, @Navn, @Afdeling, @StueEllerSengeplads,@Prioritet,@BestiltTime, @BestiltDato, @Bestilt, @CreatedAf)", connection);
+                        SqlCommand sqlCommand = new("INSERT INTO Booking (CPR, Navn, Afdeling, StueEllerSengeplads,Isolationspatient, Inaktiv,  Prioritet, BestiltTime, BestiltDato, Bestilt, Kommentar, CreatedAf) VALUES (@CPR, @Navn, @Afdeling, @StueEllerSengeplads,@Isolationspatient, @Inaktiv, @Prioritet,@BestiltTime, @BestiltDato, @Bestilt, @Kommentar, @CreatedAf)", connection);
                         SqlCommand command = sqlCommand;
                         command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Navn", data.Navn, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Afdeling", AfdelingId, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@StueEllerSengeplads", data.StueEllerSengeplads, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Isolationspatient", data.Isolationspatient, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Inaktiv", data.Inaktiv, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Prioritet", PrioritetId, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@BestiltTime", data.BestiltTime, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@BestiltDato", data.BestiltDato, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Bestilt", BestiltId, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Kommentar", data.Kommentar, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@CreatedAf", data.CreatedAf, SqlDbType.NVarChar));
                     connection.Open();
                         if (command.ExecuteNonQuery() == 1)

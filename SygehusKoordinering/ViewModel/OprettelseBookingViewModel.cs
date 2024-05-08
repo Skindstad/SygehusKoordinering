@@ -19,7 +19,6 @@ namespace SygehusKoordinering.ViewModel
         public static SaerligeForholdRepository saerligeForholdRepository = [];
         public static AfdelingRepository afdelingsRepository = [];
         public static BookingRepository bookingRepository = [];
-        public static LoginData data = new LoginData();
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
@@ -56,7 +55,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string isolationspatient;
         
-        private List<string> proever;
+        private List<string> proever  = new List<string>();
         /*
         [ObservableProperty]
         string selectedProeve;
@@ -71,7 +70,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string navn;
         
-        private List<string> saerligeForhold;
+        private List<string> saerligeForhold = new List<string>();
         /*
         [ObservableProperty]
         string selectedSaerligeForhold;
@@ -106,7 +105,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string kommentar;
 
-        string createdAf = data.Getpersonal().CPR;
+        string createdAf = MainViewModel.data.Getpersonal().CPR;
 
         [RelayCommand]
         void Create()
@@ -127,8 +126,8 @@ namespace SygehusKoordinering.ViewModel
             }
             
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, isolationspatient, 
-                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime.ToString(),
-                                          bestiltDato.ToString(), selectedBestilt, kommentar, createdAf, "", "");
+                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime.ToString("HH:mm"),
+                                          bestiltDato.ToString("yyyy-MM-dd"), selectedBestilt, kommentar, createdAf, "", "");
             bookingRepository.Add(booking);
             
         }

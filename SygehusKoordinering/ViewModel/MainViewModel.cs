@@ -24,8 +24,8 @@ namespace SygehusKoordinering.ViewModel
         public MainViewModel(/*string cpr*/)
         {
             //this.cpr = cpr;
-            Oprettelse();
-            //Login();
+            //Oprettelse();
+            Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
             Search();
@@ -60,7 +60,7 @@ namespace SygehusKoordinering.ViewModel
                     bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
-            Oplysning();
+            Oprettelse();
         }
 
         async Task Login()
