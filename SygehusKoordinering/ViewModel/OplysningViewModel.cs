@@ -52,7 +52,7 @@ namespace SygehusKoordinering.ViewModel
 
             foreach (var data in MainViewModel.data.Getpersonal().Lokations)
             {
-                var bookings = bookingRepository.Search("", "", "", data, MainViewModel.data.Getpersonal().CPR);
+                var bookings = bookingRepository.Search(data, MainViewModel.data.Getpersonal().CPR);
 
                 foreach (var booking in bookings)
                 {

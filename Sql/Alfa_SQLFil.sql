@@ -8,7 +8,7 @@ Use AlfaSygehusKoordinering;
 create table Personale
 (
 Id int not null Identity(1,1) Primary key,
-CPR int not null UNIQUE,
+CPR bigint not null UNIQUE,
 Navn Varchar(255) not null,
 Mail Varchar(255) not null UNIQUE,
 Adgangskode Varchar(255) not null,
@@ -61,7 +61,7 @@ Navn Varchar(255) not null,
 
 create table Booking (
 Id int not null Identity(1,1) Primary key,
-CPR int not null,
+CPR bigint not null,
 Navn Varchar(255) not null,
 Afdeling int not null FOREIGN KEY REFERENCES Afdeling(Id),
 StueEllerSengeplads Varchar(100) not null,

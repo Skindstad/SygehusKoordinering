@@ -59,7 +59,7 @@ namespace SygehusKoordinering.ViewModel
                     bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
-            Oprettelse();
+            Oplysning();
         }
 
         async Task Login()
