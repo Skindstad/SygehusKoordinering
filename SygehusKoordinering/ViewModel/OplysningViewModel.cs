@@ -50,9 +50,8 @@ namespace SygehusKoordinering.ViewModel
         {
             LocalList = new ObservableCollection<Booking>();
 
-            foreach (var data in MainViewModel.data.Getpersonal().Lokations)
-            {
-                var bookings = bookingRepository.Search(data, MainViewModel.data.Getpersonal().CPR);
+
+                var bookings = bookingRepository.Search(MainViewModel.data.Getpersonal().Lokations, MainViewModel.data.Getpersonal().CPR);
 
                 foreach (var booking in bookings)
                 {
@@ -106,7 +105,7 @@ namespace SygehusKoordinering.ViewModel
                     booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
 
                     LocalList.Add(booking);
-                }
+             
             }
         }
     }

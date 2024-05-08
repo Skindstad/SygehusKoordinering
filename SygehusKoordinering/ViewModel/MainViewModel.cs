@@ -50,6 +50,7 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         private void ExecuteOk()
         {
+            data.ClearLocation();
             foreach (var location in LocalList)
             {
                 if (location.IsSelected)

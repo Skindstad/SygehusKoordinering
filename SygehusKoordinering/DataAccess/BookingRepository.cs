@@ -24,20 +24,32 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public List<Booking> Search(string Lokation, string PersonaleCPRTaken)
+        public List<Booking> Search(List<string> Lokation, string PersonaleCPRTaken)
         {
+            List<string> locationId = new List<string>();
             try
             {
-                string LokationId = LocationRepository.GetLokation(Lokation);
+                foreach (var item in Lokation)
+                {
+                    string LokationId = LocationRepository.GetLokation(item);
+                    locationId.Add(LokationId);
+                }
+                StringBuilder dataLocation = new StringBuilder();
+                foreach (var item in locationId)
+                {
+                    dataLocation.Append($"'{item}', ");
+                }
+                dataLocation.Remove(dataLocation.Length - 2, 2);
+
                 SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, Afdeling.Omkring, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Done " +
                     "From Booking JOIN Afdeling ON Booking.Afdeling = Afdeling.Id " +
                     "JOIN Prioritet ON Booking.Prioritet = Prioritet.Id " +
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    "WHERE Afdeling.Lokation = @Lokation OR t.CPR = @PersonaleCPRTaken AND t.CPR IS NULL ", connection);
+                    $"WHERE Afdeling.Lokation IN ({dataLocation}) AND (t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL) " +
+                    "ORDER BY Prioritet.Id DESC, BestiltTime ASC", connection);
                 SqlCommand command = sqlCommand;
-                command.Parameters.Add(CreateParam("@Lokation", LokationId, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PersonaleCPRTaken", PersonaleCPRTaken , SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -47,7 +59,6 @@ namespace SygehusKoordinering.DataAccess
                     list.Add(new Booking(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), GetProeve(reader[0].ToString()), GetSaerligeForhold(reader[0].ToString()), reader[7].ToString(),
                         reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString()));
                 }
-                return list;
                 OnChanged(DbOperation.SELECT, DbModeltype.Booking);
             }
             catch (Exception ex)
@@ -58,6 +69,7 @@ namespace SygehusKoordinering.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
+            return list;
         }
 
 

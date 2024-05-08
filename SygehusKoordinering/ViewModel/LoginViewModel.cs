@@ -72,7 +72,11 @@ namespace SygehusKoordinering.ViewModel
         {
             data.Lokations.Add(location);
         }
-
+        public void ClearLocation()
+        {
+            data.Lokations.Clear();
+            BundleRepository.removeLocation(data.CPR);
+        }
 
     }
 
