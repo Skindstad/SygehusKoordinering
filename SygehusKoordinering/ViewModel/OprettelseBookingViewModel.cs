@@ -93,6 +93,8 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         TimeSpan bestiltTime;
 
+        
+
         [ObservableProperty]
         DateTime bestiltDato;
 
@@ -124,10 +126,14 @@ namespace SygehusKoordinering.ViewModel
                     saerligeForhold.Add(Saerlig.Navn);
                 }
             }
-            
-            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, isolationspatient, 
-                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime.ToString("HH:mm"),
-                                          bestiltDato.ToString("yyyy-MM-dd"), selectedBestilt, kommentar, createdAf, "", "");
+
+            string formateTime = bestiltTime.ToString(@"hh\:mm");
+            string formateDate = bestiltDato.ToString("yyyy-MM-dd");
+
+
+            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, "1", 
+                                          proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
+                                          formateDate, selectedBestilt, kommentar, createdAf, "", "");
             bookingRepository.Add(booking);
             
         }
