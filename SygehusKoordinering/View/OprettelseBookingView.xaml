@@ -18,13 +18,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Entry Grid.Row="0" Placeholder="ID" Text="{Binding Id}" />
-            <Entry Grid.Row="1" Placeholder="CPR" Text="{Binding Cpr}" />
-            <Entry Grid.Row="2" Placeholder="Navn" Text="{Binding Name}" />
+            <Entry Grid.Row="0" Placeholder="CPR" Text="{Binding Cpr}" />
+            <Entry Grid.Row="1" Placeholder="Navn" Text="{Binding Name}" />
 
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -35,15 +37,20 @@
             </Grid>
 
             <!-- Not sure what to do with itemsource???? -->
-            <Picker Grid.Row="4" Title="Isolationpatient" SelectedItem="{Binding Isolationpatient}">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Yes</x:String>
-                        <x:String>No</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
+                <Label Grid.Column="0" Text="Isolationspatient" />
+
+                <StackLayout Grid.Column="1" Orientation="Horizontal" RadioButtonGroup.SelectedValue="{Binding Isolationspatient}">
+                    <RadioButton Content="Yes" Value="1" GroupName="IsolationStatus" />
+                    <RadioButton Content="No" Value="0" GroupName="IsolationStatus" IsChecked="True"/>
+                </StackLayout>
+            </Grid>
+            <Label Grid.Row="4" Text="Prøver:" FontSize="20"/>
             <ListView Grid.Row="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding ProeveList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -57,14 +64,33 @@
 
                                 <!-- Labels within the grid cells -->
                                 <Label Grid.Column="0" Text="{Binding Navn}" />
-                                <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding IsSelectedProeve, Mode=TwoWay}" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Picker Grid.Row="6" Title="Særlige forhold" ItemsSource="{Binding SaerligeForhold}" SelectedItem="{Binding SelectedSaerligeForhold}"/>
-            <Grid Grid.Row="7">
+            <Label Grid.Row="6" Text="Særlige Forhold:" FontSize="20"/>
+            <ListView Grid.Row="7" Margin="10" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding SaerligeForholdList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Labels within the grid cells -->
+                                <Label Grid.Column="0" Text="{Binding Navn}" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding IsSelectedSaerlig, Mode=TwoWay}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -73,8 +99,8 @@
                 <Label Grid.Column="0" Text="Inaktiv" />
                 <CheckBox Grid.Column="1" IsChecked="{Binding Inaktiv}" />
             </Grid>
-            <Picker Grid.Row="8" Title="Prioritet" ItemsSource="{Binding Prioritet}" SelectedItem="{Binding SelectedPrioritet}"/>
-            <Grid Grid.Row="9">
+            <Picker Grid.Row="9" Title="Prioritet" ItemsSource="{Binding Prioritet}" SelectedItem="{Binding SelectedPrioritet}"/>
+            <Grid Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -83,10 +109,10 @@
                 <TimePicker Grid.Column="0" Time="{Binding BestiltTime}" />
                 <DatePicker Grid.Column="1" Date="{Binding BestiltDato}" />
             </Grid>
-            <Picker Grid.Row="10" Title="Bestilt tid" ItemsSource="{Binding Bestilt}" SelectedItem="{Binding SelectedBestilt}"/>
-            <Entry Grid.Row="11" Placeholder="Kommentar" Text="{Binding Kommentar}" />
+            <Picker Grid.Row="11" Title="Bestilt tid" ItemsSource="{Binding Bestilt}" SelectedItem="{Binding SelectedBestilt}"/>
+            <Entry Grid.Row="12" Placeholder="Kommentar" Text="{Binding Kommentar}" />
 
-            <Button Grid.Row="12" Text="Create" Command="{Binding CreateCommand}" />
+            <Button Grid.Row="13" Text="Create" Command="{Binding CreateCommand}" />
         </Grid>
     </ScrollView>
 </ContentPage>

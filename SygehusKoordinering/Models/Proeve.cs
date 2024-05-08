@@ -12,24 +12,24 @@ namespace SygehusKoordinering.Models
         public string Id { get; set; }
         public string Navn { get; set; }
 
-        private bool isSelected;
-        public bool IsSelected
+        private bool isSelectedProeve;
+        public bool IsSelectedProeve
         {
-            get { return isSelected; }
-            set { isSelected = value; }
+            get { return isSelectedProeve; }
+            set { isSelectedProeve = value; }
         }
         public Proeve()
         {
             Id = "";
             Navn = "";
-            IsSelected = false;
+            IsSelectedProeve = false;
         }
 
         public Proeve(string id, string navn)
         {
             Id = id;
             Navn = navn;
-            IsSelected = false;
+            IsSelectedProeve = false;
         }
 
         public override bool Equals(object obj)

@@ -19,7 +19,6 @@ namespace SygehusKoordinering.ViewModel
         public static SaerligeForholdRepository saerligeForholdRepository = [];
         public static AfdelingRepository afdelingsRepository = [];
         public static BookingRepository bookingRepository = [];
-
         public OprettelseBookingViewModel()
         {
             LoadAfdeling();
@@ -28,9 +27,11 @@ namespace SygehusKoordinering.ViewModel
             LoadPrioritet();
             LoadBestiltTime();
             //ProeveList = new ObservableCollection<Proeve>(proeveRepository);
-            IsSelected = new ObservableCollection<Proeve>();
+            IsSelectedProeve = new ObservableCollection<Proeve>();
+            IsSelectedSaerlig = new ObservableCollection<SaerligeForhold>();
             bestiltTime = DateTime.Now.TimeOfDay;
             bestiltDato = DateTime.Now.Date;
+            SelectedBestilt = bestilt[0];
         }
 
         [ObservableProperty]
@@ -53,10 +54,9 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string isolationspatient;
+        
+        private List<string> proever  = new List<string>();
         /*
-        [ObservableProperty]
-        List<string> proeve;
-
         [ObservableProperty]
         string selectedProeve;
         */
@@ -65,16 +65,21 @@ namespace SygehusKoordinering.ViewModel
         ObservableCollection<Proeve> proeveList;
 
         [ObservableProperty]
-        ObservableCollection<Proeve> isSelected;
+        ObservableCollection<Proeve> isSelectedProeve;
 
         [ObservableProperty]
         string navn;
-
-        [ObservableProperty]
-        List<string> saerligeForhold;
-
+        
+        private List<string> saerligeForhold = new List<string>();
+        /*
         [ObservableProperty]
         string selectedSaerligeForhold;
+        */
+        [ObservableProperty]
+        ObservableCollection<SaerligeForhold> saerligeForholdList;
+
+        [ObservableProperty]
+        ObservableCollection<SaerligeForhold> isSelectedSaerlig;
 
         [ObservableProperty]
         string inaktiv;
@@ -98,20 +103,35 @@ namespace SygehusKoordinering.ViewModel
         string selectedBestilt;
 
         [ObservableProperty]
-        string createdAf;
-
-        [ObservableProperty]
         string kommentar;
-        /*
+
+        string createdAf = MainViewModel.data.Getpersonal().CPR;
+
         [RelayCommand]
         void Create()
         {
-            Booking booking = new Booking(id, cpr, selectedAfdeling, afdelingDecription, stueEllerSengeplads, isolationspatient, 
-                                          selectedProeve, selectedSaerligeForhold, inaktiv, selectedPrioritet, bestiltTime,
-                                          bestiltDato, selectedBestilt, kommentar, createdAf, takedAf, done);
+            foreach (var proeve in ProeveList)
+            {
+                if (proeve.IsSelectedProeve)
+                {
+                    proever.Add(proeve.Navn);
+                }
+            }
+            foreach (var Saerlig in SaerligeForholdList)
+            {
+                if (Saerlig.IsSelectedSaerlig)
+                {
+                    saerligeForhold.Add(Saerlig.Navn);
+                }
+            }
+            
+            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, isolationspatient, 
+                                          proever, saerligeForhold, inaktiv, selectedPrioritet, bestiltTime.ToString("HH:mm"),
+                                          bestiltDato.ToString("yyyy-MM-dd"), selectedBestilt, kommentar, createdAf, "", "");
             bookingRepository.Add(booking);
+            
         }
-        */
+        
         private void LoadProeve()
         {
             proeveRepository.Search("");
@@ -120,7 +140,8 @@ namespace SygehusKoordinering.ViewModel
         
         private void LoadSaerligeForhold()
         {
-            SaerligeForhold = saerligeForholdRepository.GetSaerligeForholds();
+            saerligeForholdRepository.Search("");
+            SaerligeForholdList = new ObservableCollection<SaerligeForhold>(saerligeForholdRepository);
         }
         
         private void LoadAfdeling()
