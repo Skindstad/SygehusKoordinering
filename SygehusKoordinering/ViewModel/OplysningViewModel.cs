@@ -127,7 +127,17 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(ItemView));
         }
 
+        [RelayCommand]
+        async Task Oprettelse()
+        {
+            await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
+        }
 
+        [RelayCommand]
+        async Task LogUd()
+        {
+            //await Shell.Current.GoToAsync(nameof(MainPage));
+        }
     }
     public class OplysningData
     {
