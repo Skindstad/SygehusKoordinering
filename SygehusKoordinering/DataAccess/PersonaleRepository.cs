@@ -73,6 +73,7 @@ namespace SygehusKoordinering.DataAccess
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
+
                         BundleRepository.removeLocation(reader[0].ToString());
                         return new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>());
                     }
