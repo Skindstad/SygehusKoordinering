@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\ItemView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

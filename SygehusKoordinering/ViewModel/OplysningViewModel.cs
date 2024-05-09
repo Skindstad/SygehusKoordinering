@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.View;
 using System.Collections.ObjectModel;
 
 namespace SygehusKoordinering.ViewModel
@@ -9,17 +10,17 @@ namespace SygehusKoordinering.ViewModel
     public partial class OplysningViewModel : ObservableObject
     {
         public static BookingRepository bookingRepository = new BookingRepository();
-
+        public static OplysningData data;
         public OplysningViewModel()
         {
+            data = new OplysningData();
             Find();
         }
 
-        int count = 0;
-        public void ItemTapped()
+        public void ItemTapped(Booking tappedBooking)
         {
-            ++count;
-            Click = "Click" + count;
+            data.Add(tappedBooking);
+            Item();
         }
 
 
@@ -46,9 +47,13 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string click;
 
-        void Find()
+        [ObservableProperty]
+        string stateColor;
+
+
+       public void Find()
         {
-            LocalList = new ObservableCollection<Booking>();
+                LocalList = new ObservableCollection<Booking>();
 
 
                 var bookings = bookingRepository.Search(MainViewModel.data.Getpersonal().Lokations, MainViewModel.data.Getpersonal().CPR);
@@ -56,6 +61,14 @@ namespace SygehusKoordinering.ViewModel
                 foreach (var booking in bookings)
                 {
 
+                    if(booking.TakedAf != "" && booking.Begynd == "True")
+                    {
+                    booking.StateColor = Color.FromHex("#000000");
+                    } 
+                    else if (booking.TakedAf != "")
+                    {
+                    booking.StateColor = Color.FromHex("#EEEE00");
+                    }
                     // Prioritet
                     switch (booking.Prioritet)
                     {
@@ -107,6 +120,26 @@ namespace SygehusKoordinering.ViewModel
                     LocalList.Add(booking);
              
             }
+        }
+
+        async Task Item()
+        {
+            await Shell.Current.GoToAsync(nameof(ItemView));
+        }
+
+
+    }
+    public class OplysningData
+    {
+        public Booking data;
+
+        public Booking GetBooking()
+        {
+            return data;
+        }
+        public void Add(Booking booking)
+        {
+            data = booking;
         }
     }
 

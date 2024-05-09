@@ -1,3 +1,4 @@
+using SygehusKoordinering.Models;
 using SygehusKoordinering.ViewModel;
 
 
@@ -15,7 +16,10 @@ public partial class OplysningView : ContentPage
     {
         if (BindingContext is OplysningViewModel viewModel)
         {
-            viewModel.ItemTapped();
+            if (e.Item is Booking tappedBooking)
+            {
+                viewModel.ItemTapped(tappedBooking);
+            }
         }
     }
 }

@@ -15,10 +15,7 @@ namespace SygehusKoordinering.ViewModel
         public static PersonaleRepository personales = [];
 
 
-        public LoginViewModel()
-        {
-        
-        }
+        public LoginViewModel() {}
 
         [ObservableProperty]
         string mail;
@@ -35,12 +32,10 @@ namespace SygehusKoordinering.ViewModel
         {
            Personale me = personales.Login(Mail, Adgangskode, ArbejdeTlf);
 
-            MainViewModel.data.Add(me);
-
             if(me != null)
             {
-                //MainViewModel mainViewModel = new MainViewModel(me.CPR);
-                Main(/*mainViewModel*/);
+                MainViewModel.data.Add(me);
+                Main();
             }
 
         }
@@ -48,9 +43,9 @@ namespace SygehusKoordinering.ViewModel
 
 
         
-        async Task Main(/*MainViewModel mainViewModel*/)
+        async Task Main()
         {
-            await Shell.Current.GoToAsync(".."/*, mainViewModel*/);
+            await Shell.Current.GoToAsync("..");
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Maui.Devices.Sensors;
 using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
@@ -202,21 +203,25 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
-        public static string GetPerson(string Mail)
+
+
+        public static Personale GetPerson(string CPR)
         {
             SqlConnection connection = null;
             try
             {
                 connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand sqlCommand = new("SELECT CPR FROM Booking " +
-                    "WHERE Mail = @Mail", connection);
+                SqlCommand sqlCommand = new("Select CPR, Navn, Mail, status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale WHERE CPR = @CPR", connection);
                 SqlCommand command = sqlCommand;
-                SqlParameter param = new("@Mail", SqlDbType.NVarChar);
-                param.Value = Mail;
+                SqlParameter param = new("@CPR", SqlDbType.NVarChar);
+                param.Value = CPR;
                 command.Parameters.Add(param);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read()) return reader[0].ToString();
+                if (reader.Read())
+                {
+                    return new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>());
+                }
             }
             catch
             {

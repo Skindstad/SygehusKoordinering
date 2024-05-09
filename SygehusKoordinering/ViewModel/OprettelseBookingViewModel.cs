@@ -165,7 +165,7 @@ namespace SygehusKoordinering.ViewModel
 
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, "1", 
                                           proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
-                                          formateDate, selectedBestilt, kommentar, createdAf, "", "");
+                                          formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
             
         }

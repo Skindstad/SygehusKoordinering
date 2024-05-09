@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SygehusKoordinering.View.ItemView"
+             xmlns:converters="clr-namespace:SygehusKoordinering.Converter"
+             Title="{Binding Navn}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ListToStringConverter x:Key="ListToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" BackgroundColor="DimGrey">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding Prioritet}" FontSize="28" TextColor="{Binding TextColor}"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}"/>
+                <Grid Grid.Column="0" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding Date}" FontSize="16"/>
+                    <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="16"/>
+                    <Label Grid.Column="2" Text="{Binding Time}" FontSize="16"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Text="Place"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Afdeling}"/>
+                <Label Grid.Column="0" Grid.Row="1" Text="Person"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}"/>
+                <Label Grid.Column="1" Grid.Row="2" Text="{Binding CPR}"/>
+
+                <Label Grid.Column="0" Grid.Row="3" Text="Kommentar"/>
+                <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kommentar}"/>
+                <Label Grid.Column="0" Grid.Row="4" Text="Kontakt"/>
+                <Label Grid.Column="1" Grid.Row="5" Text="{Binding KontaktPerson}"/>
+                <Label Grid.Column="1" Grid.Row="6" Text="{Binding Phone}"/>
+
+            </Grid>
+                <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Text="Afvis" Command="{Binding NoCommand}" IsVisible="{Binding IsNoVisible}"/>
+                <Button Grid.Column="0" Text="Videregiv" Command="{Binding VidereGivCommand}" IsVisible="{Binding IsVidereGivVisible}"/>
+                <Button Grid.Column="1" Text="Påbegynd" Command="{Binding BeginCommand}" IsVisible="{Binding IsBeginVisible}"/>
+                <Button Grid.Column="1" Text="Færdiggør" Command="{Binding FinishCommand}" IsVisible="{Binding IsFinishVisible}"/>
+
+            </Grid>
+        </Grid>
+        <Button Text="Book" Command="{Binding BookCommand}" IsVisible="{Binding IsBookVisible}"/>
+    </VerticalStackLayout>
+</ContentPage>
