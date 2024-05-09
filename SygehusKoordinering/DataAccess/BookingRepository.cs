@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SygehusKoordinering.DataAccess
 {
@@ -24,23 +25,32 @@ namespace SygehusKoordinering.DataAccess
             return GetEnumerator();
         }
 
-        public List<Booking> Search(string CPR, string PNavn, string PersonaleNavnCreated, string Lokation, string PersonaleCPRTaken)
+        public List<Booking> Search(List<string> Lokation, string PersonaleCPRTaken)
         {
+            List<string> locationId = new List<string>();
             try
             {
-                string LokationId = LocationRepository.GetLokation(Lokation);
-                SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, Afdeling.Omkring, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Done " +
+                foreach (var item in Lokation)
+                {
+                    string LokationId = LocationRepository.GetLokation(item);
+                    locationId.Add(LokationId);
+                }
+                StringBuilder dataLocation = new StringBuilder();
+                foreach (var item in locationId)
+                {
+                    dataLocation.Append($"'{item}', ");
+                }
+                dataLocation.Remove(dataLocation.Length - 2, 2);
+
+                SqlCommand sqlCommand = new("Select Booking.Id, Booking.CPR, Booking.Navn, Afdeling.Navn, Afdeling.Omkring, StueEllerSengeplads, Isolationspatient, Inaktiv, Prioritet.Navn, BestiltTime, BestiltDato, Bestilt.Navn, Kommentar, c.Navn as CreatedAf, t.Navn as TakenAf, Begynd,  Done " +
                     "From Booking JOIN Afdeling ON Booking.Afdeling = Afdeling.Id " +
                     "JOIN Prioritet ON Booking.Prioritet = Prioritet.Id " +
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    "WHERE Booking.CPR = @PCPR AND Booking.Navn LIKE @PNavn AND t.Navn LIKE @PersonaleNavn OR Afdeling.Lokation = @Lokation AND t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL ", connection);
+                    $"WHERE Afdeling.Lokation IN ({dataLocation}) AND (t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL AND Done = 0) " +
+                    "ORDER BY Prioritet.Id DESC, BestiltTime ASC", connection);
                 SqlCommand command = sqlCommand;
-                command.Parameters.Add(CreateParam("@PCPR", CPR, SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@PNavn", PNavn + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@PersonaleNavn", PersonaleNavnCreated + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@Lokation", LokationId, SqlDbType.NVarChar));
                 command.Parameters.Add(CreateParam("@PersonaleCPRTaken", PersonaleCPRTaken , SqlDbType.NVarChar));
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -48,9 +58,8 @@ namespace SygehusKoordinering.DataAccess
                 while (reader.Read())
                 {
                     list.Add(new Booking(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), reader[6].ToString(), GetProeve(reader[0].ToString()), GetSaerligeForhold(reader[0].ToString()), reader[7].ToString(),
-                        reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString()));
+                        reader[8].ToString(), reader[9].ToString(), reader[10].ToString(), reader[11].ToString(), reader[12].ToString(), reader[13].ToString(), reader[14].ToString(), reader[15].ToString(), reader[16].ToString()));
                 }
-                return list;
                 OnChanged(DbOperation.SELECT, DbModeltype.Booking);
             }
             catch (Exception ex)
@@ -61,7 +70,10 @@ namespace SygehusKoordinering.DataAccess
             {
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
+            return list;
         }
+
+
 
 
         public static List<string> GetProeve(string Id)
@@ -189,6 +201,34 @@ namespace SygehusKoordinering.DataAccess
             // throw new DbException("Error in Data repositiory: " + error);
         }
 
+        public Personale FindCreatedAf(string Id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT CreatedAf FROM Booking " +
+                    "WHERE Id = @Id", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Id", SqlDbType.NVarChar);
+                param.Value = Id;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return PersonaleRepository.GetPerson(reader[0].ToString());
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return null;
+        }
+
+
+
 
         public static string GetBooking(string CPR, string Time, string date)
         {
@@ -222,6 +262,61 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
+
+        public void Update(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
+        {
+            string error = "";
+            if (booking.IsValid)
+            {
+                try
+                {
+                    DateTime updated = DateTime.Now;
+                    string updatedString = updated.ToString("yyyy-MM-dd HH:mm:ss");
+                    SqlCommand sqlCommand = new("UPDATE Booking SET TakedAf = @TakedAf, Begynd = @Begynd, Done = @Done, Kommentar = @Kommentar, Updated = @Updated WHERE Id = @Id", connection);
+                    SqlCommand command = sqlCommand;
+                    command.Parameters.Add(CreateParam("@Id", booking.Id, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@TakedAf", takenAf, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Begynd", Begynd, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Done", Done, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Kommentar", Kommentar, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Updated", updated, SqlDbType.NVarChar));
+                    connection.Open();
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        UpdateList(booking, takenAf, Begynd, Kommentar, Done);
+                        OnChanged(DbOperation.UPDATE, DbModeltype.Booking);
+                        return;
+                    }
+                    error = string.Format("Booking could not be updated");
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+                }
+            }
+            else error = "Illegal value for Booking";
+            // throw new DbException("Error in Data repositiory: " + error);
+        }
+
+        private void UpdateList(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
+        {
+            for (int i = 0; i < list.Count; ++i)
+                if (list[i].Id.Equals(booking.Id))
+                {
+                    list[i].TakedAf = takenAf;
+                    list[i].Begynd = Begynd;
+                    list[i].Kommentar = Kommentar;
+                    list[i].Done = Done;
+                    break;
+                }
+        }
+
+
+
         public void Remove(string Id)
         {
             string error = "";
@@ -235,7 +330,7 @@ namespace SygehusKoordinering.DataAccess
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
                     {
-                        list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", ""));
+                        list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", "", ""));
                         OnChanged(DbOperation.DELETE, DbModeltype.Personale);
                         return;
                     }

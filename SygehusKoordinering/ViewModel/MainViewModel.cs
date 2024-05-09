@@ -50,6 +50,7 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         private void ExecuteOk()
         {
+            data.ClearLocation();
             foreach (var location in LocalList)
             {
                 if (location.IsSelected)
@@ -59,7 +60,7 @@ namespace SygehusKoordinering.ViewModel
                     bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
-            Oprettelse();
+            Oplysning();
         }
 
         async Task Login()

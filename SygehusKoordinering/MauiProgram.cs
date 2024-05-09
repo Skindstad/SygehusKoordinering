@@ -28,6 +28,9 @@ namespace SygehusKoordinering
             builder.Services.AddTransient<OprettelseBookingView>();
             builder.Services.AddTransient<OprettelseBookingViewModel>();
 
+            builder.Services.AddTransient<ItemView>();
+            builder.Services.AddTransient<ItemViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

@@ -34,10 +34,13 @@ JOIN Afdeling ON Booking.Afdeling = Afdeling.Id
 JOIN Prioritet ON Booking.Prioritet = Prioritet.Id 
 JOIN Bestilt ON Booking.Bestilt = Bestilt.Id 
 JOIN Personale c ON c.CPR = Booking.CreatedAf
-LEFT JOIN Personale t ON t.CPR = Booking.TakedAf;
+LEFT JOIN Personale t ON t.CPR = Booking.TakedAf
+WHERE Afdeling.Lokation = 1 OR t.CPR = 101011111 AND t.CPR IS NULL 
+ORDER BY Prioritet.Id DESC, BestiltTime ASC;
 
+<!-- BestiltDato = '2024-05-08' --> 
 
-SELECT Booking.Id, Booking.CPR, Booking.Navn, , Done  
+SELECT Booking.Id, Booking.CPR, Booking.Navn, Done  
 FROM Booking 
 JOIN BookedForProeve ON BookedForProeve.Booked = Booking.Id 
 JOIN Proeve ON BookedForProeve.Proeve = Proeve.Id;

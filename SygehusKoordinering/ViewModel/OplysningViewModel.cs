@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.View;
 using System.Collections.ObjectModel;
 
 namespace SygehusKoordinering.ViewModel
@@ -9,17 +10,17 @@ namespace SygehusKoordinering.ViewModel
     public partial class OplysningViewModel : ObservableObject
     {
         public static BookingRepository bookingRepository = new BookingRepository();
-
+        public static OplysningData data;
         public OplysningViewModel()
         {
+            data = new OplysningData();
             Find();
         }
 
-        int count = 0;
-        public void ItemTapped()
+        public void ItemTapped(Booking tappedBooking)
         {
-            ++count;
-            Click = "Click" + count;
+            data.Add(tappedBooking);
+            Item();
         }
 
 
@@ -46,17 +47,28 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string click;
 
-        void Find()
-        {
-            LocalList = new ObservableCollection<Booking>();
+        [ObservableProperty]
+        string stateColor;
 
-            foreach (var data in MainViewModel.data.Getpersonal().Lokations)
-            {
-                var bookings = bookingRepository.Search("", "", "", data, MainViewModel.data.Getpersonal().CPR);
+
+       public void Find()
+        {
+                LocalList = new ObservableCollection<Booking>();
+
+
+                var bookings = bookingRepository.Search(MainViewModel.data.Getpersonal().Lokations, MainViewModel.data.Getpersonal().CPR);
 
                 foreach (var booking in bookings)
                 {
 
+                    if(booking.TakedAf != "" && booking.Begynd == "True")
+                    {
+                    booking.StateColor = Color.FromHex("#000000");
+                    } 
+                    else if (booking.TakedAf != "")
+                    {
+                    booking.StateColor = Color.FromHex("#EEEE00");
+                    }
                     // Prioritet
                     switch (booking.Prioritet)
                     {
@@ -85,29 +97,49 @@ namespace SygehusKoordinering.ViewModel
                     }
                     if (booking.Bestilt == "Inden for 1 time")
                     {
-                        estra = time.AddHours(1);
+                        estra = time.AddHours(-1);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
                     if (booking.Bestilt == "Inden for 2 time")
                     {
-                        estra = time.AddHours(2);
+                        estra = time.AddHours(-2);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
                     if (booking.Bestilt == "Inden for 3 time")
                     {
-                        estra = time.AddHours(3);
+                        estra = time.AddHours(-3);
                         formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formattedTime + " - " + formatEstra;
+                        booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
 
                     // Afdeling og Location
                     booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
 
                     LocalList.Add(booking);
-                }
+             
             }
+        }
+
+        async Task Item()
+        {
+            await Shell.Current.GoToAsync(nameof(ItemView));
+        }
+
+
+    }
+    public class OplysningData
+    {
+        public Booking data;
+
+        public Booking GetBooking()
+        {
+            return data;
+        }
+        public void Add(Booking booking)
+        {
+            data = booking;
         }
     }
 

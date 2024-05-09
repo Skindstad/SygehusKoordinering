@@ -19,7 +19,7 @@
             <Label Grid.Row="2" FontSize="20" Text="Arbejde Telefon nr:"/>
             <Entry Grid.Row="3" Text="{Binding ArbejdeTlf}" Margin="0,0,0,40" Placeholder="Arbejd Telefon nr."/>
             <Label Grid.Row="4" FontSize="20" Text="Adgangskode:"/>
-            <Entry Grid.Row="5" Text="{Binding Adgangskode}" Margin="0,0,0,40" Placeholder="Adgangskode"/>
+            <Entry Grid.Row="5" Text="{Binding Adgangskode}" Margin="0,0,0,40" Placeholder="Adgangskode" IsPassword="True"/>
 
             <Button Grid.Row="6" WidthRequest="100" HeightRequest="40" Text="Login" Command="{Binding LoginCommand}"/>
         </Grid>

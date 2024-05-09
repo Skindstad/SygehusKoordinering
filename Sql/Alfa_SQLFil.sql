@@ -1,14 +1,14 @@
 /*Først maker du create database linje også Execute*/
-Create database AlfaSygehusKoordinering;
+Create database Alfa_SygehusKoordinering;
 
 /* Maker Use linje også Execute*/
-Use AlfaSygehusKoordinering;
+Use Alfa_SygehusKoordinering;
 
 /* Maker indtil næste kommentar også Execute */
 create table Personale
 (
 Id int not null Identity(1,1) Primary key,
-CPR int not null UNIQUE,
+CPR bigint not null UNIQUE,
 Navn Varchar(255) not null,
 Mail Varchar(255) not null UNIQUE,
 Adgangskode Varchar(255) not null,
@@ -27,7 +27,7 @@ Navn Varchar(255) not null,
 
 create table PersonalePaaLokation (
 Id int not null Identity(1,1) Primary key,
-Personal int not null FOREIGN KEY REFERENCES Personale(CPR),
+Personal bigint not null FOREIGN KEY REFERENCES Personale(CPR),
 Lokation int not null FOREIGN KEY REFERENCES Lokation(Id),
 Created DateTime not null DEFAULT CURRENT_TIMESTAMP,
 )
@@ -60,8 +60,8 @@ Navn Varchar(255) not null,
 )
 
 create table Booking (
-Id int not null Identity(1,1) Primary key,
-CPR int not null,
+Id bigint not null Identity(1,1) Primary key,
+CPR bigint not null,
 Navn Varchar(255) not null,
 Afdeling int not null FOREIGN KEY REFERENCES Afdeling(Id),
 StueEllerSengeplads Varchar(100) not null,
@@ -72,22 +72,23 @@ BestiltTime Time not null,
 BestiltDato Date not null,
 Bestilt int not null FOREIGN KEY REFERENCES Bestilt(Id),
 Kommentar Text,
-CreatedAf int not null FOREIGN KEY REFERENCES Personale(CPR), 
-TakedAf int FOREIGN KEY REFERENCES Personale(CPR),
+CreatedAf bigint not null FOREIGN KEY REFERENCES Personale(CPR), 
+TakedAf bigint FOREIGN KEY REFERENCES Personale(CPR),
 Created DateTime DEFAULT CURRENT_TIMESTAMP,
 Updated DateTime DEFAULT CURRENT_TIMESTAMP,
+Begynd bit default 0,
 Done bit default 0
 )
 create table BookedForProeve (
-Id int not null Identity(1,1) Primary key,
+Id bigint not null Identity(1,1) Primary key,
 Proeve int not null FOREIGN KEY REFERENCES Proeve(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(Id),
+Booked bigint not null FOREIGN KEY REFERENCES Booking(Id),
 )
 
 create table BookedForSaerligeForhold (
-Id int not null Identity(1,1) Primary key,
+Id bigint not null Identity(1,1) Primary key,
 SaerligeForhold int not null FOREIGN KEY REFERENCES SaerligeForhold(Id), 
-Booked int not null FOREIGN KEY REFERENCES Booking(Id),
+Booked bigint not null FOREIGN KEY REFERENCES Booking(Id),
 )
 
 /* Maker alle delete også Execute */

@@ -26,8 +26,10 @@ namespace SygehusKoordinering.Models
         public string Kommentar { get; set; }
         public string CreatedAf { get; set; }
         public string TakedAf { get; set; }
+        public string Begynd { get; set; }
         public string Done { get; set; }
         public Color RowColor { get; set; }
+        public Color StateColor { get; set; }
 
         public Booking()
         {
@@ -48,10 +50,11 @@ namespace SygehusKoordinering.Models
             Kommentar = "";
             CreatedAf = "";
             TakedAf = "";
+            Begynd = "";
             Done = "";
         }
 
-        public Booking(string id, string cPR, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string done)
+        public Booking(string id, string cPR, string navn, string afdeling, string afdelingDecription, string stueEllerSengeplads, string isolationspatient, List<string> proeve, List<string> saerligeForhold, string inaktiv,string prioritet, string bestiltTime, string bestiltDato, string bestilt, string kommentar, string createdAf, string takedAf,string begynd, string done)
         {
             Id = id;
             CPR = cPR;
@@ -70,6 +73,7 @@ namespace SygehusKoordinering.Models
             Kommentar = kommentar;
             CreatedAf = createdAf;
             TakedAf = takedAf;
+            Begynd = begynd;
             Done = done;
         }
 
