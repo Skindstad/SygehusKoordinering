@@ -14,6 +14,7 @@ namespace SygehusKoordinering.ViewModel
     {
         public BookingRepository bookings = [];
         public OplysningViewModel oplysning;
+        public ItemViewModel item;
         public ItemViewModel() 
         {
             Booking Book = OplysningViewModel.data.GetBooking();
@@ -72,7 +73,7 @@ namespace SygehusKoordinering.ViewModel
                 isNoVisible = false;
                 isVidereGivVisible = false;
                 isBeginVisible = false;
-            } else if (Book.TakedAf != "" && Book.Done == "´False" && Book.Begynd == "True")
+            } else if (Book.TakedAf != "" && Book.Done == "False" && Book.Begynd == "True")
             {
                 isBookVisible = false;
                 isFinishVisible = true;
@@ -141,18 +142,22 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         void Book()
         {
+
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+
+
             //Oplysning();
         }
         [RelayCommand]
         void No()
         {
-            bookings.Update(OplysningViewModel.data.GetBooking(), "", "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
         }
         [RelayCommand]
         void Begin()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            
         }
         [RelayCommand]
         void VidereGiv()

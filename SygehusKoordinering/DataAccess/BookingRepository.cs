@@ -48,7 +48,7 @@ namespace SygehusKoordinering.DataAccess
                     "JOIN Bestilt ON Booking.Bestilt = Bestilt.Id " +
                     "JOIN Personale c ON c.CPR = Booking.CreatedAf " +
                     "LEFT JOIN Personale t ON t.CPR = Booking.TakedAf " +
-                    $"WHERE Afdeling.Lokation IN ({dataLocation}) AND (t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL AND Done = 0) " +
+                    $"WHERE Afdeling.Lokation IN ({dataLocation}) AND (t.CPR = @PersonaleCPRTaken OR t.CPR IS NULL) AND Done = 'False'" +
                     "ORDER BY Prioritet.Id DESC, BestiltTime ASC", connection);
                 SqlCommand command = sqlCommand;
                 command.Parameters.Add(CreateParam("@PersonaleCPRTaken", PersonaleCPRTaken , SqlDbType.NVarChar));
@@ -266,7 +266,7 @@ namespace SygehusKoordinering.DataAccess
         public void Update(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
         {
             string error = "";
-            if (booking.IsValid)
+            if (booking.Id != string.Empty)
             {
                 try
                 {
@@ -275,7 +275,15 @@ namespace SygehusKoordinering.DataAccess
                     SqlCommand sqlCommand = new("UPDATE Booking SET TakedAf = @TakedAf, Begynd = @Begynd, Done = @Done, Kommentar = @Kommentar, Updated = @Updated WHERE Id = @Id", connection);
                     SqlCommand command = sqlCommand;
                     command.Parameters.Add(CreateParam("@Id", booking.Id, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@TakedAf", takenAf, SqlDbType.NVarChar));
+                    if(takenAf != null)
+                    {
+                        command.Parameters.Add(CreateParam("@TakedAf", takenAf, SqlDbType.NVarChar));
+                    } else
+                    {
+                        SqlParameter takedAfParam = new SqlParameter("@TakedAf", (object)takenAf ?? DBNull.Value);
+                        command.Parameters.Add(takedAfParam);
+                    }
+                    
                     command.Parameters.Add(CreateParam("@Begynd", Begynd, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Done", Done, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Kommentar", Kommentar, SqlDbType.NVarChar));

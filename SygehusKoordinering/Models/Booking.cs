@@ -100,7 +100,7 @@ namespace SygehusKoordinering.Models
         {
             return CPR.CompareTo(data.CPR);
         }
-        private static readonly string[] validatedProperties = {"CPRNr", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
+        private static readonly string[] validatedProperties = {"CPR", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
         public bool IsValid
         {
             get
@@ -130,7 +130,7 @@ namespace SygehusKoordinering.Models
         {
             switch (name)
             {
-                case "CPRNr": return ValidateCPR();
+                case "CPR": return ValidateCPR();
                 case "Navn": return ValidateName();
                 case "Afdeling": return ValidateDepartement();
                 case "StueEllerSengeplads": return ValidateLivingroom();
