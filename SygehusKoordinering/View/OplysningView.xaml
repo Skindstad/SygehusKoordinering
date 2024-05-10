@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.OplysningView"
              xmlns:converters="clr-namespace:SygehusKoordinering.Converter">
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Funtions">
+            <MenuFlyoutItem Text="Opret opgave" Command="{Binding OprettelseCommand}"/>
+            <MenuFlyoutSeparator/>
+            <MenuFlyoutItem Text="Log ud" Command="{Binding LogUdCommand}" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ListToStringConverter x:Key="ListToStringConverter" />
