@@ -11,6 +11,8 @@ namespace SygehusKoordinering.ViewModel
     {
         public static BookingRepository bookingRepository = new BookingRepository();
         public static OplysningData data;
+        public static PersonaleRepository personalesRepository = [];
+
         public OplysningViewModel()
         {
             data = new OplysningData();
@@ -136,7 +138,9 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         async Task LogUd()
         {
-            //await Shell.Current.GoToAsync(nameof(MainPage));
+            Personale p = MainViewModel.data.Getpersonal();
+            personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
+           //await Shell.Current.GoToAsync(nameof(MainPage));
         }
     }
     public class OplysningData
