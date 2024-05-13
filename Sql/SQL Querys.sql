@@ -50,3 +50,6 @@ SELECT Booking.Id, Booking.CPR, Booking.Navn,  SaerligeForhold.Navn, Done
 FROM Booking 
 JOIN BookedForSaerligeForhold ON Booking.Id = BookedForSaerligeForhold.Booked
 JOIN SaerligeForhold ON BookedForSaerligeForhold.SaerligeForhold = SaerligeForhold.Id;
+
+
+Select Lokation.Navn  from Afdeling Join Lokation on Lokation.Id = Afdeling.Lokation WHERE Afdeling.Navn = 'A1';
