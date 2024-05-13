@@ -76,7 +76,8 @@ namespace SygehusKoordinering.DataAccess
                     {
 
                         BundleRepository.removeLocation(reader[0].ToString());
-                        return new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), reader[3].ToString(), reader[5].ToString(), reader[6].ToString(), new List<string>());
+                        Update(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), "1", reader[5].ToString(), reader[6].ToString());
+                        return new Personale(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[4].ToString(), "True", reader[5].ToString(), reader[6].ToString(), new List<string>());
                     }
                     OnChanged(DbOperation.SELECT, DbModeltype.Personale);
                 }
@@ -233,64 +234,65 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
-        /*
-        public void Update(string id, string komNr, string city, string gruppe, string year, string num)
+        
+        public void Update(string cpr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr)
         {
-            Update(new Data(id, komNr, city, gruppe, year, num));
+            Update(new Personale(cpr,navn, mail, arbejdTlfNr, status, adresse, privatTlfNr, null));
         }
 
-        public void Update(Data data)
+        public void Update(Personale data)
         {
             string error = "";
-            if (data.IsValid)
+            if (data.CPR != string.Empty)
             {
                 try
                 {
-                    // string dataId = GetId(data.KomNr, data.Gruppe, data.Year);
-                    string gruppeId = KeynummerRepository.GetId(data.Gruppe);
-                    SqlCommand sqlCommand = new("UPDATE Data SET Kom_nr = @KomNr, GruppeId = @Gruppe, Aarstal = @Year, Tal = @Num WHERE Id = @DataId", connection);
-                    SqlCommand command = sqlCommand;
-                    command.Parameters.Add(CreateParam("@DataId", data.DataId, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@KomNr", data.KomNr, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Gruppe", gruppeId, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Year", data.Year, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Num", data.Num, SqlDbType.NVarChar));
-                    connection.Open();
-                    if (command.ExecuteNonQuery() == 1)
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString))
                     {
-                        UpdateList(data);
-                        OnChanged(DbOperation.UPDATE, DbModeltype.Data);
-                        return;
+
+                        SqlCommand sqlCommand = new("UPDATE Personale SET Navn = @Navn, Mail = @Mail, ArbejdsTlfNr = @ArbejdTlf, Status = @Status, Adresse = @Adresse, PrivatTlfNr = @PrivatTlf WHERE CPR = @CPR", connection);
+                        SqlCommand command = sqlCommand;
+                        command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Navn", data.Navn, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Mail", data.Mail, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@ArbejdTlf", data.ArbejdTlf, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Status", data.Status, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@Adresse", data.Adresse, SqlDbType.NVarChar));
+                        command.Parameters.Add(CreateParam("@PrivatTlf", data.PrivatTlf, SqlDbType.NVarChar));
+                        connection.Open();
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            UpdateList(data);
+                            OnChanged(DbOperation.UPDATE, DbModeltype.Personale);
+                            return;
+                        }
+                        error = string.Format("Personale could not be updated");
                     }
-                    error = string.Format("Data could not be updated");
                 }
                 catch (Exception ex)
                 {
                     error = ex.Message;
                 }
-                finally
-                {
-                    if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-                }
             }
-            else error = "Illegal value for Data";
+            else error = "Illegal value for Personale";
             // throw new DbException("Error in Data repositiory: " + error);
         }
 
-        private void UpdateList(Data data)
+        private void UpdateList(Personale data)
         {
             for (int i = 0; i < list.Count; ++i)
-                if (list[i].DataId.Equals(data.DataId))
+                if (list[i].CPR.Equals(data.CPR))
                 {
-                    list[i].KomNr = data.KomNr;
-                    list[i].City = KommuneRepository.GetCity(data.KomNr);
-                    list[i].Gruppe = data.Gruppe;
-                    list[i].Year = data.Year;
-                    list[i].Num = data.Num;
+                    list[i].Navn = data.Navn;
+                    list[i].Mail = data.Mail;
+                    list[i].ArbejdTlf = data.ArbejdTlf;
+                    list[i].Status = data.Status;
+                    list[i].Adresse = data.Adresse;
+                    list[i].PrivatTlf = data.PrivatTlf;
                     break;
                 }
         }
-         */
+         
         public void Remove(string CPR)
         {
             string error = "";

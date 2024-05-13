@@ -48,7 +48,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label x:Name="ClickCheck" Text="{Binding Click}"/>
-        
+
     </VerticalStackLayout>
 </ContentPage>

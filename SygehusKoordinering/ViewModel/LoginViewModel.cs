@@ -41,8 +41,6 @@ namespace SygehusKoordinering.ViewModel
         }
 
 
-
-        
         async Task Main()
         {
             await Shell.Current.GoToAsync("..");

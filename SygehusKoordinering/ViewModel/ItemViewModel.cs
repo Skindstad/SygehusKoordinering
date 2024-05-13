@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -144,30 +145,32 @@ namespace SygehusKoordinering.ViewModel
         {
 
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
-
-
-            //Oplysning();
+            Oplysning();
         }
         [RelayCommand]
         void No()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            Oplysning();
         }
         [RelayCommand]
         void Begin()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
-            
+            Oplysning();
+
         }
         [RelayCommand]
         void VidereGiv()
         {
             //bookings.Update(OplysningViewModel.data.GetBooking().Id, MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            Oplysning();
         }
         [RelayCommand]
         void Finish()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "1");
+            Oplysning();
         }
 
         async Task Oplysning()

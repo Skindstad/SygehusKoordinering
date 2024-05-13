@@ -168,7 +168,7 @@ namespace SygehusKoordinering.DataAccess
                         command.Parameters.Add(CreateParam("@Bestilt", BestiltId, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@Kommentar", data.Kommentar, SqlDbType.NVarChar));
                         command.Parameters.Add(CreateParam("@CreatedAf", data.CreatedAf, SqlDbType.NVarChar));
-                    connection.Open();
+                        connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
                         string id = GetBooking(data.CPR, data.BestiltTime, data.BestiltDato);

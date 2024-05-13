@@ -32,13 +32,13 @@ namespace SygehusKoordinering.Models
         }
 
 
-        public Personale(string cPRNr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr, List<string> lokations)
+        public Personale(string cPR, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr, List<string> lokations)
         {
             Navn = navn;
             Mail = mail;
             ArbejdTlf = arbejdTlfNr;
             Status = status;
-            CPR = cPRNr;
+            CPR = cPR;
             Adresse = adresse;
             PrivatTlf = privatTlfNr;
             Lokations = lokations;
