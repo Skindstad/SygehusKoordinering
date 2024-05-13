@@ -22,4 +22,12 @@ public partial class OplysningView : ContentPage
             }
         }
     }
+
+    private void Oprettelse_Clicked(object sender, EventArgs e)
+    {
+        if (BindingContext is OplysningViewModel viewModel)
+        {
+          viewModel.Oprettelse();
+        }
+    }
 }

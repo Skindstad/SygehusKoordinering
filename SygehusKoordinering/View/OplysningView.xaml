@@ -5,7 +5,7 @@
              xmlns:converters="clr-namespace:SygehusKoordinering.Converter">
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="Funtions">
-            <MenuFlyoutItem Text="Opret opgave" Command="{Binding OprettelseCommand}"/>
+            <MenuFlyoutItem Text="Opret opgave" Clicked="Oprettelse_Clicked"/>
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Log ud" Command="{Binding LogUdCommand}" />
         </MenuBarItem>
