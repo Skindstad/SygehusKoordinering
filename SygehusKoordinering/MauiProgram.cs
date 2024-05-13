@@ -31,6 +31,9 @@ namespace SygehusKoordinering
             builder.Services.AddTransient<ItemView>();
             builder.Services.AddTransient<ItemViewModel>();
 
+            builder.Services.AddTransient<PersonaleListeView>();
+            builder.Services.AddTransient<PersonaleListeViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
