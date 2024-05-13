@@ -167,6 +167,14 @@ namespace SygehusKoordinering.ViewModel
                                           proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
+
+            foreach (var station in MainViewModel.stations)
+            {
+                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(selectedAfdeling))
+                {
+                    station.nodify();
+                }
+            }
             
         }
         

@@ -17,7 +17,7 @@ namespace SygehusKoordinering.ViewModel
     {
         public static LocationRepository locationRepository = [];
         public static BundleRepository bundleRepository = [];
-
+        public static List<Station> stations = new List<Station>();
 
         public static LoginData data = new LoginData();
 
@@ -50,13 +50,18 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         private void ExecuteOk()
         {
+            stations.Clear();
             data.ClearLocation();
             foreach (var location in LocalList)
             {
                 if (location.IsSelected)
                 {
                     // Call AddLocationsToPersonale method for selected location
+                    stations.Add(new Station(location.Navn));
                     data.AddLocation(location.Navn);
+                    data.AddDisplay(stations.Last());
+                    stations.Last().Add(data.GetDisplays().Last());
+                   
                     bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
                 }
             }
@@ -80,4 +85,6 @@ namespace SygehusKoordinering.ViewModel
 
 
     }
+
+
 }

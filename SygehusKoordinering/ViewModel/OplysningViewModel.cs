@@ -15,6 +15,10 @@ namespace SygehusKoordinering.ViewModel
 
         public OplysningViewModel()
         {
+            foreach (var item in MainViewModel.data.GetDisplays())
+            {
+                item.Oplysning(this);
+            }
             data = new OplysningData();
             Find();
         }
