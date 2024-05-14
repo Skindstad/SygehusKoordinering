@@ -46,8 +46,8 @@
                 <Label Grid.Column="0" Text="Isolationspatient" />
 
                 <StackLayout Grid.Column="1" Orientation="Horizontal">
-                    <RadioButton Content="Yes" Value="1" GroupName="IsolationStatus" BindableLayout.ItemsSource="{Binding Isolationspatient}"/>
-                    <RadioButton Content="No" Value="0" GroupName="IsolationStatus" IsChecked="True" BindableLayout.ItemsSource="{Binding Isolationspatient}"/>
+                    <RadioButton Content="Yes" GroupName="IsolationStatus" IsChecked="{Binding Isolationspatient}"/>
+                    <RadioButton Content="No" GroupName="IsolationStatus" IsChecked="True" />
                 </StackLayout>
             </Grid>
             <Label Grid.Row="4" Text="Prøver:" FontSize="20"/>

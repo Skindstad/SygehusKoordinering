@@ -53,7 +53,7 @@ namespace SygehusKoordinering.ViewModel
         string stueEllerSengeplads;
 
         [ObservableProperty]
-        string isolationspatient;
+        bool isolationspatient;
         
         private List<string> proever  = new List<string>();
         /*
@@ -132,6 +132,16 @@ namespace SygehusKoordinering.ViewModel
                 inaktiv = "0";
             }
 
+            //Converter for isolationspatient
+            string selectedIsolation;
+            if (isolationspatient == true)
+            {
+                selectedIsolation = "1";
+            }
+            else
+            {
+                selectedIsolation = "0";
+            }
 
             string formateTime = null;
             TimeSpan estra;
@@ -163,7 +173,7 @@ namespace SygehusKoordinering.ViewModel
             string formateDate = bestiltDato.ToString("yyyy-MM-dd");
 
 
-            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, "1", 
+            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 
                                           proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
