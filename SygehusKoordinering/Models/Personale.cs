@@ -62,12 +62,6 @@ namespace SygehusKoordinering.Models
             return CPR.GetHashCode();
         }
 
-        /*  public override string ToString()
-          {
-              return string.Format("{0} ", DataID);
-          }*/
-
-        // Implementerer ordning af objekter, så der alene sammenlignes på postnummer.
         public int CompareTo(Personale data)
         {
             return CPR.CompareTo(data.CPR);

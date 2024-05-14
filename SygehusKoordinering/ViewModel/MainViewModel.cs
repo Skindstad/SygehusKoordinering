@@ -54,10 +54,10 @@ namespace SygehusKoordinering.ViewModel
             data.ClearLocation();
             foreach (var location in LocalList)
             {
+                stations.Add(new Station(location.Navn));
                 if (location.IsSelected)
                 {
                     // Call AddLocationsToPersonale method for selected location
-                    stations.Add(new Station(location.Navn));
                     data.AddLocation(location.Navn);
                     data.AddDisplay(stations.Last());
                     stations.Last().Add(data.GetDisplays().Last());

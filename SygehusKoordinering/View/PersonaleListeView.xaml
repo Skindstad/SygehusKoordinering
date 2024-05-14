@@ -30,9 +30,9 @@
 
                                 <!-- Labels within the grid cells -->
                                 <Label Grid.Column="0" Text="{Binding CPR}" />
-                                <Label Grid.Column="1" Text="{Binding Name}" />
+                                <Label Grid.Column="1" Text="{Binding Navn}" />
                                 <Label Grid.Column="2" Text="{Binding Mail}" />
-                                <Label Grid.Column="3" Text="{Binding ArbejdTLF}" />
+                                <Label Grid.Column="3" Text="{Binding ArbejdTlf}" />
                                 <Label Grid.Column="4" Text="{Binding Status}" />
                             </Grid>
                         </ViewCell>
