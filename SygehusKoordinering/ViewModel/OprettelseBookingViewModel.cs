@@ -172,6 +172,7 @@ namespace SygehusKoordinering.ViewModel
             {
                 if (station.Name == AfdelingRepository.GetLocationFromAfdeling(selectedAfdeling))
                 {
+                    station.currentPriority = selectedPrioritet;
                     station.nodify();
                 }
             }

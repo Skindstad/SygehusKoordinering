@@ -88,6 +88,7 @@ namespace SygehusKoordinering.ViewModel
     {
         public string Name { get; set; }
         public List<IObserver> Observers = new List<IObserver>();
+        public string currentPriority;
 
         public Station(string name)
         {
@@ -106,12 +107,21 @@ namespace SygehusKoordinering.ViewModel
                 observer.update();
             }
         }
-
-
         public void Remove(IObserver obs)
         {
             Observers.Remove(obs);
         }
+
+        public void setPriority(string priority)
+        {
+            currentPriority = priority;
+        }
+
+        public string getPriority()
+        {
+            return currentPriority;
+        }
+
 
     }
 
@@ -119,7 +129,7 @@ namespace SygehusKoordinering.ViewModel
     {
         public Station myStation = null ;
         public static OplysningViewModel oplysning = null;
-
+        public string currentPriority;
 
         public Display(Station station)
         {
@@ -130,10 +140,9 @@ namespace SygehusKoordinering.ViewModel
         {
             oplysning = oplysningView;
         }
-
-
         public void update()
         {
+            currentPriority = myStation.getPriority();
             oplysning.Find();
         }
     }
