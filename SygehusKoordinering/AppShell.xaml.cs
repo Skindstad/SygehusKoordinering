@@ -12,6 +12,7 @@ namespace SygehusKoordinering
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(OplysningView), typeof(OplysningView));
             Routing.RegisterRoute(nameof(ItemView), typeof(ItemView));
+            Routing.RegisterRoute(nameof(PersonaleListeView), typeof(PersonaleListeView));
         }
     }
 }

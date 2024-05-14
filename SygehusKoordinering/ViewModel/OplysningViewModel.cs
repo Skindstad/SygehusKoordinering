@@ -57,7 +57,7 @@ namespace SygehusKoordinering.ViewModel
         string stateColor;
 
 
-       public void Find()
+        public void Find()
         {
                 LocalList = new ObservableCollection<Booking>();
 
@@ -133,9 +133,15 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(ItemView));
         }
 
-       public async Task Oprettelse()
+        public async Task Oprettelse()
         {
             await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
+        }
+
+        [RelayCommand]
+        public async Task PersonaleListe()
+        {
+            await Shell.Current.GoToAsync(nameof(PersonaleListeView));
         }
 
         [RelayCommand]
