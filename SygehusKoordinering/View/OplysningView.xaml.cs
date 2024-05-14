@@ -30,4 +30,12 @@ public partial class OplysningView : ContentPage
           viewModel.Oprettelse();
         }
     }
+
+    private void PersonaleListe_Clicked(object sender, EventArgs e)
+    {
+        if (BindingContext is OplysningViewModel viewModel)
+        {
+            viewModel.PersonaleListe();
+        }
+    }
 }
