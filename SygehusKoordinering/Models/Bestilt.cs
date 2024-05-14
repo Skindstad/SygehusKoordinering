@@ -42,12 +42,6 @@ namespace SygehusKoordinering.Models
             return Id.GetHashCode();
         }
 
-        /*  public override string ToString()
-          {
-              return string.Format("{0} ", DataID);
-          }*/
-
-        // Implementerer ordning af objekter, så der alene sammenlignes på postnummer.
         public int CompareTo(Bestilt data)
         {
             return Id.CompareTo(data.Id);

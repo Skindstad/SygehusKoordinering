@@ -103,7 +103,7 @@ namespace SygehusKoordinering.DataAccess
                         connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
-                            OnChanged(DbOperation.INSERT, DbModeltype.Personale);
+                            OnChanged(DbOperation.INSERT, DbModeltype.Booking);
                             return;
                         }
                         error = string.Format("BookedForProeve could not be inserted in the database");
@@ -123,29 +123,29 @@ namespace SygehusKoordinering.DataAccess
             // throw new DbException("Error in Data repositiory: " + error);
         }
 
-        public static void removeProeve(string Id)
-        {
-            SqlConnection connection = null;
-            try
-            {
-                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand sqlCommand = new("DELETE FROM BookedForProeve" +
-                    " WHERE Booked = @ID", connection);
-                SqlCommand command = sqlCommand;
-                SqlParameter param = new("@ID", SqlDbType.NVarChar);
-                param.Value = Id;
-                command.Parameters.Add(param);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch
-            {
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-            }
-        }
+        //public static void removeProeve(string Id)
+        //{
+        //    SqlConnection connection = null;
+        //    try
+        //    {
+        //        connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+        //        SqlCommand sqlCommand = new("DELETE FROM BookedForProeve" +
+        //            " WHERE Booked = @ID", connection);
+        //        SqlCommand command = sqlCommand;
+        //        SqlParameter param = new("@ID", SqlDbType.NVarChar);
+        //        param.Value = Id;
+        //        command.Parameters.Add(param);
+        //        connection.Open();
+        //        command.ExecuteNonQuery();
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    finally
+        //    {
+        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        //    }
+        //}
 
         public void AddBookedToSaerligeForhold(string BookingId, string SaerligeForholdNavn)
         {
@@ -164,7 +164,7 @@ namespace SygehusKoordinering.DataAccess
                         connection.Open();
                         if (command.ExecuteNonQuery() == 1)
                         {
-                            OnChanged(DbOperation.INSERT, DbModeltype.Personale);
+                            OnChanged(DbOperation.INSERT, DbModeltype.Booking);
                             return;
                         }
                         error = string.Format("BookedForSaerligeForhold could not be inserted in the database");
@@ -184,29 +184,29 @@ namespace SygehusKoordinering.DataAccess
             // throw new DbException("Error in Data repositiory: " + error);
         }
 
-        public static void removeSaerligeForhold(string Id)
-        {
-            SqlConnection connection = null;
-            try
-            {
-                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-                SqlCommand sqlCommand = new("DELETE FROM BookedForSaerligeForhold" +
-                    " WHERE Booked = @Id", connection);
-                SqlCommand command = sqlCommand;
-                SqlParameter param = new("@Id", SqlDbType.NVarChar);
-                param.Value = Id;
-                command.Parameters.Add(param);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch
-            {
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-            }
-        }
+        //public static void removeSaerligeForhold(string Id)
+        //{
+        //    SqlConnection connection = null;
+        //    try
+        //    {
+        //        connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+        //        SqlCommand sqlCommand = new("DELETE FROM BookedForSaerligeForhold" +
+        //            " WHERE Booked = @Id", connection);
+        //        SqlCommand command = sqlCommand;
+        //        SqlParameter param = new("@Id", SqlDbType.NVarChar);
+        //        param.Value = Id;
+        //        command.Parameters.Add(param);
+        //        connection.Open();
+        //        command.ExecuteNonQuery();
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    finally
+        //    {
+        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        //    }
+        //}
 
     }
 }

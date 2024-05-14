@@ -73,9 +73,6 @@ namespace SygehusKoordinering.DataAccess
             return list;
         }
 
-
-
-
         public static List<string> GetProeve(string Id)
         {
             SqlConnection connection = null;
@@ -182,10 +179,10 @@ namespace SygehusKoordinering.DataAccess
                             }
                         list.Add(data);
                             list.Sort();
-                            OnChanged(DbOperation.INSERT, DbModeltype.Personale);
+                            OnChanged(DbOperation.INSERT, DbModeltype.Booking);
                             return;
                         }
-                        error = string.Format("Personale could not be inserted in the database");
+                        error = string.Format("Booking could not be inserted in the database");
                     }
                     catch (Exception ex)
                     {
@@ -196,7 +193,7 @@ namespace SygehusKoordinering.DataAccess
                         if (connection != null && connection.State == ConnectionState.Open) connection.Close();
                     }
             }
-            else error = "Illegal value for Personale";
+            else error = "Illegal value for Booking";
             Console.WriteLine(error);
             // throw new DbException("Error in Data repositiory: " + error);
         }
@@ -323,41 +320,37 @@ namespace SygehusKoordinering.DataAccess
                 }
         }
 
+        //public void Remove(string Id)
+        //{
+        //    string error = "";
+        //    try
+        //    {
+        //        BundleRepository.removeProeve(Id);
+        //        BundleRepository.removeSaerligeForhold(Id);
+        //        using (SqlCommand command = new("DELETE FROM Booking WHERE Id = @Id", connection))
+        //        {
+        //            command.Parameters.Add(CreateParam("@Id", Id, SqlDbType.NVarChar));
+        //            connection.Open();
+        //            if (command.ExecuteNonQuery() == 1)
+        //            {
+        //                list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", "", ""));
+        //                OnChanged(DbOperation.DELETE, DbModeltype.Personale);
+        //                return;
+        //            }
+        //        }
 
-
-        public void Remove(string Id)
-        {
-            string error = "";
-            try
-            {
-                BundleRepository.removeProeve(Id);
-                BundleRepository.removeSaerligeForhold(Id);
-                using (SqlCommand command = new("DELETE FROM Booking WHERE Id = @Id", connection))
-                {
-                    command.Parameters.Add(CreateParam("@Id", Id, SqlDbType.NVarChar));
-                    connection.Open();
-                    if (command.ExecuteNonQuery() == 1)
-                    {
-                        list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", "", ""));
-                        OnChanged(DbOperation.DELETE, DbModeltype.Personale);
-                        return;
-                    }
-                }
-
-                error = string.Format("Booking could not be deleted");
-            }
-            catch (Exception ex)
-            {
-                error = ex.Message;
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-            }
-            throw new DbException("Error in Booking repositiory: " + error);
-        }
-
-
+        //        error = string.Format("Booking could not be deleted");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        error = ex.Message;
+        //    }
+        //    finally
+        //    {
+        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        //    }
+        //    throw new DbException("Error in Booking repositiory: " + error);
+        //}
 
     }
 }

@@ -173,10 +173,20 @@ namespace SygehusKoordinering.ViewModel
             string formateDate = bestiltDato.ToString("yyyy-MM-dd");
 
 
+
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 
                                           proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
+
+            foreach (var station in MainViewModel.stations)
+            {
+                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(selectedAfdeling))
+                {
+                    station.currentPriority = selectedPrioritet;
+                    station.nodify();
+                }
+            }
             
         }
         

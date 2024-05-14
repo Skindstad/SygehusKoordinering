@@ -172,6 +172,31 @@ namespace SygehusKoordinering.DataAccess
             }
             return "";
         }
-
+        public static string GetLocationFromAfdeling(string AfdelingsNavn)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("Select Lokation.Navn from Afdeling" +
+                    " Join Lokation on Lokation.Id = Afdeling.Lokation" +
+                    " WHERE Afdeling.Navn = @Navn", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Navn", SqlDbType.NVarChar);
+                param.Value = AfdelingsNavn;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return "";
+        }
     }
 }
