@@ -34,6 +34,9 @@ namespace SygehusKoordinering
             builder.Services.AddTransient<PersonaleListeView>();
             builder.Services.AddTransient<PersonaleListeViewModel>();
 
+            builder.Services.AddTransient<ConformationView>();
+            builder.Services.AddTransient<ConformationViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

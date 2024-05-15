@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SygehusKoordinering.View.ConformationView"
+             Title="ConformationView">
+    <VerticalStackLayout>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" IsVisible="{Binding Faediggoere}">
+                <Label 
+                    Text="Ønsker du at færdiggøre Opgaven?"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </Grid>
+            <Grid Grid.Row="1" IsVisible="{Binding VidereGiv}">
+                <Label Text="VidereGiv?" VerticalOptions="Center" HorizontalOptions="Center" />       
+            </Grid>
+        </Grid>
+        
+    </VerticalStackLayout>
+</ContentPage>

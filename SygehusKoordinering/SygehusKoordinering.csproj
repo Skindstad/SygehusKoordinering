@@ -71,6 +71,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\ConformationView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\ItemView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

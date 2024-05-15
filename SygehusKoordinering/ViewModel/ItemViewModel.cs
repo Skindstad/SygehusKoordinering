@@ -16,6 +16,9 @@ namespace SygehusKoordinering.ViewModel
         public BookingRepository bookings = [];
         public OplysningViewModel oplysning;
         public ItemViewModel item;
+
+        public static bool Complete = false;
+
         public ItemViewModel() 
         {
             Booking Book = OplysningViewModel.data.GetBooking();
@@ -194,14 +197,25 @@ namespace SygehusKoordinering.ViewModel
         void VidereGiv()
         {
             //bookings.Update(OplysningViewModel.data.GetBooking().Id, MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
-            Oplysning();
+            Complete = false;
+            Conformation();
+
         }
+
         [RelayCommand]
         void Finish()
         {
-            bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "1");
-            Oplysning();
+            //bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "1");
+            Complete = true;
+            Conformation();
+
+
         }
+        async Task Conformation()
+        {
+            await Shell.Current.GoToAsync(nameof(ConformationView));
+        }
+
 
         async Task Oplysning()
         {
