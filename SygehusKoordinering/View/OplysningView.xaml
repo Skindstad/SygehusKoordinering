@@ -6,7 +6,7 @@
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="Funtions">
             <MenuFlyoutItem Text="Opret opgave" Clicked="Oprettelse_Clicked"/>
-            <MenuFlyoutItem Text="Se personale" Command="{Binding PersonaleListeCommand}"/>
+            <MenuFlyoutItem Text="Se personale" Clicked="PersonaleListe_Clicked"/>
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Log ud" Command="{Binding LogUdCommand}" />
         </MenuBarItem>

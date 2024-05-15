@@ -138,7 +138,6 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
         }
 
-        [RelayCommand]
         public async Task PersonaleListe()
         {
             await Shell.Current.GoToAsync(nameof(PersonaleListeView));
