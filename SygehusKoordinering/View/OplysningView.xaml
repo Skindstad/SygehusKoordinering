@@ -17,39 +17,49 @@
             <converters:ListToStringConverter x:Key="ListToStringConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemTapped="ItemList_ItemTapped">
-            <ListView.ItemTemplate >
-                <DataTemplate >
-                    <ViewCell>
-                        <Grid Padding="10" BackgroundColor="{Binding RowColor}" Margin="0,0,0,12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Labels within the grid cells -->
-                            <Image Source="{Binding Image}" HeightRequest="30" WidthRequest="30"/>
-                            <Grid Grid.Column="1">
+                <ListView.ItemTemplate >
+                    <DataTemplate >
+                        <ViewCell>
+                            <Grid Padding="10" BackgroundColor="{Binding RowColor}" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="{Binding Afdeling}" />
-                                <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
-                                <Label Grid.Row="2" Text="{Binding Navn}" />
-                            </Grid>
-                            <Label Grid.Column="2" Text="{Binding BestiltTime}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
+                                <!-- Labels within the grid cells -->
+                                <Image Source="{Binding Image}" HeightRequest="50" WidthRequest="50"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding Afdeling}" />
+                                        <Label Grid.Column="1" Text=" , " />
+                                        <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" />
+                                    </Grid>
+                                    <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
+                                    <Label Grid.Row="2" Text="{Binding Navn}" />
+                                </Grid>
+                                <Label Grid.Column="2" Text="{Binding BestiltTime}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

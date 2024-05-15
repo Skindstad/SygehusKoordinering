@@ -52,17 +52,26 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Text="Place"/>
-                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Afdeling}"/>
-                <Label Grid.Column="0" Grid.Row="1" Text="Person"/>
+                <Image Grid.Column="0" Grid.Row="0" Source="gray_place.png" HeightRequest="40" WidthRequest="40"/>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding Afdeling}" />
+                    <Label Grid.Column="1" Text=" , " />
+                    <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" />
+                </Grid>
+                <Image Grid.Column="0" Grid.Row="1" Source="gray_person.png" HeightRequest="40" WidthRequest="40"/>
                 <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}"/>
                 <Label Grid.Column="1" Grid.Row="2" Text="{Binding CPR}"/>
 
-                <Label Grid.Column="0" Grid.Row="3" Text="Kommentar"/>
+                <Image Grid.Column="0" Grid.Row="3" Source="gray_speech.png" HeightRequest="40" WidthRequest="40"/>
                 <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kommentar}"/>
-                <Label Grid.Column="0" Grid.Row="4" Text="Kontakt"/>
-                <Label Grid.Column="1" Grid.Row="5" Text="{Binding KontaktPerson}"/>
-                <Label Grid.Column="1" Grid.Row="6" Text="{Binding Phone}"/>
+                <Image Grid.Column="0" Grid.Row="4" Source="gray_pen.png" HeightRequest="40" WidthRequest="40"/>
+                <Label Grid.Column="1" Grid.Row="4" Text="{Binding KontaktPerson}"/>
+                <Label Grid.Column="1" Grid.Row="5" Text="{Binding Phone}"/>
 
             </Grid>
                 <Grid Grid.Row="2">

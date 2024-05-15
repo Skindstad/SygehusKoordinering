@@ -160,6 +160,7 @@ namespace SygehusKoordinering.ViewModel
                 case "Livstruende":
                     Asset.play("SoundEffect 3.wav");
                     break;
+                default: break;
             }
            
 

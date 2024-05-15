@@ -53,11 +53,12 @@ namespace SygehusKoordinering.ViewModel
             }
             Time = Book.BestiltTime;
             Afdeling = Book.Afdeling;
+            StueEllerSengeplads = Book.StueEllerSengeplads;
             Kommentar = Book.Kommentar;
 
             Personale createdAf =  bookings.FindCreatedAf(Book.Id);
 
-            kontaktPerosn = createdAf.Navn;
+            kontaktPerson = createdAf.Navn;
             Phone = createdAf.ArbejdTlf;
 
             if(Book.TakedAf == "")
@@ -106,6 +107,10 @@ namespace SygehusKoordinering.ViewModel
         Color textColor;
 
         [ObservableProperty]
+        string stueEllerSengeplads;
+
+
+        [ObservableProperty]
         string proever;
 
         [ObservableProperty]
@@ -120,7 +125,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string kommentar;
         [ObservableProperty]
-        string kontaktPerosn;
+        string kontaktPerson;
 
         [ObservableProperty]
         string phone;
@@ -145,18 +150,43 @@ namespace SygehusKoordinering.ViewModel
         {
 
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            
+            foreach (var station in MainViewModel.stations)
+            {
+                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
+                {
+                    station.currentPriority = "";
+                    station.nodify();
+                }
+            }
             Oplysning();
         }
         [RelayCommand]
         void No()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            foreach (var station in MainViewModel.stations)
+            {
+                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
+                {
+                    station.currentPriority = "";
+                    station.nodify();
+                }
+            }
             Oplysning();
         }
         [RelayCommand]
         void Begin()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            foreach (var station in MainViewModel.stations)
+            {
+                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
+                {
+                    station.currentPriority = "";
+                    station.nodify();
+                }
+            }
             Oplysning();
 
         }

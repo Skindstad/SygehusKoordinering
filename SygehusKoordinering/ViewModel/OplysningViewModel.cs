@@ -124,8 +124,6 @@ namespace SygehusKoordinering.ViewModel
                         booking.BestiltTime = formatEstra + " - " + formattedTime;
                     }
 
-                    // Afdeling og Location
-                    booking.Afdeling = booking.Afdeling + ", " + booking.StueEllerSengeplads;
 
                     LocalList.Add(booking);
              
