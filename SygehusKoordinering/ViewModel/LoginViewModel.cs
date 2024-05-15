@@ -151,13 +151,13 @@ namespace SygehusKoordinering.ViewModel
             switch (currentPriority)
             {
                 case "Normal":
-                    Sound.play("SoundEffect.wav");
+                    Sound.play("SoundEffect 2.wav");
                     break;
                 case "Haster":
                     Sound.play("SoundEffect.wav");
                     break;
                 case "Livstruende":
-                    Sound.play("SoundEffect.wav");
+                    Sound.play("SoundEffect 3.wav");
                     break;
             }
            
