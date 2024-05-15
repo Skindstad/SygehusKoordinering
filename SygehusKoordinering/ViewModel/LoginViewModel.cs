@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Storage;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +17,9 @@ namespace SygehusKoordinering.ViewModel
         public static PersonaleRepository personales = [];
 
 
-        public LoginViewModel() {}
+        public LoginViewModel() {
+        
+        }
 
         [ObservableProperty]
         string mail;
@@ -143,6 +147,21 @@ namespace SygehusKoordinering.ViewModel
         public void update()
         {
             currentPriority = myStation.getPriority();
+
+            switch (currentPriority)
+            {
+                case "Normal":
+                    Sound.play("SoundEffect.wav");
+                    break;
+                case "Haster":
+                    Sound.play("SoundEffect.wav");
+                    break;
+                case "Livstruende":
+                    Sound.play("SoundEffect.wav");
+                    break;
+            }
+           
+
             oplysning.Find();
         }
     }
@@ -156,6 +175,35 @@ namespace SygehusKoordinering.ViewModel
     public interface IObserver
     {
         public void update();
+    }
+
+    public class Sound
+    {
+
+        public static void play(string filename)
+        {
+            string currentDirectory = "G:\\bøger\\Programmering\\Code\\SygehusKoordinering\\SygehusKoordinering";
+
+
+            string soundFilePath = Path.Combine(currentDirectory, "Assets", filename);
+
+
+
+            if (File.Exists(soundFilePath))
+            {
+
+                SoundPlayer player = new SoundPlayer(soundFilePath);
+
+
+                player.Play();
+            }
+            else
+            {
+                Console.WriteLine("Sound file not found: " + soundFilePath);
+            }
+
+        }
+
     }
 
 }

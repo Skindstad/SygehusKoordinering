@@ -52,4 +52,9 @@ JOIN BookedForSaerligeForhold ON Booking.Id = BookedForSaerligeForhold.Booked
 JOIN SaerligeForhold ON BookedForSaerligeForhold.SaerligeForhold = SaerligeForhold.Id;
 
 
+Select CPR, Navn, Mail, Status, ArbejdsTlfNr, Adresse, PrivatTlfNr From Personale 
+WHERE CPR LIKE '' Or Navn LIKE '' Or Mail LIKE '' OR ArbejdsTlfNr LIKE ''
+OR PrivatTlfNr LIKE '' Or Adresse LIKE '' OR Status = '1';
+
+
 Select Lokation.Navn  from Afdeling Join Lokation on Lokation.Id = Afdeling.Lokation WHERE Afdeling.Navn = 'A1';
