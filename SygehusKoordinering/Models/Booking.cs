@@ -83,7 +83,7 @@ namespace SygehusKoordinering.Models
             try
             {
                 Booking data = (Booking)obj;
-                return CPR.Equals(data.CPR);
+                return Id.Equals(data.Id);
             }
             catch
             {
@@ -93,12 +93,12 @@ namespace SygehusKoordinering.Models
 
         public override int GetHashCode()
         {
-            return CPR.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public int CompareTo(Booking data)
         {
-            return CPR.CompareTo(data.CPR);
+            return Id.CompareTo(data.Id);
         }
         private static readonly string[] validatedProperties = {"CPR", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
         public bool IsValid
