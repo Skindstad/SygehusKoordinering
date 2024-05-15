@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SygehusKoordinering.Assets;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using SygehusKoordinering.View;
 using System.Collections.ObjectModel;
+using System.Drawing;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -54,7 +56,7 @@ namespace SygehusKoordinering.ViewModel
         string click;
 
         [ObservableProperty]
-        string stateColor;
+        ImageSource image;
 
 
         public void Find()
@@ -64,16 +66,18 @@ namespace SygehusKoordinering.ViewModel
 
                 var bookings = bookingRepository.Search(MainViewModel.data.Getpersonal().Lokations, MainViewModel.data.Getpersonal().CPR);
 
-                foreach (var booking in bookings)
-                {
+           foreach (var booking in bookings)
+           {
+                booking.Image = "white_syringe.png";
 
-                    if(booking.TakedAf != "" && booking.Begynd == "True")
+
+                if (booking.TakedAf != "" && booking.Begynd == "True")
                     {
-                    booking.StateColor = Color.FromHex("#000000");
+                    booking.Image = "black_syringe.png";
                     } 
                     else if (booking.TakedAf != "")
                     {
-                    booking.StateColor = Color.FromHex("#EEEE00");
+                    booking.Image = "yellow_syringe.png";
                     }
                     // Prioritet
                     switch (booking.Prioritet)

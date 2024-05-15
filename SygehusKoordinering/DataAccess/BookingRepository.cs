@@ -268,7 +268,7 @@ namespace SygehusKoordinering.DataAccess
                 try
                 {
                     DateTime updated = DateTime.Now;
-                    string updatedString = updated.ToString("yyyy-MM-dd HH:mm:ss");
+                    string updatedString = updated.ToString("yyyy-MM-dd HH:mm");
                     SqlCommand sqlCommand = new("UPDATE Booking SET TakedAf = @TakedAf, Begynd = @Begynd, Done = @Done, Kommentar = @Kommentar, Updated = @Updated WHERE Id = @Id", connection);
                     SqlCommand command = sqlCommand;
                     command.Parameters.Add(CreateParam("@Id", booking.Id, SqlDbType.NVarChar));
@@ -284,7 +284,7 @@ namespace SygehusKoordinering.DataAccess
                     command.Parameters.Add(CreateParam("@Begynd", Begynd, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Done", Done, SqlDbType.NVarChar));
                     command.Parameters.Add(CreateParam("@Kommentar", Kommentar, SqlDbType.NVarChar));
-                    command.Parameters.Add(CreateParam("@Updated", updated, SqlDbType.NVarChar));
+                    command.Parameters.Add(CreateParam("@Updated", updated, SqlDbType.DateTime));
                     connection.Open();
                     if (command.ExecuteNonQuery() == 1)
                     {

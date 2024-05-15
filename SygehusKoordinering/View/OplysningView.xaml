@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.OplysningView"
              xmlns:converters="clr-namespace:SygehusKoordinering.Converter">
+    
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="Funtions">
             <MenuFlyoutItem Text="Opret opgave" Clicked="Oprettelse_Clicked"/>
@@ -32,7 +33,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Labels within the grid cells -->
-                            <Label Grid.Column="0" Text="Image" TextColor="{Binding StateColor}" Padding="10" FontSize="Large"/>
+                            <Image Source="{Binding Image}" HeightRequest="30" WidthRequest="30"/>
                             <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />

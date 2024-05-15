@@ -29,7 +29,7 @@ namespace SygehusKoordinering.Models
         public string Begynd { get; set; }
         public string Done { get; set; }
         public Color RowColor { get; set; }
-        public Color StateColor { get; set; }
+        public ImageSource Image { get; set; }
 
         public Booking()
         {
