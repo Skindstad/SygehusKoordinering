@@ -10,13 +10,56 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" IsVisible="{Binding Faediggoere}">
-                <Label 
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
                     Text="Ønsker du at færdiggøre Opgaven?"
                     VerticalOptions="Center" 
                     HorizontalOptions="Center" />
+                <Picker Grid.Row="1" Title="Vente tid" ItemsSource="{Binding Tid}" SelectedItem="{Binding SelectedTid}"/>
+                <Picker Grid.Row="2" Title="Vælg Årsag" ItemsSource="{Binding Aarsag}" SelectedItem="{Binding SelectedAarsag}"/>
+                <Button Grid.Row="3" VerticalOptions="End" Text="OK" Command="{Binding FinishCommand}"/>
             </Grid>
-            <Grid Grid.Row="1" IsVisible="{Binding VidereGiv}">
-                <Label Text="VidereGiv?" VerticalOptions="Center" HorizontalOptions="Center" />       
+            <Grid Grid.Row="1" IsVisible="{Binding VidereGivHidden}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Date}" FontSize="16"/>
+                        <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="16"/>
+                        <Label Grid.Column="2" Text="{Binding Time}" FontSize="16"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Afdeling}" />
+                        <Label Grid.Column="1" Text=" , " />
+                        <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" />
+                    </Grid>
+                </Grid>
+                
+                <Entry Grid.Row="1" Text="{Binding VidereGivKommentar}" Margin="0,0,0,40" Placeholder="Din Kommentar til Næste Udfører" />
+                <Button Grid.Row="2" VerticalOptions="End" Text="Videregiv" Command="{Binding VidereGivCommand}"/>
             </Grid>
         </Grid>
         

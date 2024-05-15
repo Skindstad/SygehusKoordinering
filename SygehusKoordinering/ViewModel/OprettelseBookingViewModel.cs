@@ -172,10 +172,7 @@ namespace SygehusKoordinering.ViewModel
 
             string formateDate = bestiltDato.ToString("yyyy-MM-dd");
 
-            if(kommentar == null)
-            {
-                kommentar = "";
-            }
+
 
 
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 

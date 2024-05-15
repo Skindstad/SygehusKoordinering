@@ -100,7 +100,7 @@ namespace SygehusKoordinering.Models
         {
             return Id.CompareTo(data.Id);
         }
-        private static readonly string[] validatedProperties = {"CPR", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "Kommentar", "CreatedAf" };
+        private static readonly string[] validatedProperties = {"CPR", "Navn", "Afdeling", "StueEllerSengeplads", "Prioritet", "Bestilt", "CreatedAf" };
         public bool IsValid
         {
             get
@@ -134,7 +134,6 @@ namespace SygehusKoordinering.Models
                 case "Navn": return ValidateName();
                 case "Afdeling": return ValidateDepartement();
                 case "StueEllerSengeplads": return ValidateLivingroom();
-                case "Kommentar": return ValidateDecription();
                 case "Prioritet": return ValidatePrioritet();
                 case "CreatedAf": return ValidateCreated();
                 case "Bestilt": return ValidateOrder();
@@ -164,11 +163,7 @@ namespace SygehusKoordinering.Models
             if (StueEllerSengeplads == null || StueEllerSengeplads.Length == 0) return "Livingroom or Bed space can not be empty";
             return null;
         }
-        private string? ValidateDecription()
-        {
-            if (Kommentar == null || Kommentar.Length == 0) return "Decription can not be empty";
-            return null;
-        }
+
         private string? ValidatePrioritet()
         {
             if (Prioritet == null || Prioritet.Length == 0) return "Prioritet can not be empty";
