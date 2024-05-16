@@ -19,7 +19,6 @@ namespace SygehusKoordinering.ViewModel
 
 
         public LoginViewModel() {
-        
         }
 
         [ObservableProperty]

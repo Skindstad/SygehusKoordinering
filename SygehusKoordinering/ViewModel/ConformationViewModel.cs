@@ -27,6 +27,7 @@ namespace SygehusKoordinering.ViewModel
 
                 Tid = ["1-10 min", "10-20 min", "20-30 min", "Forgæves tur"];
                 Aarsag = ["Ingen yderligere kommentarer", "Vente på elevator", "Patient ikke klar", "Plejepersonale ikke klar", "Røntgen ikke klar", "OP ikke Klar", "Behandlingsrum ikke klar"];
+                selectedAarsag = aarsag[0];
 
 
             } else

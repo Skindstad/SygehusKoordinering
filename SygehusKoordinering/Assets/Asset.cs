@@ -7,10 +7,28 @@ namespace SygehusKoordinering.Assets
     {
         public static void play(string filename)
         {
-            string currentDirectory = "G:\\bøger\\Programmering\\Code\\SygehusKoordinering\\SygehusKoordinering";
+            
+            string folderName = "Assets";
+            string[] directories = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory, folderName, SearchOption.AllDirectories);
+
+            string currentDirectory = null;
+
+            if (directories.Length > 0)
+            {
+                foreach (string directory in directories)
+                {
+                    Console.WriteLine($"Found folder: {directory}");
+                    currentDirectory = directory;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Folder not found.");
+                currentDirectory = "";
+            }
 
 
-            string soundFilePath = Path.Combine(currentDirectory, "Assets", filename);
+            string soundFilePath = Path.Combine(currentDirectory, filename);
 
 
 

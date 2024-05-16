@@ -32,6 +32,7 @@ namespace SygehusKoordinering.ViewModel
             bestiltTime = DateTime.Now.TimeOfDay;
             bestiltDato = DateTime.Now.Date;
             SelectedBestilt = bestilt[0];
+            selectedPrioritet = Prioritet[0];
         }
 
         [ObservableProperty]

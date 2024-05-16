@@ -43,8 +43,20 @@ namespace SygehusKoordinering.ViewModel
                     textColor = Colors.Transparent;
                     break;
             }
-            
 
+            string p = "";
+            
+            foreach(var proeve in Book.Proeve)
+            {
+                if (proeve == Book.Proeve.Last())
+                {
+                    p += proeve;
+                } else
+                {
+                    p += proeve + " / ";
+                }
+            }
+            Proeve = p;
 
             if(DateTime.Now.Date.ToString("yyyy-MM-dd") == DateTime.Parse(Book.BestiltDato).ToString("yyyy-MM-dd"))
             {
@@ -114,7 +126,7 @@ namespace SygehusKoordinering.ViewModel
 
 
         [ObservableProperty]
-        string proever;
+        string proeve;
 
         [ObservableProperty]
         string date;

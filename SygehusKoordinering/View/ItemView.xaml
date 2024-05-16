@@ -4,12 +4,8 @@
              x:Class="SygehusKoordinering.View.ItemView"
              xmlns:converters="clr-namespace:SygehusKoordinering.Converter"
              Title="{Binding Navn}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:ListToStringConverter x:Key="ListToStringConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -27,7 +23,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Text="{Binding Prioritet}" FontSize="28" TextColor="{Binding TextColor}"/>
-                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve}"/>
                 <Grid Grid.Column="0" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -89,4 +85,5 @@
         </Grid>
         <Button Text="Book" Command="{Binding BookCommand}" IsVisible="{Binding IsBookVisible}"/>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
