@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.ItemView"
-             xmlns:converters="clr-namespace:SygehusKoordinering.Converter"
              Title="{Binding Navn}">
     <ScrollView>
         <VerticalStackLayout>
@@ -22,17 +21,17 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding Prioritet}" FontSize="28" TextColor="{Binding TextColor}"/>
-                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve}"/>
+                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding Prioritet}" FontSize="35" TextColor="{Binding TextColor}"/>
+                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve}" FontSize="16" TextColor="Black"/>
                 <Grid Grid.Column="0" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding Date}" FontSize="16"/>
-                    <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="16"/>
-                    <Label Grid.Column="2" Text="{Binding Time}" FontSize="16"/>
+                    <Label Grid.Column="0" Text="{Binding Date}" FontSize="20"/>
+                    <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="20"/>
+                    <Label Grid.Column="2" Text="{Binding Time}" FontSize="20"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" Padding="10">
@@ -48,26 +47,26 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="0" Grid.Row="0" Source="gray_place.png" HeightRequest="40" WidthRequest="40"/>
+                <Image Grid.Column="0" Grid.Row="0" Source="gray_place.png" HeightRequest="50" WidthRequest="50"/>
                 <Grid Grid.Column="1" Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding Afdeling}" />
-                    <Label Grid.Column="1" Text=" , " />
-                    <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" />
+                    <Label Grid.Column="0" Text="{Binding Afdeling}" FontSize="20"/>
+                        <Label Grid.Column="1" Text=" , " FontSize="20" />
+                        <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" FontSize="20"/>
                 </Grid>
-                <Image Grid.Column="0" Grid.Row="1" Source="gray_person.png" HeightRequest="40" WidthRequest="40"/>
-                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}"/>
-                <Label Grid.Column="1" Grid.Row="2" Text="{Binding CPR}"/>
+                    <Image Grid.Column="0" Grid.Row="1" Source="gray_person.png" HeightRequest="50" WidthRequest="50"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}" FontSize="20"/>
+                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding CPR}" FontSize="20"/>
 
-                <Image Grid.Column="0" Grid.Row="3" Source="gray_speech.png" HeightRequest="40" WidthRequest="40"/>
+                <Image Grid.Column="0" Grid.Row="3" Source="gray_speech.png" HeightRequest="50" WidthRequest="50"/>
                 <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kommentar}"/>
-                <Image Grid.Column="0" Grid.Row="4" Source="gray_pen.png" HeightRequest="40" WidthRequest="40"/>
-                <Label Grid.Column="1" Grid.Row="4" Text="{Binding KontaktPerson}"/>
-                <Label Grid.Column="1" Grid.Row="5" Text="{Binding Phone}"/>
+                <Image Grid.Column="0" Grid.Row="4" Source="gray_pen.png" HeightRequest="50" WidthRequest="50"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding KontaktPerson}" FontSize="20"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding Phone}" FontSize="20"/>
 
             </Grid>
                 <Grid Grid.Row="2">

@@ -19,13 +19,13 @@
     </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout>
-        <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemTapped="ItemList_ItemTapped">
+        <ListView x:Name="ItemList" Margin="10"  Grid.ColumnSpan="2" ItemsSource="{Binding LocalList}" ItemTapped="ItemList_ItemTapped" RowHeight="130">
                 <ListView.ItemTemplate >
                     <DataTemplate >
                         <ViewCell>
                             <Grid Padding="10" BackgroundColor="{Binding RowColor}" Margin="0,0,0,12">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="65" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
@@ -34,7 +34,7 @@
                                 </Grid.RowDefinitions>
 
                                 <!-- Labels within the grid cells -->
-                                <Image Source="{Binding Image}" HeightRequest="50" WidthRequest="50"/>
+                                <Image Source="{Binding Image}" HeightRequest="50" WidthRequest="50" />
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -47,14 +47,14 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="{Binding Afdeling}" />
-                                        <Label Grid.Column="1" Text=" , " />
-                                        <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" />
+                                        <Label Grid.Column="0" Text="{Binding Afdeling}" FontSize="20"/>
+                                        <Label Grid.Column="1" Text=" , " FontSize="20"/>
+                                        <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" FontSize="20"/>
                                     </Grid>
-                                    <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" />
-                                    <Label Grid.Row="2" Text="{Binding Navn}" />
+                                    <Label Grid.Row="1" Text="{Binding Proeve, Converter={StaticResource ListToStringConverter}}" FontSize="15"/>
+                                    <Label Grid.Row="2" Text="{Binding Navn}" FontSize="15"/>
                                 </Grid>
-                                <Label Grid.Column="2" Text="{Binding BestiltTime}" />
+                                <Label Grid.Column="2" Text="{Binding BestiltTime}" FontSize="15"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

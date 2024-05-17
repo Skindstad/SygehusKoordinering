@@ -259,6 +259,33 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
+        public static string GetUpdatedTime(string Id)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
+                SqlCommand sqlCommand = new("SELECT Updated FROM Booking " +
+                    "WHERE Id = @Id", connection);
+                SqlCommand command = sqlCommand;
+                SqlParameter param = new("@Id", SqlDbType.NVarChar);
+                param.Value = Id;
+                command.Parameters.Add(param);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read()) return reader[0].ToString();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+            }
+            return null;
+        }
+
+
 
         public void Update(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
         {

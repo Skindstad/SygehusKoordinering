@@ -35,21 +35,36 @@ namespace SygehusKoordinering.ViewModel
                 Faediggoere = false;
                 VidereGivHidden = true;
 
-                if (DateTime.Now.Date.ToString("yyyy-MM-dd") == DateTime.Parse(Book.BestiltDato).ToString("yyyy-MM-dd"))
-                {
-                    Date = "I dag ";
-                }
-                else
-                {
-                    DateTime time = DateTime.Parse(Book.BestiltDato);
-                    Date = time.ToString("yyyy-MM-dd");
-                }
-                Time = Book.BestiltTime;
+
+                DateTime time = DateTime.Parse(Book.BestiltDato);
+                Date = time.ToString("yyyy-MM-dd");
+
+                DateTime UpdatedTime = DateTime.Parse(BookingRepository.GetUpdatedTime(Book.Id));
+
+
+                Time = UpdatedTime.ToString("HH:mm");
                 Afdeling = Book.Afdeling;
                 StueEllerSengeplads = Book.StueEllerSengeplads;
 
             }
-            
+
+            string p = "";
+
+            foreach (var proeve in Book.Proeve)
+            {
+                if (proeve == Book.Proeve.Last())
+                {
+                    p += proeve;
+                }
+                else
+                {
+                    p += proeve + " / ";
+                }
+            }
+            Proeve = p;
+
+
+
         }
         [ObservableProperty]
         List<string> tid;
@@ -83,6 +98,10 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string stueEllerSengeplads;
+
+        [ObservableProperty]
+        string proeve;
+
 
         [RelayCommand]
         void VidereGiv()
