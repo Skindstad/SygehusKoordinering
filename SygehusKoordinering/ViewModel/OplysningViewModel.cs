@@ -150,6 +150,7 @@ namespace SygehusKoordinering.ViewModel
         {
             Personale p = MainViewModel.data.Getpersonal();
             personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
+            p = null;
            //await Shell.Current.GoToAsync(nameof(MainPage));
         }
     }

@@ -53,7 +53,7 @@ namespace SygehusKoordinering.ViewModel
 
     public class LoginData
     {
-        private Personale data;
+        private Personale data = null;
         private List<Display> Displays = new List<Display>();
         public void Add(Personale p) 
         {

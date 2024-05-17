@@ -19,8 +19,8 @@ namespace SygehusKoordinering
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
-            builder.Services.AddTransient<LoginView>();
-            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddSingleton<LoginView>();
+            builder.Services.AddSingleton<LoginViewModel>();
 
             builder.Services.AddTransient<OplysningView>();
             builder.Services.AddTransient<OplysningViewModel>();

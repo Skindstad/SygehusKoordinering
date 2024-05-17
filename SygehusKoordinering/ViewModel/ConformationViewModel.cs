@@ -139,7 +139,7 @@ namespace SygehusKoordinering.ViewModel
 
         async Task Oplysning()
         {
-            await Shell.Current.GoToAsync(nameof(OplysningView));
+            await Shell.Current.GoToAsync($"../../{nameof(OplysningView)}");
         }
 
     }

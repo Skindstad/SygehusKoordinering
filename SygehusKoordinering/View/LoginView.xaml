@@ -3,25 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.LoginView"
              Title="Login">
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <Grid Padding="20">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="70"/>
-                <RowDefinition />
-                <RowDefinition Height="70"/>
-                <RowDefinition />
-                <RowDefinition Height="70"/>
-                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" FontSize="20" Text="Email:"/>
             <Entry Grid.Row="1" Text="{Binding Mail}" Margin="0,0,0,40" Placeholder="Email"/>
             <Label Grid.Row="2" FontSize="20" Text="Arbejde Telefon nr:"/>
-            <Entry Grid.Row="3" Text="{Binding ArbejdeTlf}" Margin="0,0,0,40" Placeholder="Arbejd Telefon nr."/>
+            <Entry Grid.Row="3" Text="{Binding ArbejdeTlf}" Margin="0,0,0,40" Placeholder="Arbejds Telefon nr."/>
             <Label Grid.Row="4" FontSize="20" Text="Adgangskode:"/>
             <Entry Grid.Row="5" Text="{Binding Adgangskode}" Margin="0,0,0,40" Placeholder="Adgangskode" IsPassword="True"/>
 
-            <Button Grid.Row="6" WidthRequest="100" HeightRequest="40" Text="Login" Command="{Binding LoginCommand}"/>
+            <Button Grid.Row="6"  HeightRequest="40" VerticalOptions="End" Margin="0,100,0,0" Text="Login" Command="{Binding LoginCommand}"/>
         </Grid>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

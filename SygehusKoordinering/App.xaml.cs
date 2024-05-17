@@ -8,6 +8,7 @@ namespace SygehusKoordinering
         {
             InitializeComponent();
 
+            //MainPage = new NavigationPage(new MainPage()
             MainPage = new AppShell();
         }
     }
