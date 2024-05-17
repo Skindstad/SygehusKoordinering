@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.Models
 {
+    // Created By Jakob Skindstad Frederiksen
     public class Locations : IDataErrorInfo, IComparable<Locations>
     {
         public string Id { get; set; }

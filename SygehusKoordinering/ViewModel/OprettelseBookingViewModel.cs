@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.Object;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,6 @@ namespace SygehusKoordinering.ViewModel
             LoadSaerligeForhold();
             LoadPrioritet();
             LoadBestiltTime();
-            //ProeveList = new ObservableCollection<Proeve>(proeveRepository);
             IsSelectedProeve = new ObservableCollection<Proeve>();
             IsSelectedSaerlig = new ObservableCollection<SaerligeForhold>();
             bestiltTime = DateTime.Now.TimeOfDay;
@@ -147,27 +147,26 @@ namespace SygehusKoordinering.ViewModel
             string formateTime = null;
             TimeSpan estra;
             TimeSpan time;
-            if (selectedBestilt == "Til Bestilt tid")
+            switch (selectedBestilt)
             {
-                formateTime = bestiltTime.ToString(@"hh\:mm");
-            }
-            if (selectedBestilt == "Inden for 1 time")
-            {
-                estra = TimeSpan.FromHours(1);
-                time =  bestiltTime.Add(estra);
-                formateTime = time.ToString(@"hh\:mm");
-            }
-            if (selectedBestilt == "Inden for 2 time")
-            {
-                estra = TimeSpan.FromHours(2);
-                time = bestiltTime.Add(estra);
-                formateTime = time.ToString(@"hh\:mm");
-            }
-            if (selectedBestilt == "Inden for 3 time")
-            {
-                estra = TimeSpan.FromHours(3);
-                time = bestiltTime.Add(estra);
-                formateTime = time.ToString(@"hh\:mm");
+                case "Til Bestilt tid":
+                    formateTime = bestiltTime.ToString(@"hh\:mm");
+                    break;
+                case "Inden for 1 time":
+                    estra = TimeSpan.FromHours(1);
+                    time = bestiltTime.Add(estra);
+                    formateTime = time.ToString(@"hh\:mm");
+                    break;
+                case "Inden for 2 time":
+                    estra = TimeSpan.FromHours(2);
+                    time = bestiltTime.Add(estra);
+                    formateTime = time.ToString(@"hh\:mm");
+                    break;
+                case "Inden for 3 time":
+                    estra = TimeSpan.FromHours(3);
+                    time = bestiltTime.Add(estra);
+                    formateTime = time.ToString(@"hh\:mm");
+                    break;
             }
 
 
@@ -184,15 +183,9 @@ namespace SygehusKoordinering.ViewModel
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
 
-            foreach (var station in MainViewModel.stations)
-            {
-                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(selectedAfdeling))
-                {
-                    station.currentPriority = selectedPrioritet;
-                    station.nodify();
-                }
-            }
-            
+            // Sends a Notify
+            Objects.SendNotify(selectedAfdeling, selectedPrioritet);
+
         }
         
         private void LoadProeve()

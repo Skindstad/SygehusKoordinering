@@ -1,15 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SygehusKoordinering.Models;
 using SygehusKoordinering.View;
-using System.Windows.Input;
+using SygehusKoordinering.Object;
 
 namespace SygehusKoordinering.ViewModel
 {
@@ -23,7 +18,6 @@ namespace SygehusKoordinering.ViewModel
 
         public MainViewModel()
         {
-            //Oprettelse();
             Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
@@ -89,12 +83,6 @@ namespace SygehusKoordinering.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(OplysningView));
         }
-
-        async Task Oprettelse()
-        {
-            await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
-        }
-
 
     }
 

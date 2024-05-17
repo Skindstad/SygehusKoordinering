@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.Models
 {
+    // Created By Jakob Skindstad Frederiksen
     public class Booking : IDataErrorInfo, IComparable<Booking>
     {
         public string Id { get; set; }

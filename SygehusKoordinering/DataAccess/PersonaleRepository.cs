@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
+    // Created By Jakob Skindstad Frederiksen
     public class PersonaleRepository : Repository, IEnumerable<Personale>
     {
         private List<Personale> list = new List<Personale>();

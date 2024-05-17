@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
+    // Created By Jakob Skindstad Frederiksen
     public class BestiltRepository : Repository, IEnumerable<Bestilt>
     {
         private List<Bestilt> list = new List<Bestilt>();

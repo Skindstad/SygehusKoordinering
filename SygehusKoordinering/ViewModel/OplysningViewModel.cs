@@ -1,14 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SygehusKoordinering.Assets;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.Object;
 using SygehusKoordinering.View;
 using System.Collections.ObjectModel;
-using System.Drawing;
 
 namespace SygehusKoordinering.ViewModel
 {
+    // Created By Jakob Skindstad Frederiksen
     public partial class OplysningViewModel : ObservableObject
     {
         public static BookingRepository bookingRepository = new BookingRepository();
@@ -17,10 +17,7 @@ namespace SygehusKoordinering.ViewModel
 
         public OplysningViewModel()
         {
-            foreach (var item in MainViewModel.data.GetDisplays())
-            {
-                item.Oplysning(this);
-            }
+            Objects.SetOplysningsViewModel(this);
             data = new OplysningData();
             Find();
         }
@@ -80,49 +77,10 @@ namespace SygehusKoordinering.ViewModel
                     booking.Image = "yellow_syringe.png";
                     }
                     // Prioritet
-                    switch (booking.Prioritet)
-                    {
-                        case "Normal":
-                            booking.RowColor = Colors.Blue;
-                            break;
-                        case "Haster":
-                            booking.RowColor = Colors.Orange;
-                            break;
-                        case "Livstruende":
-                            booking.RowColor = Colors.Red;
-                            break;
-                        default:
-                            booking.RowColor = Colors.Transparent;
-                            break;
-                    }
+                    booking.RowColor = Objects.ReturnPriorityColor(booking.Prioritet);
 
                     // Time and Date
-                    DateTime time = DateTime.Parse(booking.BestiltTime);
-                    string formattedTime = time.ToString("HH:mm");
-                    string formatEstra;
-                    DateTime estra;
-                    if(booking.Bestilt == "Til Bestilt tid")
-                    {
-                        booking.BestiltTime = formattedTime;
-                    }
-                    if (booking.Bestilt == "Inden for 1 time")
-                    {
-                        estra = time.AddHours(-1);
-                        formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formatEstra + " - " + formattedTime;
-                    }
-                    if (booking.Bestilt == "Inden for 2 time")
-                    {
-                        estra = time.AddHours(-2);
-                        formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formatEstra + " - " + formattedTime;
-                    }
-                    if (booking.Bestilt == "Inden for 3 time")
-                    {
-                        estra = time.AddHours(-3);
-                        formatEstra = estra.ToString("HH:mm");
-                        booking.BestiltTime = formatEstra + " - " + formattedTime;
-                    }
+                    booking.BestiltTime = Objects.ReturnTime(booking.Bestilt, booking.BestiltTime);
 
 
                     LocalList.Add(booking);
@@ -152,19 +110,6 @@ namespace SygehusKoordinering.ViewModel
             personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
             p = null;
            //await Shell.Current.GoToAsync(nameof(MainPage));
-        }
-    }
-    public class OplysningData
-    {
-        public Booking data;
-
-        public Booking GetBooking()
-        {
-            return data;
-        }
-        public void Add(Booking booking)
-        {
-            data = booking;
         }
     }
 

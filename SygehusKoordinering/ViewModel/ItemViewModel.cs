@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
+using SygehusKoordinering.Object;
 using SygehusKoordinering.View;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.ViewModel
 {
+    // Create by Jakob Skindstad Frederiksen
     public partial class ItemViewModel : ObservableObject
     {
         public BookingRepository bookings = [];
@@ -24,40 +26,20 @@ namespace SygehusKoordinering.ViewModel
             Booking Book = OplysningViewModel.data.GetBooking();
             bookings = new BookingRepository();
 
+
+            // Navn
             Navn = Book.Navn;
+            // CPR
             CPR = Book.CPR;
+            // Prioritet
             Prioritet = Book.Prioritet;
-            //Proever = Book.Proeve;
-            switch (Book.Prioritet)
-            {
-                case "Normal":
-                    textColor = Colors.Blue;
-                    break;
-                case "Haster":
-                    textColor = Colors.Orange;
-                    break;
-                case "Livstruende":
-                    textColor = Colors.Red;
-                    break;
-                default:
-                    textColor = Colors.Transparent;
-                    break;
-            }
+            textColor = Objects.ReturnPriorityColor(Book.Prioritet);
 
-            string p = "";
-            
-            foreach(var proeve in Book.Proeve)
-            {
-                if (proeve == Book.Proeve.Last())
-                {
-                    p += proeve;
-                } else
-                {
-                    p += proeve + " / ";
-                }
-            }
-            Proeve = p;
 
+            //Prøve
+            Proeve = Objects.ReturnProeveString(Book.Proeve, "/ ");
+
+            //Time and Date
             if(DateTime.Now.Date.ToString("yyyy-MM-dd") == DateTime.Parse(Book.BestiltDato).ToString("yyyy-MM-dd"))
             {
                 Date = "I dag ";
@@ -67,15 +49,22 @@ namespace SygehusKoordinering.ViewModel
                 Date = time.ToString("yyyy-MM-dd");
             }
             Time = Book.BestiltTime;
+
+            // Location
             Afdeling = Book.Afdeling;
             StueEllerSengeplads = Book.StueEllerSengeplads;
+            
+            //Kommentar
             Kommentar = Book.Kommentar;
 
+            // Created Af
             Personale createdAf =  bookings.FindCreatedAf(Book.Id);
 
             kontaktPerson = createdAf.Navn;
             Phone = createdAf.ArbejdTlf;
 
+
+            // Taked Af
             if(Book.TakedAf == "")
             {
                 isBookVisible = true;
@@ -159,7 +148,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         bool isFinishVisible;
 
-
+        // 
         [RelayCommand]
         void Book()
         {
@@ -194,34 +183,22 @@ namespace SygehusKoordinering.ViewModel
         void Begin()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
-            foreach (var station in MainViewModel.stations)
-            {
-                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
-                {
-                    station.currentPriority = "";
-                    station.nodify();
-                }
-            }
+
             Oplysning();
 
         }
         [RelayCommand]
         void VidereGiv()
         {
-            //bookings.Update(OplysningViewModel.data.GetBooking().Id, MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
             Complete = false;
             Conformation();
-
         }
 
         [RelayCommand]
         void Finish()
         {
-            //bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "1");
             Complete = true;
             Conformation();
-
-
         }
         async Task Conformation()
         {

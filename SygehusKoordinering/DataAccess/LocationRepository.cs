@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
+    // Created By Jakob Skindstad Frederiksen
     public class LocationRepository : Repository, IEnumerable<Locations>
     {
         private List<Locations> list = new List<Locations>();

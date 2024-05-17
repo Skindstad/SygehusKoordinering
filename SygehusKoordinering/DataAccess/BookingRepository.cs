@@ -11,6 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SygehusKoordinering.DataAccess
 {
+    // Created By Jakob Skindstad Frederiksen
     public class BookingRepository : Repository, IEnumerable<Booking>
     {
         private List<Booking> list = new List<Booking>();

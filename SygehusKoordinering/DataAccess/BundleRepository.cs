@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.DataAccess
 {
+    // Created By Jakob Skindstad Frederiksen
     public class BundleRepository : Repository, IEnumerable<Personale>
     {
         private List<Personale> list = new List<Personale>();
