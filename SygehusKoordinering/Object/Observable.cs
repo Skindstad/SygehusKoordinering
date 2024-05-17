@@ -90,7 +90,6 @@ namespace SygehusKoordinering.Object
                 default: break;
             }
 
-
             oplysning.Find();
         }
     }

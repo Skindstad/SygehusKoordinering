@@ -32,7 +32,6 @@ namespace SygehusKoordinering.Object
             Displays.Add(new Display(location));
         }
 
-
         public void AddLocation(string location)
         {
             data.Lokations.Add(location);
@@ -56,6 +55,11 @@ namespace SygehusKoordinering.Object
         public void Add(Booking booking)
         {
             data = booking;
+        }
+
+        public void Clear()
+        {
+            data = null;
         }
     }
 

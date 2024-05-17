@@ -35,7 +35,6 @@ namespace SygehusKoordinering.ViewModel
             Prioritet = Book.Prioritet;
             textColor = Objects.ReturnPriorityColor(Book.Prioritet);
 
-
             //Prøve
             Proeve = Objects.ReturnProeveString(Book.Proeve, "/ ");
 
@@ -48,6 +47,7 @@ namespace SygehusKoordinering.ViewModel
                DateTime time = DateTime.Parse(Book.BestiltDato);
                 Date = time.ToString("yyyy-MM-dd");
             }
+
             Time = Book.BestiltTime;
 
             // Location
@@ -154,36 +154,22 @@ namespace SygehusKoordinering.ViewModel
         {
 
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
-            
-            foreach (var station in MainViewModel.stations)
-            {
-                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
-                {
-                    station.currentPriority = "";
-                    station.nodify();
-                }
-            }
+
+            Objects.SendNotify(afdeling, "");
             Oplysning();
         }
         [RelayCommand]
         void No()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
-            foreach (var station in MainViewModel.stations)
-            {
-                if (station.Name == AfdelingRepository.GetLocationFromAfdeling(afdeling))
-                {
-                    station.currentPriority = "";
-                    station.nodify();
-                }
-            }
+            Objects.SendNotify(afdeling, "");
             Oplysning();
         }
         [RelayCommand]
         void Begin()
         {
             bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
-
+            Objects.SendNotify(afdeling, "");
             Oplysning();
 
         }
@@ -205,10 +191,9 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(ConformationView));
         }
 
-
         async Task Oplysning()
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync($"..", false);
         }
 
     }

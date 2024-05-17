@@ -32,8 +32,8 @@ namespace SygehusKoordinering.ViewModel
                 VidereGivHidden = false;
 
                 // Data alway the same.
-                Tid = ["1-10 min", "10-20 min", "20-30 min", "Forgæves tur"];
-                Aarsag = ["Ingen yderligere kommentarer", "Vente på elevator", "Patient ikke klar", "Plejepersonale ikke klar", "Røntgen ikke klar", "OP ikke Klar", "Behandlingsrum ikke klar"];
+                Tid = Objects.tids;
+                Aarsag = Objects.ListAarsag;
                 selectedAarsag = aarsag[0];
 
 
@@ -53,22 +53,13 @@ namespace SygehusKoordinering.ViewModel
                 Afdeling = Book.Afdeling;
                 StueEllerSengeplads = Book.StueEllerSengeplads;
 
+
+                // Proeve
+                Proeve = Objects.ReturnProeveString(Book.Proeve, " / ");
+
             }
 
-            string p = "";
-
-            foreach (var proeve in Book.Proeve)
-            {
-                if (proeve == Book.Proeve.Last())
-                {
-                    p += proeve;
-                }
-                else
-                {
-                    p += proeve + " / ";
-                }
-            }
-            Proeve = p;
+            
 
 
 
@@ -114,8 +105,6 @@ namespace SygehusKoordinering.ViewModel
         void VidereGiv()
         {
             string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + videreGivKommentar;
-
-
             bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", newKommentar, "0");
             Objects.SendNotify(afdeling, "");
             Oplysning();

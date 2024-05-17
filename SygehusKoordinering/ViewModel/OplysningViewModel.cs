@@ -24,6 +24,7 @@ namespace SygehusKoordinering.ViewModel
 
         public void ItemTapped(Booking tappedBooking)
         {
+            data.Clear();
             data.Add(tappedBooking);
             Item();
         }
@@ -65,24 +66,15 @@ namespace SygehusKoordinering.ViewModel
 
            foreach (var booking in bookings)
            {
-                booking.Image = "white_syringe.png";
-
-
-                if (booking.TakedAf != "" && booking.Begynd == "True")
-                    {
-                    booking.Image = "black_syringe.png";
-                    } 
-                    else if (booking.TakedAf != "")
-                    {
-                    booking.Image = "yellow_syringe.png";
-                    }
+                    //Image 
+                    booking.Image = Objects.ReturnImage(booking.TakedAf, booking.Begynd);
                     // Prioritet
                     booking.RowColor = Objects.ReturnPriorityColor(booking.Prioritet);
 
                     // Time and Date
                     booking.BestiltTime = Objects.ReturnTime(booking.Bestilt, booking.BestiltTime);
 
-
+                    //Print
                     LocalList.Add(booking);
              
             }

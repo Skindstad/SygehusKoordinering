@@ -13,6 +13,11 @@ namespace SygehusKoordinering.Object
     // Created By Jakob Skindstad Frederiksen
     public class Objects
     {
+        public static List<string> tids = ["1-10 min", "10-20 min", "20-30 min", "Forgæves tur"];
+        public static List<string> ListAarsag = ["Ingen yderligere kommentarer", "Vente på elevator", "Patient ikke klar", "Plejepersonale ikke klar", "Røntgen ikke klar", "OP ikke Klar", "Behandlingsrum ikke klar"];
+
+
+
         public static void SendNotify(string afdeling, string priority)
         {
             foreach (var station in MainViewModel.stations)
@@ -51,7 +56,6 @@ namespace SygehusKoordinering.Object
             return image;
         }
 
-
         public static Color ReturnPriorityColor(string priority)
         {
             Color color = null;
@@ -77,7 +81,7 @@ namespace SygehusKoordinering.Object
             string p = "";
             for (int i = 0; i < proever.Count(); i++)
             {
-                if (i == proever.Count())
+                if (i == proever.Count() - 1)
                 {
                     p += proever[i];
                 }
@@ -120,7 +124,6 @@ namespace SygehusKoordinering.Object
 
             return changedTime;
         }
-
 
         public static void Play(string filename)
         {
