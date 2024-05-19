@@ -38,4 +38,12 @@ public partial class OplysningView : ContentPage
             viewModel.PersonaleListe();
         }
     }
+
+    private void LogUd_Clicked(object sender, EventArgs e)
+    {
+        if (BindingContext is OplysningViewModel viewModel)
+        {
+            viewModel.LogUd();
+        }
+    }
 }

@@ -95,13 +95,13 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(PersonaleListeView));
         }
 
-        [RelayCommand]
-        async Task LogUd()
+        // Cant find a way to "Restart" the application
+        public async Task LogUd()
         {
             Personale p = MainViewModel.data.Getpersonal();
             personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
             p = null;
-           //await Shell.Current.GoToAsync(nameof(MainPage));
+            //await Shell.Current.GoToAsync(nameof(LoginView));
         }
     }
 

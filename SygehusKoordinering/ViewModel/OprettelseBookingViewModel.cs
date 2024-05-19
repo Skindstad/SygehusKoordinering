@@ -111,7 +111,7 @@ namespace SygehusKoordinering.ViewModel
         string createdAf = MainViewModel.data.Getpersonal().CPR;
 
         [RelayCommand]
-        void Create()
+        async Task Create()
         {
             foreach (var proeve in ProeveList)
             {
@@ -186,6 +186,18 @@ namespace SygehusKoordinering.ViewModel
             // Sends a Notify
             Objects.SendNotify(selectedAfdeling, selectedPrioritet);
 
+            // After creating the booking, show the confirmation dialog
+            bool createMore = await ShowConfirmationDialogAsync();
+
+            if (createMore)
+            {
+                Clear();
+            }
+            else
+            {
+                await Oplysning();
+            }
+
         }
         
         private void LoadProeve()
@@ -213,6 +225,35 @@ namespace SygehusKoordinering.ViewModel
         private void LoadBestiltTime()
         {
             Bestilt = bestiltRepository.GetBestilts();
+        }
+
+        [RelayCommand]
+        void Clear()
+        {
+            Cpr = string.Empty;
+            Name = string.Empty;
+            SelectedAfdeling = null;
+            StueEllerSengeplads = string.Empty;
+            Isolationspatient = false;
+            IsSelectedProeve = null;
+            IsSelectedSaerlig = null;
+            Inaktiv = null;
+            SelectedPrioritet = Prioritet.FirstOrDefault();
+            BestiltTime = DateTime.Now.TimeOfDay;
+            BestiltDato = DateTime.Now.Date;
+            SelectedBestilt = Bestilt.FirstOrDefault();
+            Kommentar = string.Empty;
+        }
+        // Some error when choosing pressing no
+        private Task<bool> ShowConfirmationDialogAsync()
+        {
+            // Show a dialog to confirm if the user wants to create more tasks
+            return Application.Current.MainPage.DisplayAlert("Confirmation", "Do you want to create more tasks?", "Yes", "No");
+        }
+
+        public async Task Oplysning()
+        {
+            await Shell.Current.GoToAsync(nameof(OplysningViewModel));
         }
     }
 }
