@@ -253,7 +253,7 @@ namespace SygehusKoordinering.ViewModel
 
         public async Task Oplysning()
         {
-            await Shell.Current.GoToAsync(nameof(OplysningViewModel));
+            await Shell.Current.GoToAsync($"..");
         }
     }
 }
