@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Identity.Client;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using SygehusKoordinering.Object;
@@ -10,6 +11,8 @@ namespace SygehusKoordinering.ViewModel
     public partial class LoginViewModel : ObservableObject
     {
         public static PersonaleRepository personales = [];
+        public static LoginData Data = new LoginData();
+
 
         [ObservableProperty]
         string mail;
@@ -21,20 +24,28 @@ namespace SygehusKoordinering.ViewModel
         string adgangskode;
 
         [RelayCommand]
-        void Login()
+        async void Login()
         {
            Personale me = personales.Login(Mail, Adgangskode, ArbejdeTlf);
 
             if(me != null)
             {
-                MainViewModel.data.Add(me);
-                Main();
+                Data.Add(me);
+                Clear();
+               await LokationPage();
             }
         }
 
-        async Task Main()
+        private void Clear()
         {
-            await Shell.Current.GoToAsync("..");
+            Mail = string.Empty;
+            ArbejdeTlf = string.Empty;
+            Adgangskode = string.Empty;
+        }
+
+        public async Task LokationPage()
+        {
+            await Shell.Current.GoToAsync(nameof(MainPage));
         }
     }
 

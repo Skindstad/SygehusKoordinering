@@ -14,11 +14,10 @@ namespace SygehusKoordinering.ViewModel
         public static BundleRepository bundleRepository = [];
         public static List<Station> stations = new List<Station>();
 
-        public static LoginData data = new LoginData();
+        LoginData login = LoginViewModel.Data;
 
         public MainViewModel()
         {
-            Login();
             LocalList = new ObservableCollection<Locations>(locationRepository);
             IsSelected = new ObservableCollection<Locations>();
             Search();
@@ -31,7 +30,7 @@ namespace SygehusKoordinering.ViewModel
         ObservableCollection<Locations> isSelected;
 
         [ObservableProperty]
-        string navn;
+        string? navn;
 
 
         [RelayCommand]
@@ -42,41 +41,30 @@ namespace SygehusKoordinering.ViewModel
 
         }
         [RelayCommand]
-        private void ExecuteOk()
+        private async void ExecuteOk()
         {
-            bool SomeIsSelected = false;
-            if(data.Getpersonal() == null)
-            {
-                Login();
-            }
-            else
-            {
+                bool SomeIsSelected = false;
+
                 stations.Clear();
-                data.ClearLocation();
+                login.ClearLocation();
                 foreach (var location in LocalList)
                 {
                     stations.Add(new Station(location.Navn));
                     if (location.IsSelected)
                     {
                         // Call AddLocationsToPersonale method for selected location
-                        data.AddLocation(location.Navn);
-                        data.AddDisplay(stations.Last());
-                        stations.Last().Add(data.GetDisplays().Last());
+                        login.AddLocation(location.Navn);
+                        login.AddDisplay(stations.Last());
+                        stations.Last().Add(login.GetDisplays().Last());
 
-                        bundleRepository.AddLocationsToPersonale(data.Getpersonal().CPR, location.Navn);
+                        bundleRepository.AddLocationsToPersonale(login.Getpersonal().CPR, location.Navn);
                         SomeIsSelected = true;
                     }
                 }
                 if (SomeIsSelected == true)
                 {
-                    Oplysning();
+                    await Oplysning();
                 }
-            } 
-        }
-
-        async Task Login()
-        {
-            await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         async Task Oplysning()

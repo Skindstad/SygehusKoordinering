@@ -108,7 +108,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string kommentar;
 
-        string createdAf = MainViewModel.data.Getpersonal().CPR;
+        string createdAf = LoginViewModel.Data.Getpersonal().CPR;
 
         [RelayCommand]
         async Task Create()

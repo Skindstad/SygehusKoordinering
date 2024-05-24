@@ -116,7 +116,7 @@ namespace SygehusKoordinering.ViewModel
         void Finish()
         {
             string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + selectedTid + "\n" + selectedAarsag;
-            bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", newKommentar, "1");
+            bookings.Update(OplysningViewModel.data.GetBooking(), LoginViewModel.Data.Getpersonal().CPR, "1", newKommentar, "1");
             Objects.SendNotify(afdeling, "");
             Oplysning();
         }
@@ -124,7 +124,7 @@ namespace SygehusKoordinering.ViewModel
         //Send you to OplysningsView
         async Task Oplysning()
         {
-            await Shell.Current.GoToAsync($"../../{nameof(OplysningView)}");
+            await Shell.Current.GoToAsync($"../../");
         }
 
     }

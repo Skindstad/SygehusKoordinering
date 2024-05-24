@@ -31,7 +31,10 @@ namespace SygehusKoordinering.Object
         {
             Displays.Add(new Display(location));
         }
-
+        public void Clear()
+        {
+            data = null;
+        }
         public void AddLocation(string location)
         {
             data.Lokations.Add(location);

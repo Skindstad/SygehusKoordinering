@@ -31,7 +31,7 @@ namespace SygehusKoordinering.Object
         }
         public static void SetOplysningsViewModel(OplysningViewModel ovm)
         {
-            foreach (var item in MainViewModel.data.GetDisplays())
+            foreach (var item in LoginViewModel.Data.GetDisplays())
             {
                 item.Oplysning(ovm);
             }

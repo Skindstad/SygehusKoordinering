@@ -22,39 +22,39 @@ namespace SygehusKoordinering.ViewModel
             Find();
         }
 
-        public void ItemTapped(Booking tappedBooking)
+        public async void ItemTapped(Booking tappedBooking)
         {
-            data.Clear();
-            data.Add(tappedBooking);
-            Item();
+           data.Clear();
+           data.Add(tappedBooking);
+           await Item();
         }
 
 
         [ObservableProperty]
-        ObservableCollection<Booking> localList;
+        ObservableCollection<Booking>? localList;
 
         [ObservableProperty]
-        string afdeling;
+        string? afdeling;
 
         [ObservableProperty]
-        string stueEllerSengeplads;
+        string? stueEllerSengeplads;
 
         [ObservableProperty]
-        string proeve;
+        string? proeve;
 
         [ObservableProperty]
-        string navn;
+        string? navn;
         [ObservableProperty]
-        string bestiltTime;
+        string? bestiltTime;
 
         [ObservableProperty]
-        string rowColor;
+        string? rowColor;
 
         [ObservableProperty]
-        string click;
+        string? click;
 
         [ObservableProperty]
-        ImageSource image;
+        ImageSource? image;
 
 
         public void Find()
@@ -62,7 +62,7 @@ namespace SygehusKoordinering.ViewModel
                 LocalList = new ObservableCollection<Booking>();
 
 
-                var bookings = bookingRepository.Search(MainViewModel.data.Getpersonal().Lokations, MainViewModel.data.Getpersonal().CPR);
+                var bookings = bookingRepository.Search(LoginViewModel.Data.Getpersonal().Lokations, LoginViewModel.Data.Getpersonal().CPR);
 
            foreach (var booking in bookings)
            {
@@ -84,7 +84,7 @@ namespace SygehusKoordinering.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(ItemView));
         }
-
+        [RelayCommand]
         public async Task Oprettelse()
         {
             await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
@@ -98,10 +98,10 @@ namespace SygehusKoordinering.ViewModel
         // Cant find a way to "Restart" the application
         public async Task LogUd()
         {
-            Personale p = MainViewModel.data.Getpersonal();
+            Personale p = LoginViewModel.Data.Getpersonal();
             personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
-            p = null;
-            //await Shell.Current.GoToAsync(nameof(LoginView));
+            LoginViewModel.Data.Clear();
+            await Shell.Current.GoToAsync("../../");
         }
     }
 

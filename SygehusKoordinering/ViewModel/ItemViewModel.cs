@@ -153,7 +153,7 @@ namespace SygehusKoordinering.ViewModel
         void Book()
         {
 
-            bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            bookings.Update(OplysningViewModel.data.GetBooking(), LoginViewModel.Data.Getpersonal().CPR, "0", OplysningViewModel.data.GetBooking().Kommentar, "0");
 
             Objects.SendNotify(afdeling, "");
             Oplysning();
@@ -168,7 +168,7 @@ namespace SygehusKoordinering.ViewModel
         [RelayCommand]
         void Begin()
         {
-            bookings.Update(OplysningViewModel.data.GetBooking(), MainViewModel.data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
+            bookings.Update(OplysningViewModel.data.GetBooking(), LoginViewModel.Data.Getpersonal().CPR, "1", OplysningViewModel.data.GetBooking().Kommentar, "0");
             Objects.SendNotify(afdeling, "");
             Oplysning();
 
