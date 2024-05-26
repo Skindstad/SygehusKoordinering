@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace SygehusKoordinering.ViewModel
 {
+    // Created by Benjamin Anan Forsberg
     public partial class PersonaleListeViewModel : ObservableObject
     {
         public static PersonaleRepository personaleRepository = [];
@@ -34,7 +35,7 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string status;
-
+        // Used to display all the personale
         [RelayCommand]
         void Search()
         {

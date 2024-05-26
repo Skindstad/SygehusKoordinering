@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace SygehusKoordinering.ViewModel
 {
+    // Created by Benjamin Anan Forsberg
     public partial class OprettelseBookingViewModel : ObservableObject
     {
+        // Gives acces to thier respective repository
         public static BestiltRepository bestiltRepository = [];
         public static PrioritetRepository prioritetRepository = [];
         public static ProeveRepository proeveRepository = [];
@@ -34,7 +36,7 @@ namespace SygehusKoordinering.ViewModel
             SelectedBestilt = bestilt[0];
             selectedPrioritet = Prioritet[0];
         }
-
+        // A bunch of variables
         [ObservableProperty]
         string id;
 
@@ -107,12 +109,13 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string kommentar;
-
+        // Gets CPR from the personal that logined
         string createdAf = LoginViewModel.Data.Getpersonal().CPR;
 
         [RelayCommand]
         async Task Create()
         {
+            // Adds the selected proever and saerligeforhold to thier respective lists
             foreach (var proeve in ProeveList)
             {
                 if (proeve.IsSelectedProeve)
@@ -127,7 +130,7 @@ namespace SygehusKoordinering.ViewModel
                     saerligeForhold.Add(Saerlig.Navn);
                 }
             }
-
+            // Converter for inaktiv
             if(inaktiv != "1")
             {
                 inaktiv = "0";
@@ -144,6 +147,7 @@ namespace SygehusKoordinering.ViewModel
                 selectedIsolation = "0";
             }
 
+            // Formats the time based on the selectedBestilt
             string formateTime = null;
             TimeSpan estra;
             TimeSpan time;
@@ -169,15 +173,15 @@ namespace SygehusKoordinering.ViewModel
                     break;
             }
 
-
+            // Formats the date
             string formateDate = bestiltDato.ToString("yyyy-MM-dd");
-
+            
             if(kommentar == null)
             {
                 kommentar = "";
             }
 
-
+            // Takes all the inputs and creates a new booking
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 
                                           proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
@@ -195,39 +199,40 @@ namespace SygehusKoordinering.ViewModel
             }
             else
             {
+                Clear();
                 await Oplysning();
             }
 
         }
-        
+        // Method to get list of proever
         private void LoadProeve()
         {
             proeveRepository.Search("");
             ProeveList = new ObservableCollection<Proeve>(proeveRepository);
         }
-        
+        // Method to get list of searligeforhold
         private void LoadSaerligeForhold()
         {
             saerligeForholdRepository.Search("");
             SaerligeForholdList = new ObservableCollection<SaerligeForhold>(saerligeForholdRepository);
         }
-        
+        // Method to get list of Afdelinger
         private void LoadAfdeling()
         {
             Afdeling = afdelingsRepository.GetAfdelinger();
         }
-
+        // Method to get list of Prioriteter
         private void LoadPrioritet()
         {
             Prioritet = prioritetRepository.GetPrioritets();
         }
-
+        // Method to get list of Bestilt
         private void LoadBestiltTime()
         {
             Bestilt = bestiltRepository.GetBestilts();
         }
 
-        [RelayCommand]
+        // Method to clear the page, so that the user can easily make a new task
         void Clear()
         {
             Cpr = string.Empty;
@@ -235,8 +240,23 @@ namespace SygehusKoordinering.ViewModel
             SelectedAfdeling = null;
             StueEllerSengeplads = string.Empty;
             Isolationspatient = false;
-            IsSelectedProeve = null;
-            IsSelectedSaerlig = null;
+            proever.Clear();
+            //IsSelectedProeve.Clear();
+            saerligeForhold.Clear();
+            //IsSelectedSaerlig.Clear();
+
+            // Uncheck all checkboxes in ProeveList
+            foreach (var proeve in ProeveList)
+            {
+                proeve.IsSelectedProeve = false;
+            }
+
+            // Uncheck all checkboxes in SaerligeForholdList
+            foreach (var saerlig in SaerligeForholdList)
+            {
+                saerlig.IsSelectedSaerlig = false;
+            }
+
             Inaktiv = null;
             SelectedPrioritet = Prioritet.FirstOrDefault();
             BestiltTime = DateTime.Now.TimeOfDay;
@@ -244,13 +264,13 @@ namespace SygehusKoordinering.ViewModel
             SelectedBestilt = Bestilt.FirstOrDefault();
             Kommentar = string.Empty;
         }
-        // Some error when choosing pressing no
+        // Makes a Confirm Window
         private Task<bool> ShowConfirmationDialogAsync()
         {
             // Show a dialog to confirm if the user wants to create more tasks
             return Application.Current.MainPage.DisplayAlert("Confirmation", "Do you want to create more tasks?", "Yes", "No");
         }
-
+        // Method that goes to Oplysning
         public async Task Oplysning()
         {
             await Shell.Current.GoToAsync($"..");

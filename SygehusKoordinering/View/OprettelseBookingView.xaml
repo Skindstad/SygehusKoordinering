@@ -36,7 +36,7 @@
                 <Entry Grid.Column="1" Placeholder="Stue eller Sengeplads" Text="{Binding StueEllerSengeplads}" Margin="10,45,0,0"/>
             </Grid>
 
-            <!-- Not sure what to do with itemsource???? -->
+            
             <Label Grid.Row="3" Text="Isolationspatient:" HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" />
             <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">
                 <RadioButton Content="Yes" GroupName="IsolationStatus" IsChecked="{Binding Isolationspatient}"/>
