@@ -244,7 +244,7 @@ namespace SygehusKoordinering.ViewModel
             //IsSelectedProeve.Clear();
             saerligeForhold.Clear();
             //IsSelectedSaerlig.Clear();
-
+            /*
             // Uncheck all checkboxes in ProeveList
             foreach (var proeve in ProeveList)
             {
@@ -256,7 +256,9 @@ namespace SygehusKoordinering.ViewModel
             {
                 saerlig.IsSelectedSaerlig = false;
             }
-
+            */
+            LoadProeve();
+            LoadSaerligeForhold();
             Inaktiv = null;
             SelectedPrioritet = Prioritet.FirstOrDefault();
             BestiltTime = DateTime.Now.TimeOfDay;
