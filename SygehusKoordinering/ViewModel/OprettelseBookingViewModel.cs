@@ -85,7 +85,7 @@ namespace SygehusKoordinering.ViewModel
         ObservableCollection<SaerligeForhold> isSelectedSaerlig;
 
         [ObservableProperty]
-        string inaktiv;
+        bool inaktiv;
 
         [ObservableProperty]
         List<string> prioritet;
@@ -131,9 +131,14 @@ namespace SygehusKoordinering.ViewModel
                 }
             }
             // Converter for inaktiv
-            if(inaktiv != "1")
+            string selectedInaktiv;
+            if(inaktiv == true)
             {
-                inaktiv = "0";
+                selectedInaktiv = "1";
+            }
+            else
+            {
+                selectedInaktiv = "0";
             }
 
             //Converter for isolationspatient
@@ -183,7 +188,7 @@ namespace SygehusKoordinering.ViewModel
 
             // Takes all the inputs and creates a new booking
             Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 
-                                          proever, saerligeForhold, inaktiv, selectedPrioritet, formateTime,
+                                          proever, saerligeForhold, selectedInaktiv, selectedPrioritet, formateTime,
                                           formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
             bookingRepository.Add(booking);
 
@@ -259,7 +264,7 @@ namespace SygehusKoordinering.ViewModel
             */
             LoadProeve();
             LoadSaerligeForhold();
-            Inaktiv = null;
+            Inaktiv = false;
             SelectedPrioritet = Prioritet.FirstOrDefault();
             BestiltTime = DateTime.Now.TimeOfDay;
             BestiltDato = DateTime.Now.Date;
