@@ -84,10 +84,14 @@ namespace SygehusKoordinering.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(ItemView));
         }
-        [RelayCommand]
+        
         public async Task Oprettelse()
         {
             await Shell.Current.GoToAsync(nameof(OprettelseBookingView));
+        }
+        public async Task ChangeLokation()
+        {
+            await Shell.Current.GoToAsync($"../");
         }
 
         public async Task PersonaleListe()
@@ -101,7 +105,7 @@ namespace SygehusKoordinering.ViewModel
             Personale p = LoginViewModel.Data.Getpersonal();
             personalesRepository.Update(p.CPR, p.Navn, p.Mail, p.ArbejdTlf, "0", p.Adresse, p.PrivatTlf);
             LoginViewModel.Data.Clear();
-            await Shell.Current.GoToAsync("../../");
+            await Shell.Current.GoToAsync($"../../");
         }
     }
 

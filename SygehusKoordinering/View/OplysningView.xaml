@@ -8,6 +8,7 @@
         <MenuBarItem Text="Funtions">
             <MenuFlyoutItem Text="Opret opgave" Clicked="Oprettelse_Clicked"/>
             <MenuFlyoutItem Text="Se personale" Clicked="PersonaleListe_Clicked"/>
+            <MenuFlyoutItem Text="Skift Lokation" Clicked="ChangeLokation_Clicked"/>
             <MenuFlyoutSeparator/>
             <MenuFlyoutItem Text="Log ud" Clicked="LogUd_Clicked" />
         </MenuBarItem>

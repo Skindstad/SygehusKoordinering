@@ -38,6 +38,13 @@ public partial class OplysningView : ContentPage
             viewModel.PersonaleListe();
         }
     }
+    private void ChangeLokation_Clicked(object sender, EventArgs e)
+    {
+        if (BindingContext is OplysningViewModel viewModel)
+        {
+            viewModel.ChangeLokation();
+        }
+    }
 
     private void LogUd_Clicked(object sender, EventArgs e)
     {
@@ -45,5 +52,10 @@ public partial class OplysningView : ContentPage
         {
             viewModel.LogUd();
         }
+    }
+
+    private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
+    {
+
     }
 }
