@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.MainPage">
 
-    <ScrollView>
+    
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="auto"/>
+            <RowDefinition     Height="*"/>
+            <RowDefinition     Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-
+        <ScrollView>
             <ListView Grid.Row="0" Margin="10" Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding LocalList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -32,8 +32,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Grid.Row="1" VerticalOptions="End" HeightRequest="40" Text="Ok" Command="{Binding ExecuteOkCommand}"/>
-        </Grid>
     </ScrollView>
+            <Label Grid.Row="1"  Text="{Binding ErrorMessage}" TextColor="Red" Margin="0,10,0,0" />
+            <Button Grid.Row="2" VerticalOptions="End" HeightRequest="40" Text="Ok" Command="{Binding ExecuteOkCommand}"/>
+        </Grid>
+    
 
 </ContentPage>

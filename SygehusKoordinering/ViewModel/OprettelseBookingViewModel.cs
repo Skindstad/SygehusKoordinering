@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Identity.Client;
 using SygehusKoordinering.DataAccess;
 using SygehusKoordinering.Models;
 using SygehusKoordinering.Object;
@@ -38,14 +39,16 @@ namespace SygehusKoordinering.ViewModel
         }
         // A bunch of variables
         [ObservableProperty]
-        string id;
-
-        [ObservableProperty]
         string cpr;
 
         [ObservableProperty]
+        string cprError;
+
+        [ObservableProperty]
         string name;
-        
+        [ObservableProperty]
+        string nameError;
+
         [ObservableProperty]
         List<string> afdeling;
         
@@ -53,16 +56,21 @@ namespace SygehusKoordinering.ViewModel
         string selectedAfdeling;
 
         [ObservableProperty]
+        string selectedAfdelingError;
+
+        [ObservableProperty]
         string stueEllerSengeplads;
+
+        [ObservableProperty]
+        string stueEllerSengepladsError;
 
         [ObservableProperty]
         bool isolationspatient;
         
         private List<string> proever  = new List<string>();
-        /*
+        
         [ObservableProperty]
-        string selectedProeve;
-        */
+        string selectedProeveError;
 
         [ObservableProperty]
         ObservableCollection<Proeve> proeveList;
@@ -96,8 +104,6 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         TimeSpan bestiltTime;
 
-        
-
         [ObservableProperty]
         DateTime bestiltDato;
 
@@ -109,106 +115,182 @@ namespace SygehusKoordinering.ViewModel
 
         [ObservableProperty]
         string kommentar;
+
+
+
         // Gets CPR from the personal that logined
         string createdAf = LoginViewModel.Data.Getpersonal().CPR;
 
         [RelayCommand]
         async Task Create()
         {
-            // Adds the selected proever and saerligeforhold to thier respective lists
+            bool IsValid = ValidateInputs();
+
+            if (IsValid)
+            {
+
+                // Adds the selected proever and saerligeforhold to thier respective lists
+                foreach (var proeve in ProeveList)
+                {
+                    if (proeve.IsSelectedProeve)
+                    {
+                        proever.Add(proeve.Navn);
+                    }
+                }
+                foreach (var Saerlig in SaerligeForholdList)
+                {
+                    if (Saerlig.IsSelectedSaerlig)
+                    {
+                        saerligeForhold.Add(Saerlig.Navn);
+                    }
+                }
+                // Converter for inaktiv
+                string selectedInaktiv;
+                if (inaktiv == true)
+                {
+                    selectedInaktiv = "1";
+                }
+                else
+                {
+                    selectedInaktiv = "0";
+                }
+
+                //Converter for isolationspatient
+                string selectedIsolation;
+                if (isolationspatient == true)
+                {
+                    selectedIsolation = "1";
+                }
+                else
+                {
+                    selectedIsolation = "0";
+                }
+
+                // Formats the time based on the selectedBestilt
+                string formateTime = null;
+                TimeSpan estra;
+                TimeSpan time;
+                switch (selectedBestilt)
+                {
+                    case "Til Bestilt tid":
+                        formateTime = bestiltTime.ToString(@"hh\:mm");
+                        break;
+                    case "Inden for 1 time":
+                        estra = TimeSpan.FromHours(1);
+                        time = bestiltTime.Add(estra);
+                        formateTime = time.ToString(@"hh\:mm");
+                        break;
+                    case "Inden for 2 time":
+                        estra = TimeSpan.FromHours(2);
+                        time = bestiltTime.Add(estra);
+                        formateTime = time.ToString(@"hh\:mm");
+                        break;
+                    case "Inden for 3 time":
+                        estra = TimeSpan.FromHours(3);
+                        time = bestiltTime.Add(estra);
+                        formateTime = time.ToString(@"hh\:mm");
+                        break;
+                }
+
+                // Formats the date
+                string formateDate = bestiltDato.ToString("yyyy-MM-dd");
+
+                if (kommentar == null)
+                {
+                    kommentar = "";
+                }
+                // Takes all the inputs and creates a new booking
+                Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation,
+                                              proever, saerligeForhold, selectedInaktiv, selectedPrioritet, formateTime,
+                                              formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
+                bookingRepository.Add(booking);
+
+                // Sends a Notify
+                Objects.SendNotify(selectedAfdeling, selectedPrioritet);
+
+                // After creating the booking, show the confirmation dialog
+                bool createMore = await ShowConfirmationDialogAsync();
+
+                if (createMore)
+                {
+                    Clear();
+                }
+                else
+                {
+                    Clear();
+                    await Oplysning();
+                }
+            }
+        }
+
+
+        private bool ValidateInputs()
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(Cpr))
+            {
+                CprError = "CPR is required.";
+                isValid = false;
+            }
+            else
+            {
+                CprError = string.Empty;
+            }
+
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                NameError = "Navn is required.";
+                isValid = false;
+            }
+            else
+            {
+                NameError = string.Empty;
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedAfdeling))
+            {
+                SelectedAfdelingError = "Afdeling is required.";
+                isValid = false;
+            }
+            else
+            {
+                SelectedAfdelingError = string.Empty;
+            }
+
+            if (string.IsNullOrWhiteSpace(StueEllerSengeplads))
+            {
+                StueEllerSengepladsError = "Stue Eller SengePlads is required.";
+                isValid = false;
+            }
+            else
+            {
+                StueEllerSengepladsError = string.Empty;
+            }
+            int count = 0;
             foreach (var proeve in ProeveList)
             {
-                if (proeve.IsSelectedProeve)
+                if (!proeve.IsSelectedProeve)
                 {
-                    proever.Add(proeve.Navn);
+                    count++;
                 }
             }
-            foreach (var Saerlig in SaerligeForholdList)
+
+            if (ProeveList.Count == count)
             {
-                if (Saerlig.IsSelectedSaerlig)
-                {
-                    saerligeForhold.Add(Saerlig.Navn);
-                }
-            }
-            // Converter for inaktiv
-            string selectedInaktiv;
-            if(inaktiv == true)
-            {
-                selectedInaktiv = "1";
+                SelectedProeveError = "Prøve is required.";
+                isValid = false;
             }
             else
             {
-                selectedInaktiv = "0";
+                SelectedProeveError = string.Empty;
             }
 
-            //Converter for isolationspatient
-            string selectedIsolation;
-            if (isolationspatient == true)
-            {
-                selectedIsolation = "1";
-            }
-            else
-            {
-                selectedIsolation = "0";
-            }
 
-            // Formats the time based on the selectedBestilt
-            string formateTime = null;
-            TimeSpan estra;
-            TimeSpan time;
-            switch (selectedBestilt)
-            {
-                case "Til Bestilt tid":
-                    formateTime = bestiltTime.ToString(@"hh\:mm");
-                    break;
-                case "Inden for 1 time":
-                    estra = TimeSpan.FromHours(1);
-                    time = bestiltTime.Add(estra);
-                    formateTime = time.ToString(@"hh\:mm");
-                    break;
-                case "Inden for 2 time":
-                    estra = TimeSpan.FromHours(2);
-                    time = bestiltTime.Add(estra);
-                    formateTime = time.ToString(@"hh\:mm");
-                    break;
-                case "Inden for 3 time":
-                    estra = TimeSpan.FromHours(3);
-                    time = bestiltTime.Add(estra);
-                    formateTime = time.ToString(@"hh\:mm");
-                    break;
-            }
-
-            // Formats the date
-            string formateDate = bestiltDato.ToString("yyyy-MM-dd");
-            
-            if(kommentar == null)
-            {
-                kommentar = "";
-            }
-
-            // Takes all the inputs and creates a new booking
-            Booking booking = new Booking("", cpr, name, selectedAfdeling, "", stueEllerSengeplads, selectedIsolation, 
-                                          proever, saerligeForhold, selectedInaktiv, selectedPrioritet, formateTime,
-                                          formateDate, selectedBestilt, kommentar, createdAf, "", "", "");
-            bookingRepository.Add(booking);
-
-            // Sends a Notify
-            Objects.SendNotify(selectedAfdeling, selectedPrioritet);
-
-            // After creating the booking, show the confirmation dialog
-            bool createMore = await ShowConfirmationDialogAsync();
-
-            if (createMore)
-            {
-                Clear();
-            }
-            else
-            {
-                Clear();
-                await Oplysning();
-            }
-
+            return isValid;
         }
+
+
         // Method to get list of proever
         private void LoadProeve()
         {
@@ -246,22 +328,7 @@ namespace SygehusKoordinering.ViewModel
             StueEllerSengeplads = string.Empty;
             Isolationspatient = false;
             proever.Clear();
-            //IsSelectedProeve.Clear();
             saerligeForhold.Clear();
-            //IsSelectedSaerlig.Clear();
-            /*
-            // Uncheck all checkboxes in ProeveList
-            foreach (var proeve in ProeveList)
-            {
-                proeve.IsSelectedProeve = false;
-            }
-
-            // Uncheck all checkboxes in SaerligeForholdList
-            foreach (var saerlig in SaerligeForholdList)
-            {
-                saerlig.IsSelectedSaerlig = false;
-            }
-            */
             LoadProeve();
             LoadSaerligeForhold();
             Inaktiv = false;

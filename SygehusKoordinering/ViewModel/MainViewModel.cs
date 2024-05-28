@@ -32,6 +32,9 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string? navn;
 
+        [ObservableProperty]
+        string errorMessage;
+
 
         [RelayCommand]
         void Search()
@@ -44,7 +47,8 @@ namespace SygehusKoordinering.ViewModel
         private async void ExecuteOk()
         {
                 bool SomeIsSelected = false;
-
+            try
+            {
                 stations.Clear();
                 login.ClearLocation();
                 foreach (var location in LocalList)
@@ -63,9 +67,25 @@ namespace SygehusKoordinering.ViewModel
                 }
                 if (SomeIsSelected == true)
                 {
+                    Clear();
                     await Oplysning();
+                } else
+                {
+                    ErrorMessage = "Invalid. Please try again.";
                 }
+            } catch (Exception ex)
+            {
+                ErrorMessage = $"An error occurred: {ex.Message}";
+            }
         }
+
+        private void Clear()
+        {
+            ErrorMessage = string.Empty;
+            Search();
+        }
+
+
 
         async Task Oplysning()
         {

@@ -144,7 +144,7 @@ namespace SygehusKoordinering.DataAccess
         {
             string error = "";
             BundleRepository bundleRepository = new BundleRepository();
-            if (data.CPR != string.Empty && data.Navn.Length > 0 && data.Afdeling.Length > 0 && data.StueEllerSengeplads != string.Empty  && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
+            if (data.CPR != string.Empty && data.Navn != string.Empty && data.Afdeling != string.Empty && data.StueEllerSengeplads != string.Empty  && data.Prioritet.Length > 0 && data.BestiltTime.Length > 0 && data.BestiltDato.Length > 0 
                 && data.Bestilt.Length > 0)
             {
                 string AfdelingId = AfdelingRepository.GetAfdeling(data.Afdeling);
