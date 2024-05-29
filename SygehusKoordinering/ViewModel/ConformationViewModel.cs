@@ -24,7 +24,6 @@ namespace SygehusKoordinering.ViewModel
             Booking Book = OplysningViewModel.data.GetBooking();
             bookings = new BookingRepository();
 
-
             //Check to see what need to be show
             if (ItemViewModel.Complete == true)
             {
@@ -59,16 +58,15 @@ namespace SygehusKoordinering.ViewModel
 
             }
 
-            
-
-
-
         }
         [ObservableProperty]
         List<string> tid;
 
         [ObservableProperty]
         string selectedTid;
+
+        [ObservableProperty]
+        string tidError;
 
         [ObservableProperty]
         List<string> aarsag;
@@ -100,25 +98,62 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string proeve;
 
-        // Make sure the Kommentar with all the right information before it get send to databasen
-        [RelayCommand]
-        void VidereGiv()
-        {
-            string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + videreGivKommentar;
-            bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", newKommentar, "0");
-            Objects.SendNotify(afdeling, "");
-            Oplysning();
-
-        }
+        [ObservableProperty]
+        string errorMessage;
 
         // Make sure the Kommentar with all the right information before it get send to databasen
         [RelayCommand]
         void Finish()
         {
-            string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + selectedTid + "\n" + selectedAarsag;
-            bookings.Update(OplysningViewModel.data.GetBooking(), LoginViewModel.Data.Getpersonal().CPR, "1", newKommentar, "1");
-            Objects.SendNotify(afdeling, "");
-            Oplysning();
+            try
+            {
+                if (Faediggoere)
+                {
+                    bool isValid = ValidateInputs();
+                    if (isValid)
+                    {
+                        string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + selectedTid + "\n" + selectedAarsag;
+                        bookings.Update(OplysningViewModel.data.GetBooking(), LoginViewModel.Data.Getpersonal().CPR, "1", newKommentar, "1");
+                        Objects.SendNotify(afdeling, "");
+                        Oplysning();
+                    }
+                }
+                else if (VidereGivHidden)
+                {
+                    string newKommentar = OplysningViewModel.data.GetBooking().Kommentar + "\n" + videreGivKommentar;
+                    bookings.Update(OplysningViewModel.data.GetBooking(), null, "0", newKommentar, "0");
+                    Objects.SendNotify(afdeling, "");
+                    Oplysning();
+                }
+                else
+                {
+                    {
+                        ErrorMessage = "Problem with the button";
+                    }
+                     
+                }
+            } catch (Exception ex)
+            {
+                ErrorMessage = $"An error occurred: {ex.Message}";
+            }
+        }
+
+
+        private bool ValidateInputs()
+        {
+            bool isValid = true;
+
+            if (string.IsNullOrWhiteSpace(SelectedTid))
+            {
+                TidError = "Time is required.";
+                isValid = false;
+            }
+            else
+            {
+                TidError = string.Empty;
+            }
+
+            return isValid;
         }
 
         //Send you to OplysningsView

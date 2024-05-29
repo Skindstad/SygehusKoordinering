@@ -98,7 +98,7 @@
                 <Picker Grid.Row="12" Title="Prioritet" ItemsSource="{Binding Prioritet}" SelectedItem="{Binding SelectedPrioritet}" Margin="0,20,0,0"/>
                 <Grid Grid.Row="13">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 

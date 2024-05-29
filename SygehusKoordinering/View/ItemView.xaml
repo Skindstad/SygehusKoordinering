@@ -3,16 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.ItemView"
              Title="{Binding Navn}">
-    <ScrollView>
-        <VerticalStackLayout>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" BackgroundColor="DimGrey">
-                <Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Margin="10">
+                <Grid BackgroundColor="DimGrey">
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
@@ -23,66 +23,67 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Text="{Binding Prioritet}" FontSize="35" TextColor="{Binding TextColor}"/>
                     <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve}" FontSize="16" TextColor="Black"/>
-                <Grid Grid.Column="0" Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding Date}" FontSize="20"/>
-                    <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="20"/>
-                    <Label Grid.Column="2" Text="{Binding Time}" FontSize="20"/>
+                    <Grid Grid.Column="0" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Date}" FontSize="20"/>
+                        <Label Grid.Column="1" Text=" - Klar Kl. " FontSize="20"/>
+                        <Label Grid.Column="2" Text="{Binding Time}" FontSize="20"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Grid.Row="1" Padding="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition Height="70"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Image Grid.Column="0" Grid.Row="0" Source="gray_place.png" HeightRequest="50" WidthRequest="50"/>
-                <Grid Grid.Column="1" Grid.Row="0">
+
+                <Grid Padding="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{Binding Afdeling}" FontSize="20"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" Source="gray_place.png" HeightRequest="50" WidthRequest="50" Margin="0,20,0,20" VerticalOptions="Center"/>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="0,20,0,20" VerticalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Afdeling}" FontSize="20"/>
                         <Label Grid.Column="1" Text=" , " FontSize="20" />
                         <Label Grid.Column="2" Text="{Binding StueEllerSengeplads}" FontSize="20"/>
-                </Grid>
-                    <Image Grid.Column="0" Grid.Row="1" Source="gray_person.png" HeightRequest="50" WidthRequest="50"/>
-                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}" FontSize="20"/>
+                    </Grid>
+                    
+                    <Image Grid.Column="0" Grid.Row="1" Source="gray_person.png" HeightRequest="50" WidthRequest="50" Margin="0,20,0,0" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Navn}" FontSize="20" Margin="0,20,0,0" VerticalOptions="Center"/>
                     <Label Grid.Column="1" Grid.Row="2" Text="{Binding CPR}" FontSize="20"/>
+                    
+                    <Image Grid.Column="0" Grid.Row="3" Source="gray_speech.png" HeightRequest="50" WidthRequest="50" Margin="0,20,0,20" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kommentar}" FontSize="20" Margin="0,20,0,20" VerticalOptions="Center"/>
+                    
+                    <Image Grid.Column="0" Grid.Row="4" Source="gray_pen.png" HeightRequest="50" WidthRequest="50" Margin="0,20,0,20" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding KontaktPerson}" FontSize="20" Margin="0,20,0,20" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding Phone}" FontSize="20" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
 
-                <Image Grid.Column="0" Grid.Row="3" Source="gray_speech.png" HeightRequest="50" WidthRequest="50"/>
-                <Label Grid.Column="1" Grid.Row="3" Text="{Binding Kommentar}"/>
-                <Image Grid.Column="0" Grid.Row="4" Source="gray_pen.png" HeightRequest="50" WidthRequest="50"/>
-                    <Label Grid.Column="1" Grid.Row="4" Text="{Binding KontaktPerson}" FontSize="20"/>
-                    <Label Grid.Column="1" Grid.Row="5" Text="{Binding Phone}" FontSize="20"/>
-
-            </Grid>
-                <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                
-                <Button Grid.Column="0" Text="Afvis" Command="{Binding NoCommand}" IsVisible="{Binding IsNoVisible}"/>
-                <Button Grid.Column="0" Text="Videregiv" Command="{Binding VidereGivCommand}" IsVisible="{Binding IsVidereGivVisible}"/>
-                <Button Grid.Column="1" Text="Påbegynd" Command="{Binding BeginCommand}" IsVisible="{Binding IsBeginVisible}"/>
-                <Button Grid.Column="1" Text="Færdiggør" Command="{Binding FinishCommand}" IsVisible="{Binding IsFinishVisible}"/>
-
-            </Grid>
+        <Grid Grid.Row="1" Padding="10" BackgroundColor="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Afvis" Command="{Binding NoCommand}" IsVisible="{Binding IsNoVisible}" Margin="5"/>
+            <Button Grid.Column="0" Text="Videregiv" Command="{Binding VidereGivCommand}" IsVisible="{Binding IsVidereGivVisible}" Margin="5"/>
+            <Button Grid.Column="1" Text="Påbegynd" Command="{Binding BeginCommand}" IsVisible="{Binding IsBeginVisible}" Margin="5"/>
+            <Button Grid.Column="1" Text="Færdiggør" Command="{Binding FinishCommand}" IsVisible="{Binding IsFinishVisible}" Margin="5"/>
+            <Button Grid.ColumnSpan="2" Text="Book" Command="{Binding BookCommand}" IsVisible="{Binding IsBookVisible}" VerticalOptions="End" Margin="5"/>
         </Grid>
-        <Button Text="Book" Command="{Binding BookCommand}" IsVisible="{Binding IsBookVisible}"/>
-    </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
 </ContentPage>

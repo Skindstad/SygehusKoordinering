@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SygehusKoordinering.View.ConformationView"
              Title="ConformationView">
-    <ScrollView>
-        <VerticalStackLayout>
+    
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+        <ScrollView>
+            <VerticalStackLayout>
                 <Grid Grid.Row="0" IsVisible="{Binding Faediggoere}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
@@ -23,21 +26,20 @@
                     HorizontalOptions="Center" FontSize="30"/>
                     <Picker Grid.Row="1" Title="Vente tid" ItemsSource="{Binding Tid}" SelectedItem="{Binding SelectedTid}" Margin="15,15,15,15" />
                     <Picker Grid.Row="2" Title="Vælg Årsag" ItemsSource="{Binding Aarsag}" SelectedItem="{Binding SelectedAarsag}" Margin="15,15,15,15"/>
-                    <Button Grid.Row="3" VerticalOptions="End" Text="OK" Command="{Binding FinishCommand}" Margin="20,75,20,0"/>
                 </Grid>
                 <Grid Grid.Row="1" IsVisible="{Binding VidereGivHidden}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" BackgroundColor="DimGray">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="1" Text="{Binding Proeve}" FontSize="16" TextColor="Black"/>
+                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Proeve}" FontSize="16" TextColor="White" Margin="20,10,0,10"/>
                         <Grid Grid.Row="1" Padding="20,0,0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -60,10 +62,11 @@
                         </Grid>
                     </Grid>
 
-                    <Entry Grid.Row="1" Text="{Binding VidereGivKommentar}" Margin="15,15,15,55" Placeholder="Din Kommentar til Næste Udfører"/>
-                    <Button Grid.Row="2" VerticalOptions="End" Text="Videregiv" Command="{Binding VidereGivCommand}" Margin="20,75,20,0"/>
+                    <Entry Grid.Row="2" VerticalOptions="Center" Text="{Binding VidereGivKommentar}" Margin="15,20,15,0" Placeholder="Din Kommentar til Næste Udfører"/>
                 </Grid>
-            </Grid>
         </VerticalStackLayout>
     </ScrollView>
+    <Button Grid.Row="3" VerticalOptions="End" Text="OK" Command="{Binding FinishCommand}" Margin="20,0,20,10"/>
+            </Grid>
+        
 </ContentPage>
