@@ -30,7 +30,6 @@
                 <Grid Grid.Row="1" IsVisible="{Binding VidereGivHidden}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" BackgroundColor="DimGray">
@@ -62,7 +61,7 @@
                         </Grid>
                     </Grid>
 
-                    <Entry Grid.Row="2" VerticalOptions="Center" Text="{Binding VidereGivKommentar}" Margin="15,20,15,0" Placeholder="Din Kommentar til Næste Udfører"/>
+                    <Entry Grid.Row="1" VerticalOptions="Center" Text="{Binding VidereGivKommentar}" Margin="15,20,15,0" Placeholder="Din Kommentar til Næste Udfører"/>
                 </Grid>
         </VerticalStackLayout>
     </ScrollView>
