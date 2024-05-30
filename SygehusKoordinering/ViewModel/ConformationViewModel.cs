@@ -24,6 +24,9 @@ namespace SygehusKoordinering.ViewModel
             Booking Book = OplysningViewModel.data.GetBooking();
             bookings = new BookingRepository();
 
+            afdeling = Book.Afdeling;
+
+
             //Check to see what need to be show
             if (ItemViewModel.Complete == true)
             {
@@ -49,7 +52,6 @@ namespace SygehusKoordinering.ViewModel
                 Time = UpdatedTime.ToString("HH:mm");
 
                 // Afdeling and Stue og sengeplads
-                Afdeling = Book.Afdeling;
                 StueEllerSengeplads = Book.StueEllerSengeplads;
 
 
@@ -159,7 +161,7 @@ namespace SygehusKoordinering.ViewModel
         //Send you to OplysningsView
         async Task Oplysning()
         {
-            await Shell.Current.GoToAsync($"../../");
+            await Shell.Current.GoToAsync($"../../", false);
         }
 
     }
