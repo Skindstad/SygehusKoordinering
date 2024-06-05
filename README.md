@@ -37,8 +37,11 @@
 8. Opdater connectionString
     - Erstat [DinSQLExpress] med navnet på din SQL Server.
     - Dette navn kan du finde i Microsoft SQL Server Management Studio under "Server Name".
-
-9. Klar til at køre
+9. Byg løsningen
+    - I Visual Studio, gå til "Build" menuen.
+    - Vælg "Build Solution" for at bygge dit projekt. Sørg for, at der ikke er nogen fejl.
+   
+10. Klar til at køre
     - Dit produkt skulle nu være klar til brug. Kør applikationen for at sikre, at alt fungerer korrekt.
 
 # Login
