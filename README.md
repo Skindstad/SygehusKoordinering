@@ -26,7 +26,7 @@
             -Vælg "Add" > "New Item".
             -Vælg "Application Configuration File" og navngiv den "app.config".
 
-8. Tilføj følgende til din app.config-fil
+7. Tilføj følgende til din app.config-fil
 
 <configuration>
   <connectionStrings>
