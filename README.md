@@ -26,11 +26,13 @@
        - Vælg "Application Configuration File" og navngiv den "app.config".
 
 7. Tilføj følgende til din app.config-fil
+   ```
    <configuration>
-   <connectionStrings>
-   <add name="post" connectionString="Data Source=[DinSQLExpress];Initial Catalog=Alfa_SygehusKoordinering;Integrated Security=True; Trust Server Certificate=True" providerName="Microsoft.Data.SqlClient"/>
-   </connectionStrings>
+      <connectionStrings>
+         <add name="post" connectionString="Data Source=[DinSQLExpress];Initial Catalog=Alfa_SygehusKoordinering;Integrated Security=True; Trust Server Certificate=True" providerName="Microsoft.Data.SqlClient"/>
+      </connectionStrings>
    </configuration>
+   ```
 
 8. Opdater connectionString
     - Erstat [DinSQLExpress] med navnet på din SQL Server.
