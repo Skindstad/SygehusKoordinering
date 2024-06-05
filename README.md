@@ -42,3 +42,17 @@
 9. Klar til at køre
 
     -Dit produkt skulle nu være klar til brug. Kør applikationen for at sikre, at alt fungerer korrekt.
+
+#Login
+1.	Bruger
+Email: arbejde@mail.dk
+Adgangskode: secret
+Arbejds Tlf. nr.: 4511111111
+2.	Bruger
+Email: arbejde2@mail.dk 
+Adgangskode: secret
+Arbejds Tlf. nr.: 4522222222
+3.	Bruger
+Email: arbejde3@mail.dk 
+Adgangskode: secret
+Arbejds Tlf. nr.: 4511221122
