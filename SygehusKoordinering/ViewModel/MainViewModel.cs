@@ -82,7 +82,6 @@ namespace SygehusKoordinering.ViewModel
         private void Clear()
         {
             ErrorMessage = string.Empty;
-            Search();
         }
 
 
