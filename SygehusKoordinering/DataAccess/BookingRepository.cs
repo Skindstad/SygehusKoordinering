@@ -25,7 +25,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-
+        // Finde Booking
         public List<Booking> Search(List<string> Lokation, string PersonaleCPRTaken)
         {
             List<string> locationId = new List<string>();
@@ -73,7 +73,7 @@ namespace SygehusKoordinering.DataAccess
             }
             return list;
         }
-
+        // Find Booking persons prøver
         public static List<string> GetProeve(string Id)
         {
             SqlConnection connection = null;
@@ -106,7 +106,7 @@ namespace SygehusKoordinering.DataAccess
             }
             return null;
         }
-
+        // Find Booking persons Særlige Forhold
         public static List<string> GetSaerligeForhold(string Id)
         {
             SqlConnection connection = null;
@@ -139,7 +139,7 @@ namespace SygehusKoordinering.DataAccess
             }
             return null;
         }
-
+        // Skabe Booking
         public void Add(Booking data)
         {
             string error = "";
@@ -198,7 +198,7 @@ namespace SygehusKoordinering.DataAccess
             Console.WriteLine(error);
             // throw new DbException("Error in Data repositiory: " + error);
         }
-
+        // Finde Bookingen skaber
         public Personale FindCreatedAf(string Id)
         {
             SqlConnection connection = null;
@@ -225,9 +225,7 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
-
-
-
+        // Finde den rette Bookingen
         public static string GetBooking(string CPR, string Time, string date)
         {
             SqlConnection connection = null;
@@ -259,7 +257,7 @@ namespace SygehusKoordinering.DataAccess
             }
             return null;
         }
-
+        // Få den nyeste update på booking
         public static string GetUpdatedTime(string Id)
         {
             SqlConnection connection = null;
@@ -287,7 +285,7 @@ namespace SygehusKoordinering.DataAccess
         }
 
 
-
+        // Opdater Bookingen
         public void Update(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
         {
             string error = "";
@@ -332,7 +330,6 @@ namespace SygehusKoordinering.DataAccess
                 }
             }
             else error = "Illegal value for Booking";
-            // throw new DbException("Error in Data repositiory: " + error);
         }
 
         private void UpdateList(Booking booking, string takenAf, string Begynd, string Kommentar, string Done)
@@ -347,38 +344,6 @@ namespace SygehusKoordinering.DataAccess
                     break;
                 }
         }
-
-        //public void Remove(string Id)
-        //{
-        //    string error = "";
-        //    try
-        //    {
-        //        BundleRepository.removeProeve(Id);
-        //        BundleRepository.removeSaerligeForhold(Id);
-        //        using (SqlCommand command = new("DELETE FROM Booking WHERE Id = @Id", connection))
-        //        {
-        //            command.Parameters.Add(CreateParam("@Id", Id, SqlDbType.NVarChar));
-        //            connection.Open();
-        //            if (command.ExecuteNonQuery() == 1)
-        //            {
-        //                list.Remove(new Booking(Id, "", "", "", "", "", "", new List<string>(), new List<string>(), "", "", "", "", "", "", "", "", "", ""));
-        //                OnChanged(DbOperation.DELETE, DbModeltype.Personale);
-        //                return;
-        //            }
-        //        }
-
-        //        error = string.Format("Booking could not be deleted");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        error = ex.Message;
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //    throw new DbException("Error in Booking repositiory: " + error);
-        //}
 
     }
 }

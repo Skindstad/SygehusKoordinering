@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SygehusKoordinering.Models
 {
     // Created By Jakob Skindstad Frederiksen
-    public class Bestilt : IDataErrorInfo, IComparable<Bestilt>
+    public class Bestilt : IComparable<Bestilt>
     {
         public string Id { get; set; }
         public string Navn { get; set; }
@@ -47,46 +47,6 @@ namespace SygehusKoordinering.Models
         {
             return Id.CompareTo(data.Id);
         }
-        private static readonly string[] validatedProperties = { "Navn" };
-        public bool IsValid
-        {
-            get
-            {
-                foreach (string property in validatedProperties) if (GetError(property) != null) return false;
-                return true;
-            }
-        }
-
-        string IDataErrorInfo.Error
-        {
-            get { return IsValid ? null : "Illegal model object"; }
-        }
-
-        string IDataErrorInfo.this[string propertyName]
-        {
-            get { return Validate(propertyName); }
-        }
-
-        private string GetError(string name)
-        {
-            foreach (string property in validatedProperties) if (property.Equals(name)) return Validate(name);
-            return null;
-        }
-
-        private string Validate(string name)
-        {
-            switch (name)
-            {
-                case "Navn": return ValidateName();
-            }
-            return null;
-        }
-        private string? ValidateName()
-        {
-            if (Navn == null || Navn.Length == 0) return "Name can not be empty";
-            return null;
-        }
-
 
     }
 }

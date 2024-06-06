@@ -24,33 +24,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-        //public void Search(string Navn)
-        //{
-        //    try
-        //    {
-        //        SqlCommand sqlCommand = new("Select Id, Navn From Bestilt WHERE Navn LIKE @Name", connection);
-        //        SqlCommand command = sqlCommand;
-        //        command.Parameters.Add(CreateParam("@Name", Navn + "%", SqlDbType.NVarChar));
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        list.Clear();
-        //        while (reader.Read())
-        //        {
-        //            list.Add(new Bestilt(reader[0].ToString(), reader[1].ToString()));
-        //        }
-
-        //        OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new DbException("Error in Location repositiory: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //}
-
+        // finde Bestilt
         public List<string> GetBestilts()
         {
             List<string> list = new List<string>();
@@ -78,7 +52,7 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
-
+        // finde specifikt Bestilt
         public static string GetBestiltWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -119,33 +93,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-        //public void Search(string Navn)
-        //{
-        //    try
-        //    {
-        //        SqlCommand sqlCommand = new("Select Id, Navn From Prioritet WHERE Navn LIKE @Name", connection);
-        //        SqlCommand command = sqlCommand;
-        //        command.Parameters.Add(CreateParam("@Name", Navn + "%", SqlDbType.NVarChar));
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        list.Clear();
-        //        while (reader.Read())
-        //        {
-        //            list.Add(new Prioritet(reader[0].ToString(), reader[1].ToString()));
-        //        }
-
-        //        OnChanged(DbOperation.SELECT, DbModeltype.Locations);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new DbException("Error in Prioritet repositiory: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //}
-
+        // finde prioritet
         public List<string> GetPrioritets()
         {
             List<string> list = new List<string>();
@@ -173,7 +121,7 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
-
+        // finde specifikt prioritet
         public static string GetPrioritetWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -213,6 +161,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
+        // finde Prøve
         public void Search(string Navn)
         {
             try
@@ -240,34 +189,7 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
-        //public List<string> GetPoever()
-        //{
-        //    List<string> list = new List<string>();
-        //    try
-        //    {
-        //        SqlCommand sqlCommand = new("Select Navn From Proeve", connection);
-        //        SqlCommand command = sqlCommand;
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        list.Clear();
-        //        while (reader.Read())
-        //        {
-        //            list.Add(reader[0].ToString());
-        //        }
-        //        return list;
-        //        OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new DbException("Error in Location repositiory: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //}
-
-
+        // finde specifikt Prøve
         public static string GetProeveWithName(string Navn)
         {
             SqlConnection connection = null;
@@ -307,6 +229,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
+        // finde Særlige forhold 
         public void Search(string Navn)
         {
             try
@@ -334,32 +257,7 @@ namespace SygehusKoordinering.DataAccess
             }
         }
 
-        //public List<string> GetSaerligeForholds()
-        //{
-        //    List<string> list = new List<string>();
-        //    try
-        //    {
-        //        SqlCommand sqlCommand = new("Select Navn From SaerligeForhold", connection);
-        //        SqlCommand command = sqlCommand;
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        list.Clear();
-        //        while (reader.Read())
-        //        {
-        //            list.Add(reader[0].ToString());
-        //        }
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new DbException("Error in Location repositiory: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //}
-
+        // finde specifikt Særlige forhold 
         public static string GetSaerligeForholdWithName(string Navn)
         {
             SqlConnection connection = null;

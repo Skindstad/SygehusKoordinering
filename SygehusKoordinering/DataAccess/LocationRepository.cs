@@ -24,7 +24,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-
+        // find Lokation
         public void Search(string Navn)
         {
             try
@@ -51,6 +51,7 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
+        // Få lokation fra navnet
         public static string GetLokation(string Navn)
         {
             SqlConnection connection = null;
@@ -92,35 +93,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-
-        public void Search(string AfdelingNavn, string LocationNavn)
-        {
-            try
-            {
-                SqlCommand sqlCommand = new("Select Afdeling.Id, Afdeling.Navn, Omkring, Lokation.Navn From Afdeling Join Lokation on Lokation.Id = Afdeling.Lokation WHERE Afdeling.Navn LIKE @AName OR Lokation.Navn LIKE @LName", connection);
-                SqlCommand command = sqlCommand;
-                command.Parameters.Add(CreateParam("@AName", AfdelingNavn + "%", SqlDbType.NVarChar));
-                command.Parameters.Add(CreateParam("@LName", LocationNavn + "%", SqlDbType.NVarChar));
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                list.Clear();
-                while (reader.Read())
-                {
-                    list.Add(new Afdeling(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString()));
-                }
-
-                OnChanged(DbOperation.SELECT, DbModeltype.Afdeling);
-            }
-            catch (Exception ex)
-            {
-                throw new DbException("Error in Location repositiory: " + ex.Message);
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-            }
-        }
-
+        // find afdeling
         public List<string> GetAfdelinger()
         {
             List<string> list = new List<string>();
@@ -136,7 +109,6 @@ namespace SygehusKoordinering.DataAccess
                     list.Add(reader[0].ToString());
                 }
                 return list;
-                OnChanged(DbOperation.SELECT, DbModeltype.Bestilt);
             }
             catch (Exception ex)
             {
@@ -147,7 +119,7 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
-
+        // få afdeling fra navn
         public static string GetAfdeling(string Navn)
         {
             SqlConnection connection = null;
@@ -173,6 +145,7 @@ namespace SygehusKoordinering.DataAccess
             }
             return "";
         }
+        // få lokations navn  fra afdelingsnavn
         public static string GetLocationFromAfdeling(string AfdelingsNavn)
         {
             SqlConnection connection = null;

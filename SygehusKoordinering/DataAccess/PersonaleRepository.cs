@@ -25,7 +25,7 @@ namespace SygehusKoordinering.DataAccess
         {
             return GetEnumerator();
         }
-
+        // Find medarbejder
         public void Search(string CPR, string Navn, string Mail, string ArbejdsPhone, string Phone, string Adresse, string Status)
         {
             try
@@ -61,7 +61,7 @@ namespace SygehusKoordinering.DataAccess
                 if (connection != null && connection.State == ConnectionState.Open) connection.Close();
             }
         }
-
+        // login
         public Personale Login( string Mail, string Adgangskode, string ArbejdsPhone)
         {
             if (Mail != null && Adgangskode != null && ArbejdsPhone != null)
@@ -97,85 +97,7 @@ namespace SygehusKoordinering.DataAccess
         }
 
 
-        //public void Add(Personale data)
-        //{
-        //    string error = "";
-        //    BundleRepository bundleRepository = new BundleRepository();
-        //    if (data.CPR.Length == 9 && data.Navn.Length > 0 && data.Mail.Length > 0 && data.Adgangskode.Length > 0 && data.ArbejdTlf.Length > 0 && data.PrivatTlf.Length > 0 && data.Adresse.Length > 0)
-        //    {
-
-        //        if (CheckIfTheyAlreadyExist(data.CPR, data.Mail, data.ArbejdTlf, data.PrivatTlf) == null)
-        //        {
-        //            try
-        //            {
-        //                SqlCommand sqlCommand = new("INSERT INTO Personale (Navn, Mail, Adgangskode, ArbejdsTlfNr, CPR, Adresse, PrivatTlfNr) VALUES (@Name, @Mail, @Adgangskode, @ArbejdsPhone,@CPR,@Adresse, @Phone)", connection);
-        //                SqlCommand command = sqlCommand;
-        //                command.Parameters.Add(CreateParam("@Name", data.Navn, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@Mail", data.Mail, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@Adgangskode", data.Adgangskode, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@ArbejdsPhone", data.ArbejdTlf, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@CPR", data.CPR, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@Adresse", data.Adresse, SqlDbType.NVarChar));
-        //                command.Parameters.Add(CreateParam("@Phone", data.PrivatTlf, SqlDbType.NVarChar));
-        //                connection.Open();
-        //                if (command.ExecuteNonQuery() == 1)
-        //                {
-        //                    list.Add(data);
-        //                    list.Sort();
-        //                    OnChanged(DbOperation.INSERT, DbModeltype.Personale);
-        //                    return;
-        //                }
-        //                error = string.Format("Personale could not be inserted in the database");
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                error = ex.Message;
-        //            }
-        //            finally
-        //            {
-        //                if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //            }
-        //        }
-        //    }
-        //    else error = "Illegal value for Personale";
-        //    Console.WriteLine(error);
-        //    // throw new DbException("Error in Data repositiory: " + error);
-        //}
-
-        //public static string CheckIfTheyAlreadyExist(string CPR, string Mail, string ArbejdsPhone, string Phone)
-        //{
-        //    SqlConnection connection = null;
-        //    try
-        //    {
-        //        connection = new SqlConnection(ConfigurationManager.ConnectionStrings["post"].ConnectionString);
-        //        SqlCommand sqlCommand = new("SELECT Id FROM Personale WHERE CPR = @CPR Or Mail = @Mail OR ArbejdsTlfNr = @ArbejdsPhone OR PrivatTlfNr = @Phone", connection);
-        //        SqlCommand command = sqlCommand;
-        //        SqlParameter param = new("@CPR", SqlDbType.NVarChar);
-        //        SqlParameter param2 = new("@Mail", SqlDbType.NVarChar);
-        //        SqlParameter param3 = new("@ArbejdsPhone", SqlDbType.NVarChar);
-        //        SqlParameter param4 = new("@Phone", SqlDbType.NVarChar);
-        //        param.Value = CPR;
-        //        param2.Value = Mail;
-        //        param3.Value = ArbejdsPhone;
-        //        param4.Value = Phone;
-        //        command.Parameters.Add(param);
-        //        command.Parameters.Add(param2);
-        //        command.Parameters.Add(param3);
-        //        command.Parameters.Add(param4);
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        if (reader.Read()) return reader[0].ToString();
-        //    }
-        //    catch
-        //    {
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //    return "";
-        //}
-
+        // få lokation fra medarbejders CPR
         public static List<string> GetLokation(string CPR)
         {
             SqlConnection connection = null;
@@ -208,7 +130,7 @@ namespace SygehusKoordinering.DataAccess
         }
 
 
-
+        // få Medarbejder fra CPR
         public static Personale GetPerson(string CPR)
         {
             SqlConnection connection = null;
@@ -237,7 +159,7 @@ namespace SygehusKoordinering.DataAccess
             return null;
         }
 
-        
+        // Rediger på Medarbejder
         public void Update(string cpr, string navn, string mail, string arbejdTlfNr, string status, string adresse, string privatTlfNr)
         {
             Update(new Personale(cpr,navn, mail, arbejdTlfNr, status, adresse, privatTlfNr, null));
@@ -295,41 +217,6 @@ namespace SygehusKoordinering.DataAccess
                     break;
                 }
         }
-         
-        //public void Remove(string CPR)
-        //{
-        //    string error = "";
-        //    try
-        //    {
-        //        BundleRepository.removeLocation(CPR);
-        //        using (SqlCommand command = new("DELETE FROM Personale WHERE CPR = @CPR", connection))
-        //        {
-        //            command.Parameters.Add(CreateParam("@CPR", CPR, SqlDbType.NVarChar));
-        //            connection.Open();
-        //            if (command.ExecuteNonQuery() == 1)
-        //            {
-        //                command.ExecuteNonQuery();
-        //                list.Remove(new Personale(CPR, "", "", "", "", "", "", new List<string>()));
-        //                OnChanged(DbOperation.DELETE, DbModeltype.Personale);
-        //                return;
-        //            }
-        //        }
-
-        //        error = string.Format("Personale could not be deleted");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        error = ex.Message;
-        //    }
-        //    finally
-        //    {
-        //        if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-        //    }
-        //    throw new DbException("Error in Personale repositiory: " + error);
-        //}
-
-       
-
 
     }
 }
