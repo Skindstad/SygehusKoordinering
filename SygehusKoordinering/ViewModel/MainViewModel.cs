@@ -8,6 +8,7 @@ using SygehusKoordinering.Object;
 
 namespace SygehusKoordinering.ViewModel
 {
+    // Created by Benjamin Anan Forsberg
     public partial class MainViewModel : ObservableObject
     {
         public static LocationRepository locationRepository = [];
