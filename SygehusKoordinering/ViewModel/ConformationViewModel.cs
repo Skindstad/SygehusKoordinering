@@ -61,6 +61,7 @@ namespace SygehusKoordinering.ViewModel
             }
 
         }
+        // Bindings
         [ObservableProperty]
         List<string> tid;
 
@@ -140,7 +141,7 @@ namespace SygehusKoordinering.ViewModel
             }
         }
 
-
+        //Check
         private bool ValidateInputs()
         {
             bool isValid = true;

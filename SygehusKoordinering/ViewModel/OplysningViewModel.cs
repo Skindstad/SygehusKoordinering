@@ -21,7 +21,7 @@ namespace SygehusKoordinering.ViewModel
             data = new OplysningData();
             Find();
         }
-
+        // få klikked ting
         public async void ItemTapped(Booking tappedBooking)
         {
            data.Clear();
@@ -29,7 +29,7 @@ namespace SygehusKoordinering.ViewModel
            await Item();
         }
 
-
+        //Bindings
         [ObservableProperty]
         ObservableCollection<Booking>? localList;
 
@@ -56,7 +56,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         ImageSource? image;
 
-
+        // Hente data
         public void Find()
         {
                 LocalList = new ObservableCollection<Booking>();
@@ -79,7 +79,7 @@ namespace SygehusKoordinering.ViewModel
              
             }
         }
-
+        // send dig til ny side
         async Task Item()
         {
             await Shell.Current.GoToAsync(nameof(ItemView));
@@ -99,7 +99,6 @@ namespace SygehusKoordinering.ViewModel
             await Shell.Current.GoToAsync(nameof(PersonaleListeView));
         }
 
-        // Cant find a way to "Restart" the application
         public async Task LogUd()
         {
             Personale p = LoginViewModel.Data.Getpersonal();

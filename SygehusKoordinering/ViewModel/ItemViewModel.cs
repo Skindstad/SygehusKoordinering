@@ -98,6 +98,7 @@ namespace SygehusKoordinering.ViewModel
 
         }
 
+        //Bindings
         [ObservableProperty]
         string cPR;
 
@@ -148,7 +149,7 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         bool isFinishVisible;
 
-        // 
+        // Booked
         [RelayCommand]
         void Book()
         {
@@ -158,6 +159,7 @@ namespace SygehusKoordinering.ViewModel
             Objects.SendNotify(afdeling, "");
             Oplysning();
         }
+        // Afvis
         [RelayCommand]
         void No()
         {
@@ -165,6 +167,8 @@ namespace SygehusKoordinering.ViewModel
             Objects.SendNotify(afdeling, "");
             Oplysning();
         }
+
+        // Begynde
         [RelayCommand]
         void Begin()
         {
@@ -173,19 +177,22 @@ namespace SygehusKoordinering.ViewModel
             Oplysning();
 
         }
+        // Videre Giv
         [RelayCommand]
         void VidereGiv()
         {
             Complete = false;
             Conformation();
         }
-
+        // Færdig
         [RelayCommand]
         void Finish()
         {
             Complete = true;
             Conformation();
         }
+
+        // Sende dig til ny side
         async Task Conformation()
         {
             await Shell.Current.GoToAsync(nameof(ConformationView));

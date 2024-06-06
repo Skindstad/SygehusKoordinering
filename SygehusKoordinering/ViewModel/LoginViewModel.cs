@@ -13,6 +13,7 @@ namespace SygehusKoordinering.ViewModel
         public static PersonaleRepository personales = [];
         public static LoginData Data = new LoginData();
 
+        // Bindings
         [ObservableProperty]
         string mail;
 
@@ -34,6 +35,8 @@ namespace SygehusKoordinering.ViewModel
         [ObservableProperty]
         string errorMessage;
 
+
+        // Login
         [RelayCommand]
         async void Login()
         {
@@ -62,7 +65,7 @@ namespace SygehusKoordinering.ViewModel
                 }
             }
         }
-
+        // Check login
         private bool ValidateInputs()
         {
             bool isValid = true;
@@ -100,6 +103,7 @@ namespace SygehusKoordinering.ViewModel
             return isValid;
         }
 
+        // Fjern det skrevet login fra input felterne
         private void Clear()
         {
             Mail = string.Empty;
@@ -107,7 +111,7 @@ namespace SygehusKoordinering.ViewModel
             Adgangskode = string.Empty;
             ErrorMessage = string.Empty;
         }
-
+        // send til ny side
         public async Task LokationPage()
         {
             await Shell.Current.GoToAsync(nameof(MainPage));
